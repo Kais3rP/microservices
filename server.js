@@ -24,7 +24,7 @@ app.get("/api/timestamp/:date_string?", (req, res, next) => {
                                           'utc': date.toUTCString()
                                 })
                 });
-
+//route that gives you info on the visitor
 app.get("/api/whoami", (req, res, next) => {
   console.log(req.headers)
   console.log(req.headers["x-forwarded-for"])
@@ -36,6 +36,9 @@ app.get("/api/whoami", (req, res, next) => {
   })
   
 })
+
+//Make an URL shortner microservice 
+
 
 //convert ip network info to readable IP address
 const ipFormat = (str) => str.split(",").slice(0,1).join()
