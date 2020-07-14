@@ -13,15 +13,13 @@ app.get("/", (request, response) => {
 });
 
 // send the default array of dreams to the webpage
-app.get("/api/timestamp/:date_string", (req, res) => {
+app.get("/api/timestamp/:date_string", (req, res, next) => {
   // express helps us take JS objects and send them as JSON
                         var date = checkDate(req.params.date_string);
                         
                         console.log(date)
-                        if (typeof date === "string") res.json({error: })
+                        if (typeof date === "string") throw new Error(date)
                        
-                        
-                        date
                         return res.json({
                         'unix': date.getTime(),
                         'utc': date.toUTCString()
