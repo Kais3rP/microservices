@@ -15,28 +15,30 @@ app.get("/", (request, response) => {
 // send the default array of dreams to the webpage
 app.get("/api/timestamp/:date_string", (req, res) => {
   // express helps us take JS objects and send them as JSON
-  
-                        var date = req.params.date_string;
+                        var date = checkDate(req.params.date_string);
+                        
                         console.log(date)
-                        if (!date) {
-                        date = new Date();
-                        return res.json({'unix':date.getTime(),
-                                'utc': date.toUTCString()
-                               })
-                      }  else {
+                        if (typeof date === "string") res.json({error: })
+                       
+                        
                         date
                         return res.json({
                         'unix': date.getTime(),
                         'utc': date.toUTCString()
                       })
-                              }        
+                                    
                
 });
-const checkDate (input){
+const checkDate = (input) => {
   let date = "";
   //check if it's in UTC format
-(input.match(/\w\w\w,\s\d{1,2}\s\w\w\w\s\d\d\d\d\s\d\d:\d\d:\d\d\s\w\w\w/)[0].length === input.length ?
-  date = new Date (input)
+
+ if ((input.match(/\w\w\w,\s\d{1,2}\s\w\w\w\s\d\d\d\d\s\d\d:\d\d:\d\d\s\w\w\w/)[0].length === input.length)
+  || typeof input === "number") { 
+       date = new Date (input); 
+       return date
+ } else return "Wrong Date format, insert number of minutes or date in UTC format"
+
 }
 // listen for requests :)
 const listener = app.listen(process.env.PORT || 3000, () => {
