@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 var cors = require('cors');
+var bodyParser = require('body-parser'); //to parse body of POST methods encoded
 
 //this is to let externall access to the server
 app.use(cors({optionSuccessStatus: 200})); 
