@@ -1,7 +1,8 @@
 const express = require("express");
 const app = express();
+var cors = require('cors');
 
-
+app.use(cors({optionSuccessStatus: 200})); 
 //----------------------------------------------------
 // make all the files in 'public' available
 // https://expressjs.com/en/starter/static-files.html
