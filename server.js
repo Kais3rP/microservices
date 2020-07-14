@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 var cors = require('cors');
 
+//this is to let externall access to the server
 app.use(cors({optionSuccessStatus: 200})); 
 //----------------------------------------------------
 // make all the files in 'public' available
@@ -13,22 +14,18 @@ app.get("/", (request, response) => {
   response.sendFile(__dirname + "/views/index.html");
 });
 
-// send the default array of dreams to the webpage
+// Timestamp microservice endpoint
 app.get("/api/timestamp/:date_string?", (req, res, next) => {
   // express helps us take JS objects and send them as JSON
-                        
                         var date = req.params.date_string ? checkDate(req.params.date_string) : new Date();
-                        
-                        console.log(typeof date)
                         if (typeof date === "string") return res.json({"error": date})
-                       
                         return res.json({
-                        'unix': date.getTime(),
-                        'utc': date.toUTCString()
-                      })
-                                    
-               
-});
+                                          'unix': date.getTime(),
+                                          'utc': date.toUTCString()
+                                })
+                });
+
+//validation of date
 const checkDate = (input) => {
   let date = "";
   let dateRegExp = new RegExp (/^\d\d\d\d-\d{1,2}-\d{1,2}$/);
@@ -46,6 +43,7 @@ const checkDate = (input) => {
   }
   return date
 }
+
 
 // listen for requests :)
 const listener = app.listen(process.env.PORT || 3000, () => {
