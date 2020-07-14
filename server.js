@@ -38,7 +38,10 @@ app.get("/api/whoami", (req, res, next) => {
 })
 
 //Make an URL shortner microservice 
-
+app.post("/api/shorturl/new", (req, res, next) => {
+  
+  
+})
 
 //convert ip network info to readable IP address
 const ipFormat = (str) => str.split(",").slice(0,1).join()
