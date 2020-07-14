@@ -26,12 +26,20 @@ app.get("/api/timestamp/:date_string?", (req, res, next) => {
                 });
 
 app.get("/api/whoami", (req, res, next) => {
-  console.log(req.ip)
-  console.log(req.headers.["x-forwarded-for"])
+  console.log(req.headers)
+  console.log(req.headers["x-forwarded-for"])
   let headers = req.headers;
-  res.json({})
+  res.json({
+            "ipaddress": ipFormat(headers["x-forwarded-for"]),
+            "language": headers["accept-language"] ,
+            "software": headers["user-agent"]
+  })
   
 })
+
+//convert ip network info to readable IP address
+const ipFormat = (str) => str.split(",").slice(0,1).join()
+
 //validation of date
 const checkDate = (input) => {
   let date = "";
