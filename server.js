@@ -25,6 +25,10 @@ app.get("/api/timestamp/:date_string?", (req, res, next) => {
                                 })
                 });
 
+app.get("/api/whoami", (req, res, next) => {
+  
+  
+})
 //validation of date
 const checkDate = (input) => {
   let date = "";
