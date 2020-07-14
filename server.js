@@ -29,14 +29,18 @@ app.get("/api/timestamp/:date_string", (req, res, next) => {
 });
 const checkDate = (input) => {
   let date = "";
+  let dateRegExp = new RegExp (/\w\w\w,\s\d+\s\w\w\w\s\d\d\d\d\s\d\d:\d\d:\d\d\s\w\w\w/);
+  let error = "Wrong Date format, insert number of minutes or date in UTC format"
+ 
   //check if it's in UTC format
-
- if ((input.match(/\w\w\w,\s\d{1,2}\s\w\w\w\s\d\d\d\d\s\d\d:\d\d:\d\d\s\w\w\w/)[0].length === input.length)
-  || typeof input === "number") { 
-       date = new Date (input); 
-       return date
- } else return "Wrong Date format, insert number of minutes or date in UTC format"
-
+ if ( typeof input === "number" ) { date = new Date ( input ) }
+ else if (typeof input === "string") {
+   if (dateRegExp.test(input)) {
+   date = (input.match(dateRegExp)[0].length === input.length) ? new Date ( input ) : error
+    }
+   date = error ;
+  }
+  return date
 }
 // listen for requests :)
 const listener = app.listen(process.env.PORT || 3000, () => {
