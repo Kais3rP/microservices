@@ -26,7 +26,10 @@ app.get("/api/timestamp/:date_string?", (req, res, next) => {
                 });
 
 app.get("/api/whoami", (req, res, next) => {
-  
+  console.log(req.ip)
+  console.log(req.headers.["x-forwarded-for"])
+  let headers = req.headers;
+  res.json({})
   
 })
 //validation of date
@@ -43,7 +46,7 @@ const checkDate = (input) => {
    date = (input.match(dateRegExp)[0].length === input.length) ? new Date ( input ) : error
    
     } else date = error ;
-   console.log(date)
+   
   }
   return date
 }
