@@ -13,8 +13,9 @@ app.get("/", (request, response) => {
 });
 
 // send the default array of dreams to the webpage
-app.get("/api/timestamp/:date_string", (req, res, next) => {
+app.get("/api/timestamp/:date_string?", (req, res, next) => {
   // express helps us take JS objects and send them as JSON
+  console.log( typeof req.params.date_string)
                         var date = checkDate(req.params.date_string);
                         
                         console.log(date)
@@ -33,7 +34,7 @@ const checkDate = (input) => {
   let error = "Wrong Date format, insert number of minutes or date in UTC format"
  
   //check if it's in UTC format
- if ( typeof input === "number" ) { date = new Date ( input ) }
+ if ( !isNaN(parseInt(input)) ) { date = new Date ( parseInt(input) ) }
  else if (typeof input === "string") {
    if (dateRegExp.test(input)) {
    date = (input.match(dateRegExp)[0].length === input.length) ? new Date ( input ) : error
