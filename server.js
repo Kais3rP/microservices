@@ -32,7 +32,12 @@ app.get("/api/timestamp/:date_string", (req, res) => {
                               }        
                
 });
-
+const checkDate (input){
+  let date = "";
+  //check if it's in UTC format
+(input.match(/\w\w\w,\s\d{1,2}\s\w\w\w\s\d\d\d\d\s\d\d:\d\d:\d\d\s\w\w\w/)[0].length === input.length ?
+  date = new Date (input)
+}
 // listen for requests :)
 const listener = app.listen(process.env.PORT || 3000, () => {
   console.log("Your app is listening on port " + listener.address().port);
