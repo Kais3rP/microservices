@@ -13,9 +13,10 @@ app.get("/", (request, response) => {
 });
 
 // send the default array of dreams to the webpage
-app.get("/dreams", (request, response) => {
+app.get("/api/timestamp/:date_string?", (req, res) => {
   // express helps us take JS objects and send them as JSON
-  response.json();
+  response.json((req,res)=>{ if (!req.parameters.date_string) {
+                                let date = new Date();}  });
 });
 
 // listen for requests :)
