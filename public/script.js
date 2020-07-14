@@ -1,5 +1,9 @@
-document
-const fetchNewURL = function (){
+var URL ="";
+var submitBtn = document.getElementById("submit");
+var input = document.getElementById("input");
+var result = document.getElementById("result");
+submitBtn.onclick(()=>{URL = input.value; fetchNewURL(URL) })
+const fetchNewURL = function (url){ console.log("hello")
   fetch("/api/shorturl/new", {
                               method: 'POST',
                               cache: 'no-cache', 
@@ -10,6 +14,7 @@ const fetchNewURL = function (){
                               },
                       
                               referrerPolicy: 'no-referrer',
-                              body: {url:  } // body data type must match "Content-Type" header
-                            })).then(())
+                              body: {url: url } // body data type must match "Content-Type" header
+                            }).then( res => res.json())
+                              .then( data => result.innerText = data)
 }
