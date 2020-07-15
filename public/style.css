@@ -54,7 +54,7 @@ button {
 
 
 
-#result{
+.result{
   width:95%;
   height:50px;
   font-size:12px;
@@ -74,11 +74,11 @@ button {
   
 }
 
-#shortenTitle {
+.title {
   margin-bottom: 10px;
   
 }
-#shortenTitle:hover > .modal{
+.title:hover > .modal{
   
   display:block;
 }
