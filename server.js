@@ -21,7 +21,7 @@ function in the current file and by writing require(somePath)(app)
 you are  automatically executing that function which implements the endpoint
 route, with the current app variable, which is express()*/
 require('./timeStamp')(app);
-//set bodyparser to parse body for any request with a body with content type json
+
 
 require('./shorten')(app, jsonParser, mongoose);
 //------------------------------------------------------------------//
@@ -40,7 +40,7 @@ app.get("/", (request, response) => {
 });
 
 
- app.post("/name", jsonParser, (req, res, next) => {console.log(req.body);res.json({name: "postworking"})}); 
+
 
 
 
