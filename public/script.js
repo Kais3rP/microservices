@@ -14,5 +14,5 @@ const fetchNewURL = function (url){
                               body: JSON.stringify({url: url}) // body data type must match "Content-Type" header //It has to be stringified otherwise it can't be body parsed
                             }
          ).then( res => res.json())
-          .then( data => result.innerHTML = `<a href='https://shy-spurious-bestseller.glitch.me/api/shorturl/${data.hash}'>https://shy-spurious-bestseller.glitch.me/api/shorturl/${data.hash}</a>`)
+          .then( data => result.innerHTML = data.error ? data.error : `<a href='https://shy-spurious-bestseller.glitch.me/api/shorturl/${data.hash}'>https://shy-spurious-bestseller.glitch.me/api/shorturl/${data.hash}</a>`)
 }

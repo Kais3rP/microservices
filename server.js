@@ -47,11 +47,14 @@ app.post("/api/shorturl/new", jsonParser, (req, res, next) => {
   
   var url = req.body.url;
   console.log(url)
-  
-  var hash = hashCode(url);
-  console.log(hash)
-  res.json({hash: hash})
-  app.get(`api/shorturl/${hash}`, (req,res,next) => res.redirect(url))
+  if (validateURL(url)) {
+    var hash = hashCode(url);
+    console.log(hash)
+    res.json({hash: hash})
+    app.get(`/api/shorturl/${hash}`, (req,res,next) => res.redirect(url)) 
+  } else
+    res.send({error: "URL not valid, must be in the form of http(s)://www.myUrl.myDomain"})
+   
   
   
 })
@@ -64,9 +67,8 @@ const hashCode = function(str){
 
 const validateURL = function (str){
   const urlRegExp = new RegExp(/http:\/\/www\.[A-Z0-9a-z.-]+\.\w+$/);
-  return str.test(urlRegExp)
+  return urlRegExp.test(str)
 }
-
 //---------------------------------------------------------------
 //convert ip network info to readable IP address
 const ipFormat = (str) => str.split(",").slice(0,1).join()
