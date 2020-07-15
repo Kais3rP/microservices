@@ -56,8 +56,29 @@ button {
 
 #result{
   width:95%;
-  height:100px;
-  background: aqua;
+  height:50px;
+  font-size:12px;
   border:1px solid grey;
   border-radius:.25em;
+  padding:5px;
+}
+.modal{
+  padding:10px;
+  background:lavender;
+  display:none;
+  position:absolute;
+   border: 2px solid currentColor;
+  border-radius: .25em;
+  padding: 0.25em 1em;
+  max-width: 20ch;
+  
+}
+
+#shortenTitle {
+  margin-bottom: 10px;
+  
+}
+#shortenTitle:hover > .modal{
+  
+  display:block;
 }
