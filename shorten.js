@@ -7,26 +7,28 @@ let urlSchema = new mongoose.Schema({
   url: String
 })
   
-  
-  
-  
-  
-  
-  
 const lookupAsync = util.promisify(dns.lookup)
   
   
   
   // URL shortner microservice 
 app.post("/api/shorturl/new", parser, (req, res, next) => { 
-  
+  res.json({hash: "hello"});
   var url = req.body.url;
   url = /^https{0,1}:\/\//.test(url) ? url.replace(/^https{0,1}:\/\//,"") : url;
+  
   console.log(url)
+  
   lookupAsync(url).then( () => {
+    
     console.log(url)
-    var hash = hashCode(url);
-    res.json({hash: hash});
+    
+    let hash = hashCode(url);
+    
+   console.log(hash);
+    
+    res.send("hello");
+    
     app.get(`/api/shorturl/${hash}`, (req,res,next) => res.redirect(url)) 
                              })
     .catch( err => res.send({error: err}))
