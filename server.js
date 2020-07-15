@@ -19,7 +19,7 @@ app.get("/", (request, response) => {
   response.sendFile(__dirname + "/views/index.html");
 });
 
-// Timestamp microservice endpoint
+// Timestamp microservice 
 app.get("/api/timestamp/:date_string?", (req, res, next) => {
 
                         var date = req.params.date_string ? checkDate(req.params.date_string) : new Date();
@@ -29,10 +29,8 @@ app.get("/api/timestamp/:date_string?", (req, res, next) => {
                                           'utc': date.toUTCString()
                                 })
                 });
-//route that gives you info on the visitor
+//WhoamiI microservice
 app.get("/api/whoami", (req, res, next) => {
-  console.log(req.headers)
-  console.log(req.headers["x-forwarded-for"])
   let headers = req.headers;
   res.json({
             "ipaddress": ipFormat(headers["x-forwarded-for"]),
@@ -42,7 +40,7 @@ app.get("/api/whoami", (req, res, next) => {
   
 })
 
-//Make an URL shortner microservice 
+// URL shortner microservice 
 app.post("/api/shorturl/new", jsonParser, (req, res, next) => { 
   
   var url = req.body.url;
