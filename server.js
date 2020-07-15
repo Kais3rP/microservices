@@ -1,8 +1,9 @@
 const express = require("express");
 const app = express();
-var cors = require('cors');
-var bodyParser = require('body-parser'); //to parse body of POST methods encoded
-var mongoose = require('mongoose');
+const cors = require('cors');
+const bodyParser = require('body-parser'); //to parse body of POST methods encoded
+const mongoose = require('mongoose');
+const crypto = require('crypto');
 
 //set bodyparser to parse body for any request with a body with content type json
 var jsonParser = bodyParser.json();
@@ -46,13 +47,20 @@ app.post("/api/shorturl/new", jsonParser, (req, res, next) => {
   
   var url = req.body.url;
   console.log(url)
+  var cryptedUrl = crypt(url);
+  console.log(cryptedUrl)
   app.get("/0", (req,res,next) => res.redirect(url))
   
   
 })
+//---------------------------------------------------------------
+//Create a unique URL hash using crypto builtin Nodejs library
+const crypt = function(data){
+  const hash = crypto.createHash('sha256');
+return hash.update(data)
+}
 
-//Validate the URL
-
+//---------------------------------------------------------------
 //convert ip network info to readable IP address
 const ipFormat = (str) => str.split(",").slice(0,1).join()
 
