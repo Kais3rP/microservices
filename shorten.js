@@ -2,8 +2,9 @@ module.exports = function (app, parser, mongoose){
   
 const util = require('util'); //this is useful to promisify
 const dns = require('dns');  //needed to use dns.lookup
+  const 
   
-  
+  app.use(bodyParser.urlencoded({extended: false}));
 //------------------ Start of mongodb settings ----------------------------
   //creates the URL schema
 let urlSchema = new mongoose.Schema({
@@ -39,7 +40,7 @@ const lookupAsync = util.promisify(dns.lookup) //promisifies dns.lookup method
                       .catch( err => res.json({error: err}))
     })
   app.get('/short/:hash', function ( res, req, next) {
-                                                      console.log(req);
+                                                      console.log(req["params"]);
                                                       let hash = req.params.hash
                                                       Url.find({hash: hash})
                                                          .exec()
