@@ -11,7 +11,7 @@ const fetchNewURL = function (url){
                               'Content-Type': 'application/json'
                               },
                               referrerPolicy: 'no-referrer',
-                              body: "dfgdfgdf" // body data type must match "Content-Type" header
+                              body: JSON.stringify({url: url}) // body data type must match "Content-Type" header //It has to be stringified otherwise it can't be body parsed
                             }
          ).then( res => res.json())
           .then( data => result.innerText = data)
