@@ -29,16 +29,7 @@ app.get("/api/timestamp/:date_string?", (req, res, next) => {
                                           'utc': date.toUTCString()
                                 })
                 });
-//WhoamiI microservice
-app.get("/api/whoami", (req, res, next) => {
-  let headers = req.headers;
-  res.json({
-            "ipaddress": ipFormat(headers["x-forwarded-for"]),
-            "language": headers["accept-language"] ,
-            "software": headers["user-agent"]
-  })
-  
-})
+
 
 // URL shortner microservice 
 app.post("/api/shorturl/new", jsonParser, (req, res, next) => { 
