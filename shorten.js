@@ -33,7 +33,7 @@ const lookupAsync = util.promisify(dns.lookup) //promisifies dns.lookup method
           url = url = /^https{0,1}:\/\//.test(url) ? url : `https://${url}`; //adds http:// because redirect() needs it
             app.get(`/api/shorturl/${hash}`, (req,res,next) => res.redirect(url)) */
                         })
-                      .catch( err => res.send({error: err}))
+                      .catch( err => res.json({error: err}))
     })
   app.get('/short/:hash')
   
