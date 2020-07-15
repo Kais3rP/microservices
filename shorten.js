@@ -13,7 +13,7 @@ let urlSchema = new mongoose.Schema({
   
   
   
-const validate = util.promisify(dns.lookup)
+const lookupAsync = util.promisify(dns.lookup)
   
   
   
@@ -21,15 +21,15 @@ const validate = util.promisify(dns.lookup)
 app.post("/api/shorturl/new", parser, (req, res, next) => { 
   
   var url = req.body.url;
-  url = /^http:\/\//.test(url) ? url : `http://${url}`;
+  url = /^https{0,1}:\/\//.test(url) ? url.replace(/^https{0,1}:\/\//,"") : url;
   console.log(url)
-  validate(url).then( url => {
-    console.log(url);
+  lookupAsync(url).then( () => {
+    console.log(url)
     var hash = hashCode(url);
     res.json({hash: hash});
     app.get(`/api/shorturl/${hash}`, (req,res,next) => res.redirect(url)) 
                              })
-    .catch( err => console.log("noway"))
+    .catch( err => res.send({error: err}))
     })
 }
 
