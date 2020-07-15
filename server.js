@@ -4,7 +4,16 @@ const cors = require('cors');
 const bodyParser = require('body-parser'); //to parse body of POST methods encoded
 const mongoose = require('mongoose');
 const crypto = require('crypto');
-
+require('./whoami')(app);  
+/*This is how you separate modules for every microservice route, 
+you export it as a function module on whoami.js, it takes an app 
+as parameter, and then by requiring it it automatically imports the
+function in the current file and by writing require(somePath)(app)
+you are  automatically executing that function which implements the endpoint
+route, with the current app variable, which is express()*/
+require('./timeStamp')(app);
+require('/shortenUrl.js')(app);
+//
 //set bodyparser to parse body for any request with a body with content type json
 var jsonParser = bodyParser.json();
 //this is to let external access to the server
@@ -19,16 +28,7 @@ app.get("/", (request, response) => {
   response.sendFile(__dirname + "/views/index.html");
 });
 
-// Timestamp microservice 
-app.get("/api/timestamp/:date_string?", (req, res, next) => {
 
-                        var date = req.params.date_string ? checkDate(req.params.date_string) : new Date();
-                        if (typeof date === "string") return res.json({"error": date})
-                        return res.json({
-                                          'unix': date.getTime(),
-                                          'utc': date.toUTCString()
-                                })
-                });
 
 
 // URL shortner microservice 
@@ -61,24 +61,6 @@ const validateURL = function (str){
 //convert ip network info to readable IP address
 const ipFormat = (str) => str.split(",").slice(0,1).join()
 
-//validation of date
-const checkDate = (input) => {
-  let date = "";
-  let dateRegExp = new RegExp (/^\d\d\d\d-\d{1,2}-\d{1,2}$/);
-  let error = "Invalid Date"
-
-  //check if it's in UTC format
- if ( /^\d+$/.test(input) ) { date = new Date ( parseInt(input) ) }
- else if (typeof input === "string") {
-   
-   if (dateRegExp.test(input)) {
-   date = (input.match(dateRegExp)[0].length === input.length) ? new Date ( input ) : error
-   
-    } else date = error ;
-   
-  }
-  return date
-}
 
 
 // listen for requests :)
