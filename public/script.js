@@ -2,7 +2,9 @@ var URL ="";
 var submitBtn = document.getElementById("submit");
 var input = document.getElementById("input");
 var result = document.getElementById("result");
-submitBtn.addEventListener('click', ()=>{console.log("helloworld");URL = input.value; fetchNewURL(URL) });
+//-----------------------------------------------------------------------------
+submitBtn.addEventListener('click', ()=>{URL = input.value; fetchNewURL(URL) });
+//-----------------------------------------------------------------------------
 const fetchNewURL = function (url){ 
   fetch("/api/shorturl/new", {
                               method: 'POST',
