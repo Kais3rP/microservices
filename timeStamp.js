@@ -1,7 +1,7 @@
 module.exports = function (app){
   
   // Timestamp microservice 
-app.get("/api/timestamp/:date_string?", (req, res, next) => {
+app.get("/api/timestamp/:date_string", (req, res, next) => {
 
                         var date = req.params.date_string ? checkDate(req.params.date_string) : new Date();
                         if (typeof date === "string") return res.json({"error": date})

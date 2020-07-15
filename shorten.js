@@ -2,7 +2,7 @@ module.exports = function (app, parser, mongoose){
   
 const util = require('util'); //this is useful to promisify
 const dns = require('dns');  //needed to use dns.lookup
-  const 
+  const bodyParser = require('body-parser')
   
   app.use(bodyParser.urlencoded({extended: false}));
 //------------------ Start of mongodb settings ----------------------------
@@ -29,22 +29,17 @@ const lookupAsync = util.promisify(dns.lookup) //promisifies dns.lookup method
         
         let url = new Url({url: urlStandard, hash: hash});
         url.save()
-           .then(res => console.log(res) )
            .catch(err => {throw new Error(err)})  //this saves the document created in the DB and returns a promise
         res.json({hash: hash})
-          /*let hash = hashCode(url);
-          res.json({hash: hash});
-          url = url = /^https{0,1}:\/\//.test(url) ? url : `https://${url}`; //adds http:// because redirect() needs it
-            app.get(`/api/shorturl/${hash}`, (req,res,next) => res.redirect(url)) */
                         })
                       .catch( err => res.json({error: err}))
     })
-  app.get('/short/:hash', function ( res, req, next) {
-                                                      console.log(req["params"]);
+  app.get('/short/:hash', function ( req, res, next) {
+                                                      
                                                       let hash = req.params.hash
-                                                      Url.find({hash: hash})
+                                                      Url.findOne({hash: hash})
                                                          .exec()
-                                                         .then( doc => { 
+                                                         .then( doc => {  
                                                                           let finalUrl = doc.url;
                                                                           finalUrl = /^https{0,1}:\/\//.test(finalUrl) ? finalUrl : `https://${finalUrl}`;
                                                                           res.redirect(finalUrl)
