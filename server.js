@@ -2,8 +2,10 @@ const express = require("express");
 const app = express();
 var cors = require('cors');
 var bodyParser = require('body-parser'); //to parse body of POST methods encoded
+//set bodyparser to parse body for any request with a body with content type json
 
-//this is to let externall access to the server
+app.use(bodyParser.json());
+//this is to let external access to the server
 app.use(cors({optionSuccessStatus: 200})); 
 //----------------------------------------------------
 // make all the files in 'public' available
@@ -39,7 +41,7 @@ app.get("/api/whoami", (req, res, next) => {
 })
 
 //Make an URL shortner microservice 
-app.post("/api/shorturl/new", (req, res, next) => { console.log(req)
+app.post("/api/shorturl/new", (req, res, next) => { console.log(req.body)
   
   
 })
