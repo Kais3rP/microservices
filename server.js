@@ -47,18 +47,19 @@ app.post("/api/shorturl/new", jsonParser, (req, res, next) => {
   
   var url = req.body.url;
   console.log(url)
-  var cryptedUrl = crypt(url);
-  console.log(cryptedUrl)
-  app.get("/0", (req,res,next) => res.redirect(url))
+  var hash = hashCode(url);
+  console.log(hash)
+  res.json({hash: hash})
+  app.get(`/${hash}`, (req,res,next) => res.redirect(url))
   
   
 })
 //---------------------------------------------------------------
 //Create a unique URL hash using crypto builtin Nodejs library
-const crypt = function(data){
-  const hash = crypto.createHash('sha256');
-return hash.update(data)
+const hashCode = function(s){
+  return s.split("").reduce(function(a,b){a=((a<<5)-a)+b.charCodeAt(0);return a&a},0).toString().split("").slice(1,4).join("")              
 }
+
 
 //---------------------------------------------------------------
 //convert ip network info to readable IP address
