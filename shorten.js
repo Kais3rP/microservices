@@ -2,6 +2,9 @@ module.exports = function (app, parser, mongoose){
   
 const util = require('util'); //this is useful to promisify
 const dns = require('dns');  //needed to use dns.lookup
+  
+  
+//------------------ Start of mongodb settings ----------------------------
   //creates the URL schema
 let urlSchema = new mongoose.Schema({
   url: String,
@@ -11,7 +14,7 @@ var Url = mongoose.model("Url", urlSchema)  //create the model
 
 const lookupAsync = util.promisify(dns.lookup) //promisifies dns.lookup method
   
-
+//------------------------------ End of mongodb settings -------------------
   
   // URL shortner microservice 
 
@@ -36,15 +39,21 @@ const lookupAsync = util.promisify(dns.lookup) //promisifies dns.lookup method
                       .catch( err => res.json({error: err}))
     })
   app.get('/short/:hash', function ( res, req, next) {
-                                                      
+                                                      let hash = req.params.hash
+                                                      Url.find({hash: hash}).exec().then( doc => { res.redirect()})
                                                       })
   
 }
 
 //POST method callback
 
-const shortenCallback = function( req, res, next)
+const shortenPostCallback = function( req, res, next){
+  
+}
 
+const shortenGetCallback = function( req, res, next ){
+  
+}
 //Returns an unique hash code by a string
 const hashCode = function(str){
   return str.split("").reduce(function(a,b){a=((a<<5)-a)+b.charCodeAt(0);return a&a},0).toString().split("").slice(1,4).join("")              
