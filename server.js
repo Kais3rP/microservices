@@ -40,7 +40,7 @@ app.get("/", (request, response) => {
 });
 
 
-
+app.post("/name", urlParser, (req, res, next) => {console.log(req.body);res.json({name: `${req.body.first} ${req.body.last}`})});
 
 
 

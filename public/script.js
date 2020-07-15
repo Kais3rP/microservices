@@ -10,6 +10,7 @@ submitBtnS.addEventListener('click', ()=>{URL = inputS.value; fetchNewURL(URL) }
 submitBtnW.addEventListener('click', ()=>{fetchIP() });
 //-----------------------------------------------------------------------------
 const fetchNewURL = function (url){ 
+  console.log(JSON.stringify({url: url}))
   fetch("/api/shorturl", {
                               method: 'POST',
                               cache: 'no-cache', 
@@ -19,7 +20,7 @@ const fetchNewURL = function (url){
                               referrerPolicy: 'no-referrer',
                               body: JSON.stringify({url: url}) // body data type must match "Content-Type" header //It has to be stringified otherwise it can't be body parsed
                             }
-         ).then( res => {console.log(res);res.json()})
+         ).then( res => res.json())
           .then( data => { console.log(data); resultS.innerHTML = data.error ? data.error : `<a href='/api/shorturl/${data.hash}'>https://kais3r-ms.glitch.me/api/shorturl/${data.hash}</a>`})
 }
 

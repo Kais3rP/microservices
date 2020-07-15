@@ -40,5 +40,31 @@
       
         A list of simple MicroServices offered by Cesare Polonara
       </div>
+    
+    <button id="post">
+      POST
+    </button>
+    <div id="text" style="color: black">
+      
+    </div>
+    <script>
+    document.getElementById("post")
+                .addEventListener("click", (ev)=>{fetch('/name',  {
+                                                                    method: 'POST', // *GET, POST, PUT, DELETE, etc.
+                                                                    mode: 'cors', // no-cors, *cors, same-origin
+                                                                    cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+                                                                    credentials: 'same-origin', // include, *same-origin, omit
+                                                                    headers: {
+                                                                      //'Content-Type': 'application/json'
+                                                                      'Content-Type': 'application/x-www-form-urlencoded',
+                                                                    },
+                                                                    redirect: 'follow', // manual, *follow, error
+                                                                    referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+                                                                    body: "first=cesare&last=polonara" // body data type must match "Content-Type" header
+                                                                  })
+                .then(res => res.json())
+                .then(data=> { console.log(data); document.getElementById("text").innerText = data.name})})
+   
+    </script>	
   </body>
 </html>

@@ -14,7 +14,7 @@ const lookupAsync = util.promisify(dns.lookup)
   // URL shortner microservice 
 
 app.post("/api/shorturl", parser, (req, res, next) => { 
-  
+  console.log(res)
   var url = req.body.url;
   
   url = /^https{0,1}:\/\//.test(url) ? url.replace(/^https{0,1}:\/\//,"") : url;
