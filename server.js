@@ -46,10 +46,9 @@ app.get("/api/whoami", (req, res, next) => {
 app.post("/api/shorturl/new", jsonParser, (req, res, next) => { 
   
   var url = req.body.url;
-  console.log(url)
+  url = /^http:\/\//.test(url) ? url : `http://${url}`;
   if (validateURL(url)) {
     var hash = hashCode(url);
-    console.log(hash)
     res.json({hash: hash})
     app.get(`/api/shorturl/${hash}`, (req,res,next) => res.redirect(url)) 
   } else
