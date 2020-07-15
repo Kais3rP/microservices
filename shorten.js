@@ -7,33 +7,24 @@ let urlSchema = new mongoose.Schema({
   url: String
 })
   
-const lookupAsync = util.promisify(dns.lookup)
+const lookupAsync = util.promisify(dns.lookup) //promisifies dns.lookup method
   
 
   
   // URL shortner microservice 
 
-app.post("/api/shorturl", parser, (req, res, next) => { 
-  console.log(res)
-  var url = req.body.url;
-  
-  url = /^https{0,1}:\/\//.test(url) ? url.replace(/^https{0,1}:\/\//,"") : url;
-  
-  
-  
-  lookupAsync(url).then( () => {
-    
-    console.log(url)
-    
-    let hash = hashCode(url);
-    
-   console.log(hash);
-    
-    res.json({hash: hash});
-    
-    app.get(`/api/shorturl/${hash}`, (req,res,next) => res.redirect(url)) 
-                             })
-    .catch( err => res.send({error: err}))
+    app.post("/api/shorturl", parser, (req, res, next) => { 
+      
+      var url = req.body.url;
+      url = /^https{0,1}:\/\//.test(url) ? url.replace(/^https{0,1}:\/\//,"") : url; //gets rid of http:// because dns.lookup doesn't support it
+
+      lookupAsync(url).then( () => {
+          let hash = hashCode(url);
+          res.json({hash: hash});
+          url = url = /^https{0,1}:\/\//.test(url) ? url : `https://${url}`; //adds http:// because redirect() needs it
+            app.get(`/api/shorturl/${hash}`, (req,res,next) => res.redirect(url)) 
+                        })
+                      .catch( err => res.send({error: err}))
     })
 }
 
