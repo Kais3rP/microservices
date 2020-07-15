@@ -1,4 +1,4 @@
-module.exports = function (app, parser){
+module.exports = function (app, parser, mongoose){
   
   // URL shortner microservice 
 app.post("/api/shorturl/new", parser, (req, res, next) => { 

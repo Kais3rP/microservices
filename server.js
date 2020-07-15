@@ -3,7 +3,15 @@ const app = express();
 const cors = require('cors');
 const bodyParser = require('body-parser'); //to parse body of POST methods encoded
 const mongoose = require('mongoose');
-const crypto = require('crypto');
+const jsonParser = bodyParser.json();
+const urlParser = bodyParser.urlencoded({extended: false});
+
+//------------------------------------------------------------//
+
+mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+
+//-------------------------------------------------------------//
+
 require('./whoami')(app);  
 /*This is how you separate modules for every microservice route, 
 you export it as a function module on whoami.js, it takes an app 
@@ -13,8 +21,8 @@ you are  automatically executing that function which implements the endpoint
 route, with the current app variable, which is express()*/
 require('./timeStamp')(app);
 //set bodyparser to parse body for any request with a body with content type json
-var jsonParser = bodyParser.json();
-require('./shorten')(app, jsonParser);
+
+require('./shorten')(app, jsonParser, mongoose);
 //------------------------------------------------------------------//
 
 
@@ -35,8 +43,29 @@ app.get("/", (request, response) => {
 
 
 
+// Not found middleware
+app.use((req, res, next) => {
+  return next({status: 404, message: 'not found'})
+})
 
+// Error Handling middleware
+app.use((err, req, res, next) => {
+  let errCode, errMessage
 
+  if (err.errors) {
+    // mongoose validation error
+    errCode = 400 // bad request
+    const keys = Object.keys(err.errors)
+    // report the first validation error
+    errMessage = err.errors[keys[0]].message
+  } else {
+    // generic or custom error
+    errCode = err.status || 500
+    errMessage = err.message || 'Internal Server Error'
+  }
+  res.status(errCode).type('txt')
+    .send(errMessage)
+})
 
 // listen for requests :)
 const listener = app.listen(process.env.PORT || 3000, () => {
