@@ -21,7 +21,7 @@ app.get("/", (request, response) => {
 
 // Timestamp microservice endpoint
 app.get("/api/timestamp/:date_string?", (req, res, next) => {
-  // express helps us take JS objects and send them as JSON
+
                         var date = req.params.date_string ? checkDate(req.params.date_string) : new Date();
                         if (typeof date === "string") return res.json({"error": date})
                         return res.json({
