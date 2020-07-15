@@ -47,6 +47,7 @@ app.post("/api/shorturl/new", jsonParser, (req, res, next) => {
   
   var url = req.body.url;
   console.log(url)
+  
   var hash = hashCode(url);
   console.log(hash)
   res.json({hash: hash})
@@ -62,7 +63,8 @@ const hashCode = function(str){
 //Validate URL format
 
 const validateURL = function (str){
-  const urlRegExp = new RegExp(/http://www/)
+  const urlRegExp = new RegExp(/http:\/\/www\.[A-Z0-9a-z.-]+\.\w+$/);
+  return str.test(urlRegExp)
 }
 
 //---------------------------------------------------------------
