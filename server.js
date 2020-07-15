@@ -50,16 +50,20 @@ app.post("/api/shorturl/new", jsonParser, (req, res, next) => {
   var hash = hashCode(url);
   console.log(hash)
   res.json({hash: hash})
-  app.get(`/${hash}`, (req,res,next) => res.redirect(url))
+  app.get(`api/shorturl/${hash}`, (req,res,next) => res.redirect(url))
   
   
 })
 //---------------------------------------------------------------
 //Create a unique URL hash using crypto builtin Nodejs library
-const hashCode = function(s){
-  return s.split("").reduce(function(a,b){a=((a<<5)-a)+b.charCodeAt(0);return a&a},0).toString().split("").slice(1,4).join("")              
+const hashCode = function(str){
+  return str.split("").reduce(function(a,b){a=((a<<5)-a)+b.charCodeAt(0);return a&a},0).toString().split("").slice(1,4).join("")              
 }
+//Validate URL format
 
+const validateURL = function (str){
+  const urlRegExp = new RegExp(/http://www/)
+}
 
 //---------------------------------------------------------------
 //convert ip network info to readable IP address
