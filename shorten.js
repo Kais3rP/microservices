@@ -6,7 +6,8 @@ const dns = require('dns');  //needed to use dns.lookup
 let urlSchema = new mongoose.Schema({
   url: String
 })
-  
+var Url = mongoose.model("Url", urlSchema)  //create the model
+
 const lookupAsync = util.promisify(dns.lookup) //promisifies dns.lookup method
   
 
@@ -15,14 +16,20 @@ const lookupAsync = util.promisify(dns.lookup) //promisifies dns.lookup method
 
     app.post("/api/shorturl", parser, (req, res, next) => { 
       
-      var url = req.body.url;
-      url = /^https{0,1}:\/\//.test(url) ? url.replace(/^https{0,1}:\/\//,"") : url; //gets rid of http:// because dns.lookup doesn't support it
+      var urlStandard = req.body.url;
+      urlStandard = /^https{0,1}:\/\//.test(urlStandard) ? urlStandard.replace(/^https{0,1}:\/\//,"") : urlStandard; //gets rid of http:// because dns.lookup doesn't support it
 
-      lookupAsync(url).then( () => {
-          let hash = hashCode(url);
+      lookupAsync(urlStandard).then( () => {
+        
+        let url = new Url({url: urlStandard});
+        url.save()
+           .then(res => console.log(res) )
+           .catch(err => {throw new Error(err)})  //this saves the document created in the DB and returns a promise
+        
+          /*let hash = hashCode(url);
           res.json({hash: hash});
           url = url = /^https{0,1}:\/\//.test(url) ? url : `https://${url}`; //adds http:// because redirect() needs it
-            app.get(`/api/shorturl/${hash}`, (req,res,next) => res.redirect(url)) 
+            app.get(`/api/shorturl/${hash}`, (req,res,next) => res.redirect(url)) */
                         })
                       .catch( err => res.send({error: err}))
     })
