@@ -18,17 +18,27 @@
     <script src="/script.js" defer></script>
   </head>
   <body>
-    <div id="shortenTitle">
+    <div class="microservice">
+      <div id="shortenTitle">
       Shorten your URL:
-      <div class="modal">You can use this Micro Service to minify an URL and hide its original URL</div>
-    </div>
-    <input id="input" value="" placeholder="URL to shorten: es. '(https://)www.glitch.com'"  />
-    <button id="submit" >Shorten your URL</button>
-    <div id="result">
-      <div>
-        A list of simple tools MicroServices offered by: Cesare Polonara
+        <div class="modal">You can use this Micro Service to minify an URL and hide its original URL</div>
       </div>
+      <input id="input-shorten" class="input" value="" placeholder="URL to shorten: es. '(https://)www.glitch.com'"  />
+      <button id="submit-shorten" class="submit">Shorten your URL</button>
+      <div id="result-shorten" class="result"></div>
     </div>
-    
+    <div class="microservice">
+      <div id="whoamiTitle">
+      Get your IP and Browser Info
+        <div class="modal">You can use this Micro Service to minify an URL and hide its original URL</div>
+      </div>
+      
+      <button id="submit-whoami" class="submit">WHO AM I</button>
+      <div id="result-whoami" class="result"></div>
+    </div>
+    <div>
+      
+        A list of simple MicroServices offered by Cesare Polonara
+      </div>
   </body>
 </html>
