@@ -1,16 +1,33 @@
 module.exports = function (app, parser, mongoose){
   
+const utils = require('utils'); //this is useful to promisify
+const dns = require('dns');  //needed to use dns.lookup
+  //creates the URL schema
+let urlSchema = new mongoose.Schema({
+  url: String
+})
+  
+  
+  
+  
+  
+  
+  
+const validate = utils.promisify(dns.lookup)
+  
+  
+  
   // URL shortner microservice 
 app.post("/api/shorturl/new", parser, (req, res, next) => { 
   
   var url = req.body.url;
   url = /^http:\/\//.test(url) ? url : `http://${url}`;
-  if (validateURL(url)) {
-    var hash = hashCode(url);
+  validate(url).then( url => var hash = hashCode(url);
     res.json({hash: hash})
-    app.get(`/api/shorturl/${hash}`, (req,res,next) => res.redirect(url)) 
-  } else
-    res.send({error: "URL not valid, must be in the form of http(s)://www.myUrl.myDomain"})
+    app.get(`/api/shorturl/${hash}`, (req,res,next) => res.redirect(url)) ) 
+    .catch( err => res.send({error: err})
+   
+    
    })
 }
 

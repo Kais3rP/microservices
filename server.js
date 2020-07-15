@@ -3,6 +3,7 @@ const app = express();
 const cors = require('cors');
 const bodyParser = require('body-parser'); //to parse body of POST methods encoded
 const mongoose = require('mongoose');
+
 const jsonParser = bodyParser.json();
 const urlParser = bodyParser.urlencoded({extended: false});
 
@@ -22,7 +23,7 @@ route, with the current app variable, which is express()*/
 require('./timeStamp')(app);
 //set bodyparser to parse body for any request with a body with content type json
 
-require('./shorten')(app, jsonParser, mongoose);
+require('./shorten')(app, jsonParser, mongoose, dns);
 //------------------------------------------------------------------//
 
 
