@@ -23,7 +23,7 @@ route, with the current app variable, which is express()*/
 require('./timeStamp')(app);
 
 
-//require('./shorten')(app, jsonParser, mongoose);
+require('./shorten')(app, jsonParser, mongoose);
 //------------------------------------------------------------------//
 
 
@@ -40,8 +40,7 @@ app.get("/", (request, response) => {
 });
 
 
-app.post("/api/shorturl/new", jsonParser, (req, res, next) => { 
-  res.send("hello") })
+
 
 
 

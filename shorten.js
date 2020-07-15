@@ -1,24 +1,25 @@
 module.exports = function (app, parser, mongoose){
   
-/*const util = require('util'); //this is useful to promisify
+const util = require('util'); //this is useful to promisify
 const dns = require('dns');  //needed to use dns.lookup
   //creates the URL schema
 let urlSchema = new mongoose.Schema({
   url: String
 })
   
-const lookupAsync = util.promisify(dns.lookup)*/
+const lookupAsync = util.promisify(dns.lookup)
   
 
   
   // URL shortner microservice 
 
-app.post("/api/shorturl/new", parser, (req, res, next) => { 
-  res.json({hello: "hello"})
-  /*var url = req.body.url;
+app.post("/api/shorturl", parser, (req, res, next) => { 
+  
+  var url = req.body.url;
+  
   url = /^https{0,1}:\/\//.test(url) ? url.replace(/^https{0,1}:\/\//,"") : url;
   
-  console.log(url)
+  
   
   lookupAsync(url).then( () => {
     
@@ -28,11 +29,11 @@ app.post("/api/shorturl/new", parser, (req, res, next) => {
     
    console.log(hash);
     
-    res.send("hello");
+    res.json({hash: hash});
     
     app.get(`/api/shorturl/${hash}`, (req,res,next) => res.redirect(url)) 
                              })
-    .catch( err => res.send({error: err}))*/
+    .catch( err => res.send({error: err}))
     })
 }
 
