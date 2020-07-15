@@ -10,7 +10,7 @@ submitBtnS.addEventListener('click', ()=>{URL = inputS.value; fetchNewURL(URL) }
 submitBtnW.addEventListener('click', ()=>{fetchIP() });
 //-----------------------------------------------------------------------------
 const fetchNewURL = function (url){ 
-  fetch("/api/shorturl/new", {
+  fetch("/name", {
                               method: 'POST',
                               cache: 'no-cache', 
                               headers: {
