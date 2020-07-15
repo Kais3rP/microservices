@@ -1,6 +1,6 @@
 module.exports = function (app, parser, mongoose){
   
-const utils = require('utils'); //this is useful to promisify
+const util = require('util'); //this is useful to promisify
 const dns = require('dns');  //needed to use dns.lookup
   //creates the URL schema
 let urlSchema = new mongoose.Schema({
@@ -13,7 +13,7 @@ let urlSchema = new mongoose.Schema({
   
   
   
-const validate = utils.promisify(dns.lookup)
+const validate = util.promisify(dns.lookup)
   
   
   
@@ -22,13 +22,15 @@ app.post("/api/shorturl/new", parser, (req, res, next) => {
   
   var url = req.body.url;
   url = /^http:\/\//.test(url) ? url : `http://${url}`;
-  validate(url).then( url => var hash = hashCode(url);
-    res.json({hash: hash})
-    app.get(`/api/shorturl/${hash}`, (req,res,next) => res.redirect(url)) ) 
-    .catch( err => res.send({error: err})
-   
-    
-   })
+  console.log(url)
+  validate(url).then( url => {
+    console.log(url);
+    var hash = hashCode(url);
+    res.json({hash: hash});
+    app.get(`/api/shorturl/${hash}`, (req,res,next) => res.redirect(url)) 
+                             })
+    .catch( err => console.log("noway"))
+    })
 }
 
 
