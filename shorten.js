@@ -35,10 +35,15 @@ const lookupAsync = util.promisify(dns.lookup) //promisifies dns.lookup method
                         })
                       .catch( err => res.json({error: err}))
     })
-  app.get('/short/:hash')
+  app.get('/short/:hash', function ( res, req, next) {
+                                                      
+                                                      })
   
 }
 
+//POST method callback
+
+const shortenCallback = function( req, res, next)
 
 //Returns an unique hash code by a string
 const hashCode = function(str){
