@@ -39,7 +39,7 @@ app.get("/api/whoami", (req, res, next) => {
 })
 
 //Make an URL shortner microservice 
-app.post("/api/shorturl/new", (req, res, next) => { console.log(req.body)
+app.post("/api/shorturl/new", (req, res, next) => { console.log(req)
   
   
 })
