@@ -11,20 +11,7 @@ const urlParser = bodyParser.urlencoded({extended: false});
 
 mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
 
-//-------------------------------------------------------------//
-
-require('./whoami')(app);  
-/*This is how you separate modules for every microservice route, 
-you export it as a function module on whoami.js, it takes an app 
-as parameter, and then by requiring it it automatically imports the
-function in the current file and by writing require(somePath)(app)
-you are  automatically executing that function which implements the endpoint
-route, with the current app variable, which is express()*/
-require('./timeStamp')(app);
-
-
-require('./shorten')(app, jsonParser, mongoose);
-//------------------------------------------------------------------//
+//------------------------------------------------------------//
 
 
 //this is to let external access to the server
@@ -38,10 +25,24 @@ app.use(express.static("public"));
 app.get("/", (request, response) => {
   response.sendFile(__dirname + "/views/index.html");
 });
+//-------------------------------------------------------------//
 
 
-app.post("/name", urlParser, (req, res, next) => {console.log(req.body);res.json({name: `${req.body.first} ${req.body.last}`})});
+/*This is how you separate modules for every microservice route, 
+you export it as a function module on whoami.js, it takes an app 
+as parameter, and then by requiring it it automatically imports the
+function in the current file and by writing require(somePath)(app)
+you are  automatically executing that function which implements the endpoint
+route, with the current app variable, which is express()*/
 
+
+
+
+//-------------------
+require('./timeStamp')(app);
+require('./shorten')(app, jsonParser, mongoose);
+require('./whoami')(app);  
+require('./cartList')(app);
 
 
 
