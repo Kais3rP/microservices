@@ -39,8 +39,16 @@ const lookupAsync = util.promisify(dns.lookup) //promisifies dns.lookup method
                       .catch( err => res.json({error: err}))
     })
   app.get('/short/:hash', function ( res, req, next) {
+                                                      console.log(req);
                                                       let hash = req.params.hash
-                                                      Url.find({hash: hash}).exec().then( doc => { res.redirect()})
+                                                      Url.find({hash: hash})
+                                                         .exec()
+                                                         .then( doc => { 
+                                                                          let finalUrl = doc.url;
+                                                                          finalUrl = /^https{0,1}:\/\//.test(finalUrl) ? finalUrl : `https://${finalUrl}`;
+                                                                          res.redirect(finalUrl)
+                                                                }
+                                                          )
                                                       })
   
 }
@@ -61,6 +69,6 @@ const hashCode = function(str){
 
 //Validates URL format
 const validateURL = function (str){
-  const urlRegExp = new RegExp(/http:\/\/www\.[A-Z0-9a-z.-]+\.\w+$/);
+  const urlRegExp = new RegExp(/www\.[A-Z0-9a-z.-]+\.\w+$/);
   return urlRegExp.test(str)
 }
