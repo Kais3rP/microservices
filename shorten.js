@@ -40,7 +40,7 @@ const lookupAsync = util.promisify(dns.lookup) //promisifies dns.lookup method
                                                          .exec()
                                                          .then( doc => {  
                                                                           let finalUrl = doc.url;
-                                                                          finalUrl = /^https{0,1}:\/\//.test(finalUrl) ? finalUrl : `https://${finalUrl}`;
+                                                                          finalUrl = /^https{0,1}:\/\//.test(finalUrl) ? finalUrl : `http://${finalUrl}`;
                                                                           res.redirect(finalUrl)
                                                                 }
                                                           )
