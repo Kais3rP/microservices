@@ -1,5 +1,5 @@
 var URL ="";
-var data;
+var myFormData;
 var submitBtnS = document.getElementById("submit-shorten");
 var inputS = document.getElementById("input-shorten");
 var resultS = document.getElementById("result-shorten");
@@ -13,7 +13,10 @@ var resultU = document.getElementById("result-upload");
 //-----------------------------------------------------------------------------
 submitBtnS.addEventListener('click', ()=>{URL = inputS.value; fetchNewURL(URL) });
 submitBtnW.addEventListener('click', ()=>{fetchIP() });
-submitBtnU.addEventListener('click', () =>{ data = inputU.files[0]; fetchUpload(data)} )
+submitBtnU.addEventListener('click', () =>{ myFormData = new FormData();
+                                            myFormData.append('uploaded-file', inputU.files[0], 'uploaded-file'); 
+                                            console.log(myFormData);
+                                           fetchUpload(myFormData)} )
 //-----------------------------------------------------------------------------
 
 
