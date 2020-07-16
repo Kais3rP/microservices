@@ -5,11 +5,11 @@ var resultS = document.getElementById("result-shorten");
 var submitBtnW = document.getElementById("submit-whoami");
 var inputW = document.getElementById("input-whoami");
 var resultW = document.getElementById("result-whoami");
-var uploadForm = document.getElmentById("upload-form");
+var submitBtnU = document.getElmentById("submit-upload");
 //-----------------------------------------------------------------------------
 submitBtnS.addEventListener('click', ()=>{URL = inputS.value; fetchNewURL(URL) });
 submitBtnW.addEventListener('click', ()=>{fetchIP() });
-uploadForm.addEventListener('submit', (ev) => )
+submitBtnU.addEventListener('click', () =>{} )
 //-----------------------------------------------------------------------------
 const fetchNewURL = function (url){ 
   
@@ -33,3 +33,12 @@ const fetchIP = function (){
   
 }
 
+const fetchUpload = function(){
+  
+  fetch('/api/upload', {method: 'POST', 
+                        cache: 'no-cache', 
+                              headers: {
+                              'Content-Type': 'application/json'
+                              },
+                              referrerPolicy: 'no-referrer',})
+}
