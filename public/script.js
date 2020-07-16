@@ -5,7 +5,7 @@ var resultS = document.getElementById("result-shorten");
 var submitBtnW = document.getElementById("submit-whoami");
 var inputW = document.getElementById("input-whoami");
 var resultW = document.getElementById("result-whoami");
-var submitBtnU = document.getElmentById("submit-upload");
+var submitBtnU = document.getElementById("submit-upload");
 //-----------------------------------------------------------------------------
 submitBtnS.addEventListener('click', ()=>{URL = inputS.value; fetchNewURL(URL) });
 submitBtnW.addEventListener('click', ()=>{fetchIP() });
