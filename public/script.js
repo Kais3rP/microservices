@@ -11,8 +11,11 @@ var inputU = document.getElementById("input-upload");
 var resultU = document.getElementById("result-upload");
 
 //----------------------------create loading animation for uploading service----------------//
-let loading = document.createTextNode("Loading...")
+let loading = document.createTextNode("Loading...");
+let loadingContainer = document.createElement("div");
+loadingContainer.appendChild(loading);
 
+console.log(resultU);
 //-----------------------------------------------------------------------------
 submitBtnS.addEventListener('click', ()=>{URL = inputS.value; fetchNewURL(URL) });
 submitBtnW.addEventListener('click', ()=>{fetchIP() });
@@ -47,13 +50,13 @@ const fetchIP = function (){
 
 const fetchUpload = function(data){
   resultU.innerText = "";
-  resultU.appendChild(loading);
-  resultU.classList.add("loading");
+  loadingContainer.classList.add("loading");
+  resultU.appendChild(loadingContainer);
   fetch('/api/upload', {method: 'POST', 
                         cache: 'no-cache', 
                         //when sending a form-data file you don't have to specifiy the header
                         referrerPolicy: 'no-referrer',
                         body: data }
        ).then( res => res.json())
-        .then( data => { resultU.removeChild(loading);resultU.classList.remove("loading");resultU.innerText = `Size: ${data.size/1000} KB`  })
+        .then( data => { resultU.removeChild(loadingContainer);resultU.innerText = `Size: ${data.size/1000} KB`  })
 }

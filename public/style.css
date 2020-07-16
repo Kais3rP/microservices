@@ -99,9 +99,11 @@ a:hover{
 
 .loading{
   background:grey;
-  border: 3px solid black;
-  height:5px;
-  animation: loading 3s linear infinite;
+  border: 2px solid black;
+  border-radius:2px;
+  height:10px;
+  animation: loading 2s linear infinite;
+  line-height: 50px;
 }
 
 @keyframes loading {
