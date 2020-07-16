@@ -2,9 +2,7 @@ module.exports = function (app, parser, mongoose){
   
 const util = require('util'); //this is useful to promisify
 const dns = require('dns');  //needed to use dns.lookup
-  const bodyParser = require('body-parser')
-  
-  app.use(bodyParser.urlencoded({extended: false}));
+
 //------------------ Start of mongodb settings ----------------------------
   //creates the URL schema
 let urlSchema = new mongoose.Schema({
