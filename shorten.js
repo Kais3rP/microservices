@@ -24,6 +24,7 @@ const lookupAsync = util.promisify(dns.lookup) //promisifies dns.lookup method
       let hash = hashCode(urlStandard);
       urlStandard = /^https{0,1}:\/\//.test(urlStandard) ? urlStandard.replace(/^https{0,1}:\/\//,"") : urlStandard; //gets rid of http:// because dns.lookup doesn't support it
 
+      //Looks if it's a valid url
       lookupAsync(urlStandard).then( () => {
         
         let url = new Url({url: urlStandard, hash: hash});
