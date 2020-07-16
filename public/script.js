@@ -1,4 +1,5 @@
 var URL ="";
+var data;
 var submitBtnS = document.getElementById("submit-shorten");
 var inputS = document.getElementById("input-shorten");
 var resultS = document.getElementById("result-shorten");
@@ -6,11 +7,16 @@ var submitBtnW = document.getElementById("submit-whoami");
 var inputW = document.getElementById("input-whoami");
 var resultW = document.getElementById("result-whoami");
 var submitBtnU = document.getElementById("submit-upload");
+var inputU = document.getElementById("input-upload");
+var resultU = document.getElementById("result-upload");
+
 //-----------------------------------------------------------------------------
 submitBtnS.addEventListener('click', ()=>{URL = inputS.value; fetchNewURL(URL) });
 submitBtnW.addEventListener('click', ()=>{fetchIP() });
-submitBtnU.addEventListener('click', () =>{} )
+submitBtnU.addEventListener('click', () =>{ data = inputU.value; console.log(data); fetchUpload(data)} )
 //-----------------------------------------------------------------------------
+
+
 const fetchNewURL = function (url){ 
   
   fetch("/api/shorturl", {
@@ -33,14 +39,16 @@ const fetchIP = function (){
   
 }
 
-const fetchUpload = function(){
+const fetchUpload = function(data){
+  
   
   fetch('/api/upload', {method: 'POST', 
                         cache: 'no-cache', 
                         headers: {
-                        'Content-Type': 'application/json'
+                        'Content-Type': 'multipart/form-data'
                         },
                         referrerPolicy: 'no-referrer',
-                        body:  }
-       )
+                        body: data }
+       ).then( res => res.json())
+        .then( data => { console.log(data);resultU.innerText = data  })
 }
