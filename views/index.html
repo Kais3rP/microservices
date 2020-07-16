@@ -48,11 +48,11 @@
     <div class="microservice">
       <div id="uploadTitle" class="title">
       Get the size of a file
-        <div class="modal">You can use this Micro Service to see your current IP and browser info</div>
+        <div class="modal">You can use this Micro Service to see the size of a file</div>
       </div>
-    <form>
-      <input type="file" value="Choose a File" name="file"/>
-      <button type="submit">
+    <form action="/api/upload" method="post" enctype="multipart/form-data">
+      <input type="file" value="Choose a File" name="upfile"/>
+      <button type="submit" name="submit">
         Upload
       </button>
     </form>
