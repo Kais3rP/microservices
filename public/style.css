@@ -53,7 +53,11 @@ button {
 }
 
 a{
-  text
+  text-decoration: none;
+  color: grey;
+}
+a:hover{
+  color:black;
 }
 .microservice {
   
@@ -91,4 +95,17 @@ a{
 .title:hover > .modal{
   
   display:block;
+}
+
+.loading{
+  background:grey;
+  border: 3px solid black;
+  height:5px;
+  animation: loading 3s linear infinite;
+}
+
+@keyframes loading {
+  
+  from {width: 1px}
+  to {width: 200px}
 }
