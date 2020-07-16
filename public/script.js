@@ -13,7 +13,7 @@ var resultU = document.getElementById("result-upload");
 //-----------------------------------------------------------------------------
 submitBtnS.addEventListener('click', ()=>{URL = inputS.value; fetchNewURL(URL) });
 submitBtnW.addEventListener('click', ()=>{fetchIP() });
-submitBtnU.addEventListener('click', () =>{ data = inputU.value; console.log(data); fetchUpload(data)} )
+submitBtnU.addEventListener('click', () =>{ data = inputU.files; console.log(data); fetchUpload(data)} )
 //-----------------------------------------------------------------------------
 
 
@@ -41,7 +41,7 @@ const fetchIP = function (){
 
 const fetchUpload = function(data){
   
-  
+  console.log(data)
   fetch('/api/upload', {method: 'POST', 
                         cache: 'no-cache', 
                         headers: {
