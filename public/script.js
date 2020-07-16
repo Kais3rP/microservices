@@ -37,8 +37,10 @@ const fetchUpload = function(){
   
   fetch('/api/upload', {method: 'POST', 
                         cache: 'no-cache', 
-                              headers: {
-                              'Content-Type': 'application/json'
-                              },
-                              referrerPolicy: 'no-referrer',})
+                        headers: {
+                        'Content-Type': 'application/json'
+                        },
+                        referrerPolicy: 'no-referrer',
+                        body:  }
+       )
 }
