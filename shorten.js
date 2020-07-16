@@ -16,25 +16,14 @@ const lookupAsync = util.promisify(dns.lookup) //promisifies dns.lookup method
   
 //------------------------------ End of mongodb settings -------------------
   
-  // URL shortner microservice 
+  //------Routes-------------------------------------
 
     app.post("/api/shorturl", parser, postCallback )
-    app.get('/short/:hash', function( req, res, next ){
+    app.get('/short/:hash', getCallback )
   
-   let hash = req.params.hash
-                                                      Url.findOne({hash: hash})
-                                                         .exec()
-                                                         .then( doc => {  
-                                                                          let finalUrl = doc.url;
-                                                                          finalUrl = /^https{0,1}:\/\//.test(finalUrl) ? finalUrl : `http://${finalUrl}`;
-                                                                          res.redirect(finalUrl)
-                                                                }
-                                                          )
-} )
-  
+//-----------------------------------------------
 
-
-//POST method callback
+//POST route callback
 
 function postCallback ( req, res, next){
   
@@ -53,8 +42,8 @@ function postCallback ( req, res, next){
                         })
                       .catch( err => res.json({error: err}))
 }
-
-const shortenGetCallback = function( req, res, next ){
+//GET route callback
+  function getCallback ( req, res, next ){
   
    let hash = req.params.hash
                                                       Url.findOne({hash: hash})
@@ -67,7 +56,7 @@ const shortenGetCallback = function( req, res, next ){
                                                           )
 }
 //Returns an unique hash code by a string
-const hashCode = function(str){
+function hashCode (str){
   return str
             .split("")
     .reduce(function(a,b){a=((a<<5)-a)+b.charCodeAt(0);return a&a},0)
@@ -78,7 +67,7 @@ const hashCode = function(str){
 }
 
 //Validates URL format
-const validateURL = function (str){
+ function validateURL (str){
   const urlRegExp = new RegExp(/www\.[A-Z0-9a-z.-]+\.\w+$/);
   return urlRegExp.test(str)
 }
