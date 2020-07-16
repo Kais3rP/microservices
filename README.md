@@ -1,9 +1,9 @@
-# hello-express
+# Simple Microservices
 
-A server that serves a webpage, its resources, and some data
+A simple Server built on Node.js + Express.js using MongoDB and Mongoose.js to manage database.
 
 
-## Your Project
+## How to use
 
 On the front-end,
 
