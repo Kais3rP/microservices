@@ -18,8 +18,16 @@ const lookupAsync = util.promisify(dns.lookup) //promisifies dns.lookup method
   
   // URL shortner microservice 
 
-    app.post("/api/shorturl", parser, (req, res, next) => { 
-      
+    app.post("/api/shorturl", parser, shortenPostCallback )
+    app.get('/short/:hash', shortenGetCallback )
+  
+
+
+//POST method callback
+
+const shortenPostCallback = function( req, res, next){
+  
+      console.log(req)
       var urlStandard = req.body.url;
       let hash = hashCode(urlStandard);
       urlStandard = /^https{0,1}:\/\//.test(urlStandard) ? urlStandard.replace(/^https{0,1}:\/\//,"") : urlStandard; //gets rid of http:// because dns.lookup doesn't support it
@@ -33,10 +41,11 @@ const lookupAsync = util.promisify(dns.lookup) //promisifies dns.lookup method
         res.json({hash: hash})
                         })
                       .catch( err => res.json({error: err}))
-    })
-  app.get('/short/:hash', function ( req, res, next) {
-                                                      
-                                                      let hash = req.params.hash
+}
+
+const shortenGetCallback = function( req, res, next ){
+  
+   let hash = req.params.hash
                                                       Url.findOne({hash: hash})
                                                          .exec()
                                                          .then( doc => {  
@@ -45,18 +54,6 @@ const lookupAsync = util.promisify(dns.lookup) //promisifies dns.lookup method
                                                                           res.redirect(finalUrl)
                                                                 }
                                                           )
-                                                      })
-  
-}
-
-//POST method callback
-
-const shortenPostCallback = function( req, res, next){
-  
-}
-
-const shortenGetCallback = function( req, res, next ){
-  
 }
 //Returns an unique hash code by a string
 const hashCode = function(str){
@@ -67,4 +64,6 @@ const hashCode = function(str){
 const validateURL = function (str){
   const urlRegExp = new RegExp(/www\.[A-Z0-9a-z.-]+\.\w+$/);
   return urlRegExp.test(str)
+}
+
 }

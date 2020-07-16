@@ -29,8 +29,7 @@ app.get("/", (request, response) => {
 
 
 /*This is how you separate modules for every microservice route, 
-you export it as a function module on whoami.js, it takes an app 
-as parameter, and then by requiring it it automatically imports the
+you export it as a function module, it takes app (express()) and other params, and then by requiring it it automatically imports the
 function in the current file and by writing require(somePath)(app)
 you are  automatically executing that function which implements the endpoint
 route, with the current app variable, which is express()*/
