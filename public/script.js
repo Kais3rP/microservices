@@ -13,7 +13,7 @@ var resultU = document.getElementById("result-upload");
 //-----------------------------------------------------------------------------
 submitBtnS.addEventListener('click', ()=>{URL = inputS.value; fetchNewURL(URL) });
 submitBtnW.addEventListener('click', ()=>{fetchIP() });
-submitBtnU.addEventListener('click', () =>{ data = inputU.files; console.log(data); fetchUpload(data)} )
+submitBtnU.addEventListener('click', () =>{ data = inputU.files[0]; fetchUpload(data)} )
 //-----------------------------------------------------------------------------
 
 
