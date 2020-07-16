@@ -18,11 +18,17 @@ loadingContainer.appendChild(loading);
 console.log(resultU);
 //-----------------------------------------------------------------------------
 submitBtnS.addEventListener('click', ()=>{URL = inputS.value; fetchNewURL(URL) });
+inputS.addEventListener('keydown', (ev)=>{ if (ev.keyCode === 13) { URL = inputS.value; fetchNewURL(URL)} });
 submitBtnW.addEventListener('click', ()=>{fetchIP() });
+
 submitBtnU.addEventListener('click', () =>{ myFormData = new FormData();    //create a file like the resulting of a form-data submitting
                                             myFormData.append('file', inputU.files[0], 'file'); //give it a name so it can be read by multer
                                           
                                             fetchUpload(myFormData)} )
+inputU.addEventListener('keydown', (ev)=>{ if (ev.keyCode === 13){
+                                            myFormData = new FormData();    
+                                            myFormData.append('file', inputU.files[0], 'file');
+                                            fetchUpload(myFormData)}});
 //-----------------------------------------------------------------------------
 
 
