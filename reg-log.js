@@ -1,6 +1,11 @@
 module.exports = function submitUser (app, parser, mongoose){
   
-  app.post(/api/register, register)
+  app.post('/api/register', register)
 }
 
-function ()
+function register(req, res, next){
+  
+  
+  
+  
+}
