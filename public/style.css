@@ -102,12 +102,12 @@ a:hover{
   border: 2px solid black;
   border-radius:2px;
   height:10px;
-  animation: loading 2s linear infinite;
+  animation: loading 5s linear infinite;
   line-height: 50px;
 }
 
 @keyframes loading {
   
   from {width: 1px}
-  to {width: 200px}
+  to {width: 95%}
 }
