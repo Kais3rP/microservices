@@ -37,13 +37,23 @@ async function postCallback ( req, res, next){
    const isValidUrl =  await lookupAsync(urlStandard)
         console.log(isValidUrl)
         let url = new Url({url: urlStandard, hash: hash});
-  
-          const isAlreadyExistant = await  Url.findOne({url: urlStandard}).exec()
+    
+    try{
+          const isAlreadyExistant = await  Url.findOne({url: urlStandard}).exec()  //this promise doesn't reject, if it doesn't find a match it gives back null
              console.log(isAlreadyExistant)
-          //If it resolves already existant it gives back the hash ans doesn't save a new entry of the url in the DB
+          //If it resolves already existant it gives back the hash ans doesn't save a new entry of the url in the
+            if(isAlreadyExistant) res.json({hash: hash})
+            else {
+              url.save()
+                        .catch(err => {throw new Error(err)})  //this saves the document created in the DB and returns a promise
               res.json({hash: hash})
+            }
+            
+      
           
-        
+          } catch {
+            console.log("nonexistant")
+          }
         
                          } catch {  console.log("url not valid")
                                     next() }
