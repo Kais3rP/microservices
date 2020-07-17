@@ -5,7 +5,7 @@ module.exports = function submitUser (app, parser, mongoose){
 
 function register(req, res, next){
   
-  
+  console.log(req)
   
   
 }
