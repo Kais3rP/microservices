@@ -42,7 +42,7 @@ require('./shorten')(app, jsonParser, mongoose);
 require('./whoami')(app); 
 require('./uploadFile')(app);
 require('./cartList')(app);
-require('')
+require('./submit')(app, urlParser, mongoose);
 
 
 

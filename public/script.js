@@ -1,4 +1,4 @@
-var userName = "";
+var userName = "Not Logged In";
 var URL ="";
 var myFormData;
 var submitBtnS = document.getElementById("submit-shorten");
@@ -10,13 +10,14 @@ var resultW = document.getElementById("result-whoami");
 var submitBtnU = document.getElementById("submit-upload");
 var inputU = document.getElementById("input-upload");
 var resultU = document.getElementById("result-upload");
+var user = document.getElementById("current-user");
 
 //----------------------------create loading animation for uploading service----------------//
 let loading = document.createTextNode("Loading...");
 let loadingContainer = document.createElement("div");
 loadingContainer.appendChild(loading);
 
-console.log(resultU);
+
 //-----------------------------------------------------------------------------
 submitBtnS.addEventListener('click', ()=>{URL = inputS.value; fetchNewURL(URL) });
 inputS.addEventListener('keydown', (ev)=>{ if (ev.keyCode === 13) { URL = inputS.value; fetchNewURL(URL)} });
@@ -31,6 +32,11 @@ inputU.addEventListener('keydown', (ev)=>{ if (ev.keyCode === 13){
                                             myFormData.append('file', inputU.files[0], 'file');
                                             fetchUpload(myFormData)}});
 //-----------------------------------------------------------------------------
+user.innerText = `Current User: ${userName}`;
+
+
+
+
 
 
 const fetchNewURL = function (url){ 
