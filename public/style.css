@@ -102,7 +102,7 @@ a:hover{
   border: 2px solid black;
   border-radius:2px;
   height:10px;
-  animation: loading 5s linear infinite;
+  animation: loading 10s linear infinite;
   line-height: 50px;
 }
 
