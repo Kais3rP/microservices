@@ -43,18 +43,24 @@ function postCallback ( req, res, next){
                       .catch( err => res.json({error: err}))
 }
 //GET route callback
-  function getCallback ( req, res, next ){
+  async function getCallback ( req, res, next ){
   
    let hash = req.params.hash
-                                                      Url.findOne({hash: hash})
-                                                         .exec()
-                                                         .then( doc => {  
-                                                                          let finalUrl = doc.url;
-                                                                          finalUrl = /^https{0,1}:\/\//.test(finalUrl) ? finalUrl : `http://${finalUrl}`;
-                                                                          res.redirect(finalUrl)
-                                                                }
-                                                          )
-}
+                                          try{
+                                          const doc = await  Url.findOne({hash: hash}).exec()
+
+                                          let finalUrl = doc.url;
+                                          finalUrl = /^https{0,1}:\/\//.test(finalUrl) ? finalUrl : `http://${finalUrl}`;
+                                          res.redirect(finalUrl)
+
+                                           } catch {
+                                             next();
+                                           }  
+  }
+                                           
+                                                          
+    
+
 //Returns an unique hash code by a string
 function hashCode (str){
   return str
