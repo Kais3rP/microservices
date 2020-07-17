@@ -25,7 +25,7 @@ const lookupAsync = util.promisify(dns.lookup) //promisifies dns.lookup method
 
 //POST route callback
 
-function postCallback ( req, res, next){
+async function postCallback ( req, res, next){
   
       
       var urlStandard = req.body.url;
@@ -33,14 +33,24 @@ function postCallback ( req, res, next){
       urlStandard = /^https{0,1}:\/\//.test(urlStandard) ? urlStandard.replace(/^https{0,1}:\/\//,"") : urlStandard; //gets rid of http:// because dns.lookup doesn't support it
 
       //Looks if it's a valid url
-      lookupAsync(urlStandard).then( () => {
+  try {
+   const isValidUrl =  await lookupAsync(urlStandard)
         
         let url = new Url({url: urlStandard, hash: hash});
-        url.save()
-           .catch(err => {throw new Error(err)})  //this saves the document created in the DB and returns a promise
-        res.json({hash: hash})
-                        })
-                      .catch( err => res.json({error: err}))
+    try{
+          const isAlreadyExistant = await  Url.findOne({url: urlStandard}).exec()
+             
+          if (isAlreadyExistant) {
+              url.save()
+             .catch(err => {throw new Error(err)})  //this saves the document created in the DB and returns a promise
+             res.json({hash: hash})
+          }
+          } catch {
+            
+          }
+        
+                         } catch {
+                                    next() }
 }
 //GET route callback
   async function getCallback ( req, res, next ){

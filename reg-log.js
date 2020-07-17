@@ -6,10 +6,10 @@ module.exports = function submitUser (app, parser, mongoose){
   app.post('/api/register', parser, register)
 
 
-function register(req, res, next){
+async function register(req, res, next){
   
   let User = new UserModel({user: req.body.user, password: req.body.password});
-  
+  const isAvailable = await User.find()
   console.log(req.body)
   
   
