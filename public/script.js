@@ -1,3 +1,4 @@
+var userName = "";
 var URL ="";
 var myFormData;
 var submitBtnS = document.getElementById("submit-shorten");
