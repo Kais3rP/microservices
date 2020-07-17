@@ -44,7 +44,7 @@ const fetchNewURL = function (url){
                               body: JSON.stringify({url: url}) // body data type must match "Content-Type" header //It has to be stringified otherwise it can't be body parsed
                             }
          ).then( res => res.json())
-          .then( data => { resultS.innerHTML = data.error ? `Link error: ${data.error.errno}` : `<a href='/short/${data.hash}'>https://kais3r-ms.glitch.me/short/${data.hash}</a>`})
+          .then( data => { resultS.innerHTML = data.error ? `Link error: ${data.error.errno}` : `<a href='/short/${data.hash}' target="_blank">https://kais3r-ms.glitch.me/short/${data.hash}</a>`})
 }
 
 const fetchIP = function (){
