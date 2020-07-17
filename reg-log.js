@@ -8,10 +8,18 @@ module.exports = function submitUser (app, parser, mongoose){
 
 async function register(req, res, next){
   
-  let User = new UserModel({user: req.body.user, password: req.body.password});
-  const isAvailable = await User.find()
-  console.log(req.body)
+  try {
+        const userDoc = await User.findOne({name: req.body.name}).exec()
+        if (userDoc) res.json({error: "Username Already Taken"})
+        else { 
+        
+        let user = new UserModel({user: req.body.user, password: req.body.password});
+         user.save()
+                    .then( ()=> res.json( data => "Successfully Registered"))
+                    .catch( (err) => res.json ( data => "Something went wrong"))
+        
+        } 
+  } catch {
+          
+        }
   
-  
-  }
-}
