@@ -16,7 +16,7 @@ async function register(req, res, next){
         
         if (userDoc) res.json({error: "Username Already Taken"})
         else { 
-        
+        const emailDoc = await User.findOne({user: req.body.user}).exec()
         let user = new User({user: req.body.user, password: req.body.password});
          user.save()
                     .then( ()=> res.json({ data: "Successfully Registered"}) )
