@@ -32,13 +32,15 @@ app.get("/", (request, response) => {
 //--- Use express.Router to define specific modules routs for every microservice
 const whoAmI = require('./services/whoami');
 const uploadFile = require('./services/uploadFile');
-const timeStamp = require('./services/timeStamp')
-const shortenUrl = require('./services/shorten/shorten')
+const timeStamp = require('./services/timeStamp');
+const shortenUrl = require('./services/shorten/shorten');
+const regLog = require('./services/reglog/regLog');
 
 app.use('/api/whoami', whoAmI );
 app.use('/api/upload', uploadFile);
 app.use('/api/timestamp/:date_string', timeStamp);
 app.use('/api/shorten', shortenUrl);
+app.use('/api/reglog', regLog);
 
 
 
@@ -49,6 +51,6 @@ app.use('/api/shorten', shortenUrl);
 //require('./services/whoami')(app); 
 //require('./services/uploadFile')(app);
 require('./services/cartList')(app);
-require('./services/reg-log')(app, jsonParser, mongoose);
+//require('./services/reg-log')(app, jsonParser, mongoose);
 
 module.exports = app;

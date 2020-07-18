@@ -51,7 +51,7 @@ logBtn.onclick = (e) => { fetchLogin(inputUserLog.value, inputPwdLog.value); inp
 //-----------------------------------------------register/login-------------------
 const fetchRegister = function (user, pwd){
   
-  fetch('/api/register', {
+  fetch('/api/reglog/register', {
                           method: 'POST',
                           cache: 'no-cache', 
                           headers: {
@@ -68,7 +68,7 @@ const fetchRegister = function (user, pwd){
 
 const fetchLogin = function (user, pwd){
   
-  fetch('/api/login', {
+  fetch('/api/reglog/login', {
                           method: 'POST',
                           cache: 'no-cache', 
                           headers: {

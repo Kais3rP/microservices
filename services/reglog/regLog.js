@@ -1,11 +1,12 @@
 const express = require('express');
 const router = express.Router();
 const bodyParser = require('body-parser');
+const jsonParser = bodyParser.json();
 
 const User = require('./User')
  
-  router.post('/register', parser, register);
-  router.post('/login', parser, login);
+  router.post('/register', jsonParser, register);
+  router.post('/login', jsonParser, login);
 
 async function register(req, res, next){
   
