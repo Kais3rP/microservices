@@ -26,7 +26,7 @@ async function register(req, res, next){
                              console.log(userDb)  
     
                         let token = jwt.sign({ id: user._id }, process.env.SECRET, { expiresIn: 86400 } );
-                        res.status(200).send({ auth: true, token: token }).json({data: "ok"})
+                        res.status(200).send({ data: "Registration Success", auth: true, token: token })
                                               
                                  
                                 
