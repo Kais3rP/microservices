@@ -10,8 +10,15 @@ var resultW = document.getElementById("result-whoami");
 var submitBtnU = document.getElementById("submit-upload");
 var inputU = document.getElementById("input-upload");
 var resultU = document.getElementById("result-upload");
+//-----------register login-------------------------//
 var user = document.getElementById("current-user");
-
+var inputUserReg = document.getElementById("input-user-reg");
+var inputPwdReg = document.getElementById("input-password-reg");
+var regBtn = document.getElementById("register-button");
+var inputUserLog = document.getElementById("input-user-log");
+var inputPwdLog = document.getElementById("input-pwd-log");
+var logBtn = document.getElementById("log-button");
+  
 //----------------------------create loading animation for uploading service----------------//
 let loading = document.createTextNode("Loading...");
 let loadingContainer = document.createElement("div");
@@ -33,6 +40,27 @@ inputU.addEventListener('keydown', (ev)=>{ if (ev.keyCode === 13){
                                             fetchUpload(myFormData)}});
 //-----------------------------------------------------------------------------
 user.innerText = `Current User: ${userName}`;
+
+regBtn.onclick = (e) => { }
+
+
+
+
+const fetchRegister = function (user, pwd){
+  
+  fetch('/api/register', {
+                          method: 'POST',
+                          cache: 'no-cache', 
+                          headers: {
+                          'Content-Type': 'application/json'
+                          },
+                          referrerPolicy: 'no-referrer',
+                          body: JSON.stringify({user: user, pwd: pwd})
+                          })
+  
+  
+}
+
 
 
 

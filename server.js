@@ -42,7 +42,7 @@ require('./shorten')(app, jsonParser, mongoose);
 require('./whoami')(app); 
 require('./uploadFile')(app);
 require('./cartList')(app);
-require('./reg-log')(app, urlParser, mongoose);
+require('./reg-log')(app, jsonParser, mongoose);
 
 // listen for requests :)
 const listener = app.listen(process.env.PORT || 3000, () => {

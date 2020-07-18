@@ -18,15 +18,15 @@
     <script src="/script.js" defer></script>
   </head>
   <body>
-    <form action="/api/register" method="post" onsubmit="((event)=>event.preventDefault())()">
-      <input type="text" name="user" placeholder="User" required/>
-      <input type="password" name="password" placeholder="Password" required/>
-      <button type="submit">Register</button>
-    </form> 
+       <div>Register:</div>
+      <input id="input-user-reg" type="text" placeholder="User" required/>
+      <input id="input-password-reg" type="password" placeholder="Password" required/>
+      <button id="register-btn">Register</button>
+   
     <div id="current-user"></div>
-    <input id="input-user" value="" placeholder="Username"  />
-     <input id="input-password" value="" placeholder="Password"  />
-    <button id="submit-credentials" class="submit">Log In</button>
+    <input id="input-user-log" value="" placeholder="Username"  />
+     <input id="input-password-log" value="" placeholder="Password"  />
+    <button id="log-button" class="submit">Log In</button>
     <div class="microservice">
       <div id="shortenTitle" class="title">
       Shorten your URL:
