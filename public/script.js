@@ -33,20 +33,19 @@ submitBtnW.addEventListener('click', ()=>{fetchIP() });
 
 submitBtnU.addEventListener('click', () =>{ myFormData = new FormData();    //create a file like the resulting of a form-data submitting
                                             myFormData.append('file', inputU.files[0], 'file'); //give it a name so it can be read by multer
-                                          
                                             fetchUpload(myFormData)} )
 inputU.addEventListener('keydown', (ev)=>{ if (ev.keyCode === 13){
                                             myFormData = new FormData();    
                                             myFormData.append('file', inputU.files[0], 'file');
                                             fetchUpload(myFormData)}});
-//-----------------------------------------------------------------------------
+//----------------------------------------------------------------------------- register/Login------------
 user.innerText = `Current User: ${userName}`;
 
 regBtn.onclick = (e) => { console.log("hello");fetchRegister(inputUserReg.value, inputPwdReg.value) }
+logBtn.onlick = (e) => {console.log("hello");fetchLogin(inputUserLog.value, inputPwdLog.value)}
 
 
-
-
+//-----------------------------------------------register/login-------------------
 const fetchRegister = function (user, pwd){
   
   fetch('/api/register', {
@@ -66,7 +65,7 @@ const fetchRegister = function (user, pwd){
 
 const fetchLogin = function (user, pwd){
   
-  fetch('/api/register', {
+  fetch('/api/login', {
                           method: 'POST',
                           cache: 'no-cache', 
                           headers: {
@@ -81,7 +80,7 @@ const fetchLogin = function (user, pwd){
   
 }
 
-
+//-------------------------------------------------------------------------------------------------
 
 
 

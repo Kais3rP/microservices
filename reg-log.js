@@ -4,14 +4,14 @@ module.exports = function submitUser (app, parser, mongoose){
   var UserModel = mongoose.model('User', userSchema)
  //----------------------------------------------------- 
   app.post('/api/register', parser, register)
-
+  app.get('/api/login', parser, login)
 
 async function register(req, res, next){
   
   try {
-        console.log(req.body.user)
+        
         const userDoc = await UserModel.findOne({user: req.body.user}).exec()
-        console.log(userDoc)
+        
         if (userDoc) res.json({error: "Username Already Taken"})
         else { 
         
@@ -26,4 +26,22 @@ async function register(req, res, next){
         }
   
   }
+  
+  
+  async function login (req, res, next){ 
+
+     try {
+       const userDoc = await UserModel.findOne({user: req.body.user, password: req.body.password}).exec()
+       console.log(userDoc)
+       res.json({user: userDoc.user})
+       
+     } catch {
+       
+       
+     }
+
+
+
 }
+}
+
