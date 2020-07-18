@@ -11,13 +11,14 @@ var submitBtnU = document.getElementById("submit-upload");
 var inputU = document.getElementById("input-upload");
 var resultU = document.getElementById("result-upload");
 //-----------register login-------------------------//
+var registration = document.getElementById("registration");
 var user = document.getElementById("current-user");
 var inputUserReg = document.getElementById("input-user-reg");
 var inputPwdReg = document.getElementById("input-password-reg");
-var regBtn = document.getElementById("register-button");
+var regBtn = document.getElementById("register-btn");
 var inputUserLog = document.getElementById("input-user-log");
 var inputPwdLog = document.getElementById("input-pwd-log");
-var logBtn = document.getElementById("log-button");
+var logBtn = document.getElementById("log-btn");
   
 //----------------------------create loading animation for uploading service----------------//
 let loading = document.createTextNode("Loading...");
@@ -41,7 +42,7 @@ inputU.addEventListener('keydown', (ev)=>{ if (ev.keyCode === 13){
 //-----------------------------------------------------------------------------
 user.innerText = `Current User: ${userName}`;
 
-regBtn.onclick = (e) => { }
+regBtn.onclick = (e) => { console.log("hello");fetchRegister(inputUserReg.value, inputPwdReg.value) }
 
 
 
@@ -55,8 +56,10 @@ const fetchRegister = function (user, pwd){
                           'Content-Type': 'application/json'
                           },
                           referrerPolicy: 'no-referrer',
-                          body: JSON.stringify({user: user, pwd: pwd})
+                          body: JSON.stringify({user: user, password: pwd})
                           })
+       .then( res => res.json())
+       .then( data => { console.log(data);registration.appendChild(document.createElement("div")).innerText = data.data})
   
   
 }
