@@ -37,11 +37,11 @@ route, with the current app variable, which is express()*/
 
 
 //-------------------
-require('./timeStamp')(app);
-require('./shorten')(app, jsonParser, mongoose);
-require('./whoami')(app); 
-require('./uploadFile')(app);
-require('./cartList')(app);
-require('./reg-log')(app, jsonParser, mongoose);
+require('./services/timeStamp')(app);
+require('./services/shorten')(app, jsonParser, mongoose);
+require('./services/whoami')(app); 
+require('./services/uploadFile')(app);
+require('./services/cartList')(app);
+require('./services/reg-log')(app, jsonParser, mongoose);
 
 module.exports = app;
