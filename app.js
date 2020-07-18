@@ -25,13 +25,9 @@ app.get("/", (request, response) => {
   response.sendFile(__dirname + "/views/index.html");
 });
 //-------------------------------------------------------------//
-
-
-/*This is how you separate modules for every microservice route, 
-you export it as a function module, it takes app (express()) and other params, and then by requiring it it automatically imports the
-function in the current file and by writing require(somePath)(app)
-you are  automatically executing that function which implements the endpoint
-route, with the current app variable, which is express()*/
+//--- Use express.Router 
+const whoAmI = require('./services/whoami')
+app.use('/api', whoAmI )
 
 
 
@@ -39,7 +35,7 @@ route, with the current app variable, which is express()*/
 //-------------------
 require('./services/timeStamp')(app);
 require('./services/shorten')(app, jsonParser, mongoose);
-require('./services/whoami')(app); 
+//require('./services/whoami')(app); 
 require('./services/uploadFile')(app);
 require('./services/cartList')(app);
 require('./services/reg-log')(app, jsonParser, mongoose);

@@ -1,7 +1,9 @@
-module.exports = function (app){
+const express = require ('express');
+const router = express.Router();
+
   
   //WhoamiI microservice
-app.get("/api/whoami", (req, res, next) => {
+router.get("/whoami", (req, res, next) => {
   let headers = req.headers;
   res.json({
             "ipaddress": ipFormat(headers["x-forwarded-for"]),
@@ -14,4 +16,4 @@ app.get("/api/whoami", (req, res, next) => {
 //convert ip network info to readable IP address
 const ipFormat = (str) => str.split(",").slice(0,1).join()
 
-}
+module.exports = router;
