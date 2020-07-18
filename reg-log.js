@@ -10,7 +10,7 @@ async function register(req, res, next){
   
   try {
         console.log(req.body.user)
-        const userDoc = await UserModel.findOne({name: req.body.user}).exec()
+        const userDoc = await UserModel.findOne({user: req.body.user}).exec()
         console.log(userDoc)
         if (userDoc) res.json({error: "Username Already Taken"})
         else { 
@@ -18,8 +18,8 @@ async function register(req, res, next){
         let user = new UserModel({user: req.body.user, password: req.body.password});
          user.save()
                     .then( ()=> res.json({ data: "Successfully Registered"}) )
-                    .catch( (err) => res.json ( data => "Something went wrong"))
-          res.sendFile(__dirname + "/views/index.html");
+                    .catch( (err) => res.json ({ data : "Something went wrong"}))
+          
         } 
   } catch {
           res.json({error: "Error, please retry"})

@@ -59,7 +59,24 @@ const fetchRegister = function (user, pwd){
                           body: JSON.stringify({user: user, password: pwd})
                           })
        .then( res => res.json())
-       .then( data => { console.log(data);registration.appendChild(document.createElement("div")).innerText = data.data})
+       .then( data => { alert( data.error ? data.error : data.data )})
+  
+  
+}
+
+const fetchLogin = function (user, pwd){
+  
+  fetch('/api/register', {
+                          method: 'POST',
+                          cache: 'no-cache', 
+                          headers: {
+                          'Content-Type': 'application/json'
+                          },
+                          referrerPolicy: 'no-referrer',
+                          body: JSON.stringify({user: user, password: pwd})
+                          })
+       .then( res => res.json())
+       .then( data => { alert( data.error ? data.error : data.data )})
   
   
 }
