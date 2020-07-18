@@ -22,11 +22,11 @@ async function register(req, res, next){
               
                    let user = new User({user: req.body.user, email: req.body.email, password: hashedPwd});
                    console.log(user);
-                      user.save().exec()
+                      user.save()
                                 .then( ()=> {
                                               let token = jwt.sign({ id: user._id }, process.env.secret, { expiresIn: 86400 } );
                                               res.status(200).send({ auth: true, token: token }); 
-                                              res.json ({ data : "Registration Successful"})
+                                              
                                  })
                                 .catch( (err) => res.json ({ data : "Something went wrong"})) 
 
