@@ -75,7 +75,8 @@ const fetchLogin = function (user, pwd){
                           body: JSON.stringify({user: user, password: pwd})
                           })
        .then( res => res.json())
-       .then( data => { alert( data.error ? data.error : data.data )})
+       .then( data => { if (data.error) alert(data.error)
+                        else  console.log(data)})
   
   
 }
