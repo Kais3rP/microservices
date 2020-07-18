@@ -1,25 +1,20 @@
-module.exports = function (app, parser, mongoose){
-
+const express = require ('express');
+const router = express.Router();
+const Url = require('./Url')
  
 const util = require('util'); //this is useful to promisify
 const dns = require('dns');  //needed to use dns.lookup
 
-//------------------ Start of mongodb settings ----------------------------
-  //creates the URL schema
-let urlSchema = new mongoose.Schema({
-  url: String,
-  hash: String
-})
-var Url = mongoose.model("Url", urlSchema)  //create the model
+
 
 const lookupAsync = util.promisify(dns.lookup) //promisifies dns.lookup method
   
-//------------------------------ End of mongodb settings -------------------
+
   
   //------Routes-------------------------------------
 
-    app.post("/api/shorturl", parser, postCallback )
-    app.get('/short/:hash', getCallback )
+    router.post("/", postCallback )
+    router.get('/:hash', getCallback )
   
 //-----------------------------------------------
 
@@ -94,4 +89,4 @@ function hashCode (str){
   return urlRegExp.test(str)
 }
 
-}
+module.exports = router;

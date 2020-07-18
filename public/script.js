@@ -92,7 +92,7 @@ const fetchLogin = function (user, pwd){
 
 const fetchNewURL = function (url){ 
   
-  fetch("/api/shorturl", {
+  fetch("/api/shorten", {
                               method: 'POST',
                               cache: 'no-cache', 
                               headers: {
@@ -102,7 +102,7 @@ const fetchNewURL = function (url){
                               body: JSON.stringify({url: url}) // body data type must match "Content-Type" header //It has to be stringified otherwise it can't be body parsed
                             }
          ).then( res => res.json())
-          .then( data => { resultS.innerHTML = data.error ? `Link error: ${data.error}` : `<a href='/short/${data.hash}' target="_blank">https://kais3r-ms.glitch.me/short/${data.hash}</a>`})
+          .then( data => { resultS.innerHTML = data.error ? `Link error: ${data.error}` : `<a href='/shorten/${data.hash}' target="_blank">https://kais3r-ms.glitch.me/shorten/${data.hash}</a>`})
 }
 
 const fetchIP = function (){

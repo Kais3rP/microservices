@@ -33,18 +33,19 @@ app.get("/", (request, response) => {
 const whoAmI = require('./services/whoami');
 const uploadFile = require('./services/uploadFile');
 const timeStamp = require('./services/timeStamp')
-
+const shortenUrl = require('./services/shorten/shorten')
 
 app.use('/api/whoami', whoAmI );
 app.use('/api/upload', uploadFile);
-app.use('/api/timestamp/:date_string', uploadFile);
+app.use('/api/timestamp/:date_string', timeStamp);
+app.use('/api/shorten', shortenUrl);
 
 
 
 
 //-------------------
 //require('./services/timeStamp')(app);
-require('./services/shorten')(app, jsonParser, mongoose);
+//require('./services/shorten')(app, jsonParser, mongoose);
 //require('./services/whoami')(app); 
 //require('./services/uploadFile')(app);
 require('./services/cartList')(app);
