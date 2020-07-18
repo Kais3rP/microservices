@@ -42,7 +42,7 @@ async function register(req, res, next){
   async function login (req, res, next){ 
 
      try {
-           const userDoc = await User.findOne({user: req.body.user, password: req.body.password}).exec()
+           const userDoc = await User.findOne({user: req.body.user, email: /.*/, password: hashedPwd}).exec()
            if (userDoc) res.json({user: userDoc.user})
            else { res.json({error: "Wrong user or password"}) }
      } catch {
