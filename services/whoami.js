@@ -3,7 +3,7 @@ const router = express.Router();
 
   
   //WhoamiI microservice
-router.get("/whoami", (req, res, next) => {
+router.get("/", (req, res, next) => {
   let headers = req.headers;
   res.json({
             "ipaddress": ipFormat(headers["x-forwarded-for"]),

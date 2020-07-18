@@ -25,9 +25,13 @@ app.get("/", (request, response) => {
   response.sendFile(__dirname + "/views/index.html");
 });
 //-------------------------------------------------------------//
-//--- Use express.Router 
-const whoAmI = require('./services/whoami')
-app.use('/api', whoAmI )
+//--- Use express.Router to define specific modules routs for every microservice
+const whoAmI = require('./services/whoami');
+const uploadFile = require('./services/uploadFile');
+
+
+app.use('/api/whoami', whoAmI );
+app.use('/api/upload', uploadFile);
 
 
 
@@ -36,7 +40,7 @@ app.use('/api', whoAmI )
 require('./services/timeStamp')(app);
 require('./services/shorten')(app, jsonParser, mongoose);
 //require('./services/whoami')(app); 
-require('./services/uploadFile')(app);
+//require('./services/uploadFile')(app);
 require('./services/cartList')(app);
 require('./services/reg-log')(app, jsonParser, mongoose);
 
