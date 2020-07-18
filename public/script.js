@@ -17,7 +17,7 @@ var inputUserReg = document.getElementById("input-user-reg");
 var inputPwdReg = document.getElementById("input-password-reg");
 var regBtn = document.getElementById("register-btn");
 var inputUserLog = document.getElementById("input-user-log");
-var inputPwdLog = document.getElementById("input-pwd-log");
+var inputPwdLog = document.getElementById("input-password-log");
 var logBtn = document.getElementById("log-btn");
   
 //----------------------------create loading animation for uploading service----------------//
@@ -41,8 +41,8 @@ inputU.addEventListener('keydown', (ev)=>{ if (ev.keyCode === 13){
 //----------------------------------------------------------------------------- register/Login------------
 user.innerText = `Current User: ${userName}`;
 
-regBtn.onclick = (e) => { console.log("hello");fetchRegister(inputUserReg.value, inputPwdReg.value) }
-logBtn.onlick = (e) => {console.log("hello");fetchLogin(inputUserLog.value, inputPwdLog.value)}
+regBtn.onclick = (e) => { fetchRegister(inputUserReg.value, inputPwdReg.value) };
+logBtn.onclick = (e) => { fetchLogin(inputUserLog.value, inputPwdLog.value)};
 
 
 //-----------------------------------------------register/login-------------------

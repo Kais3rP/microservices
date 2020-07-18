@@ -3,8 +3,8 @@ module.exports = function submitUser (app, parser, mongoose){
   var userSchema = new mongoose.Schema({user: String, password: String});
   var UserModel = mongoose.model('User', userSchema)
  //----------------------------------------------------- 
-  app.post('/api/register', parser, register)
-  app.get('/api/login', parser, login)
+  app.post('/api/register', parser, register);
+  app.post('/api/login', parser, login);
 
 async function register(req, res, next){
   
@@ -33,11 +33,13 @@ async function register(req, res, next){
      try {
        const userDoc = await UserModel.findOne({user: req.body.user, password: req.body.password}).exec()
        console.log(userDoc)
-       res.json({user: userDoc.user})
+       if (userDoc) res.json({user: userDoc.user})
+       else { res.json({error: "Wrong user or password"}) }
+       
        
      } catch {
        
-       
+          res.json({error: "Error, please retry"})
      }
 
 
