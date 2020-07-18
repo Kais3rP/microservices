@@ -13,7 +13,7 @@ var resultU = document.getElementById("result-upload");
 //-----------register login-------------------------//
 var registration = document.getElementById("registration");
 var login = document.getElementById("login");
-var user = document.getElementById("current-user");
+var userTitle = document.getElementById("current-user");
 var inputUserReg = document.getElementById("input-user-reg");
 var inputPwdReg = document.getElementById("input-password-reg");
 var regBtn = document.getElementById("register-btn");
@@ -42,10 +42,10 @@ inputU.addEventListener('keydown', (ev)=>{ if (ev.keyCode === 13){
                                             myFormData.append('file', inputU.files[0], 'file');
                                             fetchUpload(myFormData)}});
 //----------------------------------------------------------------------------- register/Login------------
-user.innerText = `Current User: Not Logged`;
+userTitle.innerText = `Current User: Not Logged`;
 
-regBtn.onclick = (e) => { fetchRegister(inputUserReg.value, inputPwdReg.value) };
-logBtn.onclick = (e) => { fetchLogin(inputUserLog.value, inputPwdLog.value)};
+regBtn.onclick = (e) => { fetchRegister(inputUserReg.value, inputPwdReg.value); inputUserReg.value = ""; inputPwdReg.value = "";};
+logBtn.onclick = (e) => { fetchLogin(inputUserLog.value, inputPwdLog.value); inputUserLog.value = ""; inputPwdLog.value = "";};
 
 
 //-----------------------------------------------register/login-------------------
@@ -78,8 +78,8 @@ const fetchLogin = function (user, pwd){
                           body: JSON.stringify({user: user, password: pwd})
                           })
        .then( res => res.json())
-       .then( data => { if (data.error) {alert(data.error); console.log(user);user.innerText = "hello"}
-                        else  {console.log(data.user); user.innerText = "hello";}})
+       .then( data => { if (data.error) alert(data.error)
+                        else  userTitle.innerText = `Current User: ${data.user}`})
   
   
 }
