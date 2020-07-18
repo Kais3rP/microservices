@@ -1,21 +1,22 @@
-module.exports = function submitUser (app, parser, mongoose){
-  //-------------MongoDB Model---------------
-  var userSchema = new mongoose.Schema({user: String, password: String});
-  var UserModel = mongoose.model('User', userSchema)
- //----------------------------------------------------- 
-  app.post('/api/register', parser, register);
-  app.post('/api/login', parser, login);
+const express = require('express');
+const router = express.Router();
+const bodyParser = require('body-parser');
+
+const User = require('./User')
+ 
+  router.post('/register', parser, register);
+  router.post('/login', parser, login);
 
 async function register(req, res, next){
   
   try {
         
-        const userDoc = await UserModel.findOne({user: req.body.user}).exec()
+        const userDoc = await User.findOne({user: req.body.user}).exec()
         
         if (userDoc) res.json({error: "Username Already Taken"})
         else { 
         
-        let user = new UserModel({user: req.body.user, password: req.body.password});
+        let user = new User({user: req.body.user, password: req.body.password});
          user.save()
                     .then( ()=> res.json({ data: "Successfully Registered"}) )
                     .catch( (err) => res.json ({ data : "Something went wrong"}))
@@ -31,7 +32,7 @@ async function register(req, res, next){
   async function login (req, res, next){ 
 
      try {
-       const userDoc = await UserModel.findOne({user: req.body.user, password: req.body.password}).exec()
+       const userDoc = await User.findOne({user: req.body.user, password: req.body.password}).exec()
        console.log(userDoc)
        if (userDoc) res.json({user: userDoc.user})
        else { res.json({error: "Wrong user or password"}) }
@@ -45,5 +46,6 @@ async function register(req, res, next){
 
 
 }
-}
+
+module.exports = router;
 
