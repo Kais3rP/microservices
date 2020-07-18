@@ -17,8 +17,9 @@ async function register(req, res, next){
         
         let user = new UserModel({user: req.body.user, password: req.body.password});
          user.save()
-                    .then( ()=> res.json( data => "Successfully Registered"))
+                    .then( ()=> res.json({ data: "Successfully Registered"}) )
                     .catch( (err) => res.json ( data => "Something went wrong"))
+          res.sendFile(__dirname + "/views/index.html");
         } 
   } catch {
           res.json({error: "Error, please retry"})
