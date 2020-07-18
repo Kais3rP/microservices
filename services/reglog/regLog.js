@@ -12,7 +12,7 @@ const User = require('./User')
 
 async function register(req, res, next){
   let hashedPwd = bcrypt.hashSync(req.body.password, 8); //crpyting pwd
-  console.log(hashedPwd)
+  
   try {
         const userDoc = await User.findOne({user: req.body.user}).exec()
         if (userDoc) return res.json({error: "Username Already Taken"})
@@ -21,14 +21,15 @@ async function register(req, res, next){
               if (emailDoc) return res.json({error: "Email Already registered"})
               
                    let user = new User({user: req.body.user, email: req.body.email, password: hashedPwd});
-                   console.log(user);
-                      user.save()
-                                .then( ()=> {
-                                              let token = jwt.sign({ id: user._id }, process.env.secret, { expiresIn: 86400 } );
-                                              res.status(200).send({ auth: true, token: token }); 
+                   
+                     const userDb = await user.save()
+                             console.log(userDb)  
+    
+                        let token = jwt.sign({ id: user._id }, process.env.SECRET, { expiresIn: 86400 } );
+                        res.status(200).send({ auth: true, token: token }).json({data: "ok"})
                                               
-                                 })
-                                .catch( (err) => res.json ({ data : "Something went wrong"})) 
+                                 
+                                
 
           
   } catch {

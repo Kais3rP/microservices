@@ -62,7 +62,7 @@ const fetchRegister = function (user, email, pwd){
                           body: JSON.stringify({user: user, email: email, password: pwd})
                           })
        .then( res => res.json())
-       .then( data => { alert( data.error ? data.error : data.data )})
+       .then( data => { console.log(data);alert( data.error ? data.error : data.data )})
   
   
 }
