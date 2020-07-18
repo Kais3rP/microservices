@@ -9,6 +9,10 @@ const User = require('./User')
  
   router.post('/register', jsonParser, register);
   router.post('/login', jsonParser, login);
+  router.get('/logout', function(req, res) {
+                                            res.status(200).send({ auth: false, token: null, data: "Logged Out" });
+                        }
+            );
 
 async function register(req, res, next){
   let hashedPwd = bcrypt.hashSync(req.body.password, 8); //crpyting pwd

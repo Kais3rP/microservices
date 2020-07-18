@@ -20,8 +20,9 @@ var inputPwdReg = document.getElementById("input-password-reg");
 var regBtn = document.getElementById("register-btn");
 var inputUserLog = document.getElementById("input-user-log");
 var inputPwdLog = document.getElementById("input-password-log");
-var logBtn = document.getElementById("log-btn");
-  
+var logInBtn = document.getElementById("logIn-btn");
+var logOutBtn = document.getElementById("logOut-btn");
+  console.log(window);
 //----------------------------create loading animation for uploading service----------------//
 
 let loading = document.createTextNode("Loading...");
@@ -46,8 +47,8 @@ inputU.addEventListener('keydown', (ev)=>{ if (ev.keyCode === 13){
 userTitle.innerText = `Current User: Not Logged`;
 
 regBtn.onclick = (e) => { fetchRegister(inputUserReg.value, inputEmailReg.value, inputPwdReg.value); inputUserReg.value = ""; inputEmailReg.value =""; inputPwdReg.value = "";};
-logBtn.onclick = (e) => { fetchLogin(inputUserLog.value, inputPwdLog.value); inputUserLog.value = ""; inputPwdLog.value = "";};
-
+logInBtn.onclick = (e) => { fetchLogin(inputUserLog.value, inputPwdLog.value); inputUserLog.value = ""; inputPwdLog.value = "";};
+logOutBtn.onclick = (e) => { }
 
 //-----------------------------------------------register/login-------------------
 const fetchRegister = function (user, email, pwd){
@@ -80,8 +81,20 @@ const fetchLogin = function (user, pwd){
                           body: JSON.stringify({user: user, password: pwd})
                           })
        
-       .then( res => { if(res.ok) return res.json() : alert("Invalid Credentials")})
+       .then( res => { if(res.ok) return res.json(); 
+                        alert("Invalid Credentials")})
        .then( data => {console.log(data);userTitle.innerText = `Current User: ${data.user}`})
+       .catch( err => console.log(err))
+  
+}
+
+
+const fetchLogOut = function (){
+  
+  fetch('/api/reglog/logout')
+       
+       .then( res =>  res.json())
+       .then( data => {console.log(data);userTitle.innerText = `Current User: NotLogged`})
        .catch( err => console.log(err))
   
 }
