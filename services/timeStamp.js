@@ -1,8 +1,10 @@
-module.exports = function (app){
+const express = require ('express');
+const router = express.Router();
+
   
   // Timestamp microservice 
-app.get("/api/timestamp/:date_string", (req, res, next) => {
-
+router.get("/", (req, res, next) => {
+                        console.log(req.params)
                         var date = req.params.date_string ? checkDate(req.params.date_string) : new Date();
                         if (typeof date === "string") return res.json({"error": date})
                         return res.json({
@@ -10,7 +12,7 @@ app.get("/api/timestamp/:date_string", (req, res, next) => {
                                           'utc': date.toUTCString()
                                 })
                 });
-}
+
 
 
 //validation of date
@@ -31,3 +33,5 @@ const checkDate = (input) => {
   }
   return date
 }
+
+module.exports = router;
