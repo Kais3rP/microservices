@@ -11,41 +11,34 @@ const User = require('./User')
 async function register(req, res, next){
   
   try {
-        
         const userDoc = await User.findOne({user: req.body.user}).exec()
-        
         if (userDoc) res.json({error: "Username Already Taken"})
         else { 
-        const emailDoc = await User.findOne({user: req.body.user}).exec()
-        let user = new User({user: req.body.user, password: req.body.password});
-         user.save()
-                    .then( ()=> res.json({ data: "Successfully Registered"}) )
-                    .catch( (err) => res.json ({ data : "Something went wrong"}))
-          
-        } 
+              const emailDoc = await User.findOne({user: req.body.user}).exec()
+              if (emailDoc) res.json({error: "Email Already registered"})
+              else{
+                   let user = new User({user: req.body.user, email: req.body.email, password: req.body.password});
+                   user.save()
+                              .then( ()=> res.json({ data: "Successfully Registered"}) )
+                              .catch( (err) => res.json ({ data : "Something went wrong"})) 
+              }
+          } 
   } catch {
           res.json({error: "Error, please retry"})
+          next()
         }
-  
   }
   
   
   async function login (req, res, next){ 
 
      try {
-       const userDoc = await User.findOne({user: req.body.user, password: req.body.password}).exec()
-       console.log(userDoc)
-       if (userDoc) res.json({user: userDoc.user})
-       else { res.json({error: "Wrong user or password"}) }
-       
-       
+           const userDoc = await User.findOne({user: req.body.user, password: req.body.password}).exec()
+           if (userDoc) res.json({user: userDoc.user})
+           else { res.json({error: "Wrong user or password"}) }
      } catch {
-       
-          res.json({error: "Error, please retry"})
+               res.json({error: "Error, please retry"})
      }
-
-
-
 }
 
 module.exports = router;
