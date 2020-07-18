@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json();
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcryptjs');
 
 const User = require('./User')
  
@@ -12,17 +14,17 @@ async function register(req, res, next){
   
   try {
         const userDoc = await User.findOne({user: req.body.user}).exec()
-        if (userDoc) res.json({error: "Username Already Taken"})
-        else { 
+        if (userDoc) return res.json({error: "Username Already Taken"})
+          
               const emailDoc = await User.findOne({user: req.body.user}).exec()
-              if (emailDoc) res.json({error: "Email Already registered"})
-              else{
+              if (emailDoc) return res.json({error: "Email Already registered"})
+              
                    let user = new User({user: req.body.user, email: req.body.email, password: req.body.password});
                    user.save()
                               .then( ()=> res.json({ data: "Successfully Registered"}) )
                               .catch( (err) => res.json ({ data : "Something went wrong"})) 
-              }
-          } 
+              
+          
   } catch {
           res.json({error: "Error, please retry"})
           next()
