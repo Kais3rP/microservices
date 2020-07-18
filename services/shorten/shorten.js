@@ -1,6 +1,7 @@
 const express = require ('express');
 const router = express.Router();
-const Url = require('./Url')
+const Url = require('./Url');
+const bodyParser = require('body-parser');
  
 const util = require('util'); //this is useful to promisify
 const dns = require('dns');  //needed to use dns.lookup
@@ -13,7 +14,7 @@ const lookupAsync = util.promisify(dns.lookup) //promisifies dns.lookup method
   
   //------Routes-------------------------------------
 
-    router.post("/", postCallback )
+    router.post("/", bodyParser.json(), postCallback )
     router.get('/:hash', getCallback )
   
 //-----------------------------------------------
