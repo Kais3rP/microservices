@@ -12,9 +12,7 @@ const User = require('./User')
 
 async function register(req, res, next){
   let hashedPwd = bcrypt.hashSync(req.body.password, 8); //crpyting pwd
-  console.log(bcrypt.hashSync("aranolop"))
-  console.log(bcrypt.hashSync("aranolop"))
-  console.log(bcrypt.hashSync("aranolop"))
+  
   try {
         const userDoc = await User.findOne({user: req.body.user}).exec()
         if (userDoc) return res.json({error: "Username Already Taken"})
@@ -44,11 +42,19 @@ async function register(req, res, next){
   async function login (req, res, next){ 
 
      try {
-           const userDoc = await User.findOne({user: req.body.user, email: /.*/, password: hashedPwd}).exec()
-           if (userDoc) res.json({user: userDoc.user})
-           else { res.json({error: "Wrong user or password"}) }
+           const userDoc = await User.findOne({user: req.body.user}).exec()
+           if (!userDoc) return res.status(404).send('No user found.'); 
+           let passwordIsValid = bcrypt.compareSync(req.body.password, userDoc.password)
+           if (!passwordIsValid) return res.status(401).send({ auth: false, token: null }); //password wrong
+           
+           //if user and password are correct I assign the token
+       
+         let token = jwt.sign({ id: userDoc._id }, process.env.SECRET, {expiresIn: 86400});//expires in 24h
+    
+    res.status(200).send({ auth: true, token: token });
+       
      } catch {
-               res.json({error: "Error, please retry"})
+               res.status(500).send('Error on the server.');
      }
 }
 
