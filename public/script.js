@@ -29,6 +29,7 @@ loadingContainer.appendChild(loading);
 
 
 //-----------------------------------------------------------------------------
+
 submitBtnS.addEventListener('click', ()=>{URL = inputS.value; fetchNewURL(URL) });
 inputS.addEventListener('keydown', (ev)=>{ if (ev.keyCode === 13) { URL = inputS.value; fetchNewURL(URL)} });
 submitBtnW.addEventListener('click', ()=>{fetchIP() });
