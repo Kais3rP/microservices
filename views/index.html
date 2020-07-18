@@ -18,7 +18,7 @@
     <script src="/script.js" defer></script>
   </head>
   <body>
-    <form action="/api/register" method="post">
+    <form action="/api/register" method="post" onsubmit="return false">
       <input type="text" name="user" placeholder="User" required/>
       <input type="password" name="password" placeholder="Password" required/>
       <button type="submit">Register</button>

@@ -9,7 +9,9 @@ module.exports = function submitUser (app, parser, mongoose){
 async function register(req, res, next){
   
   try {
-        const userDoc = await User.findOne({name: req.body.name}).exec()
+        console.log(req.body.user)
+        const userDoc = await UserModel.findOne({name: req.body.user}).exec()
+        console.log(userDoc)
         if (userDoc) res.json({error: "Username Already Taken"})
         else { 
         
@@ -17,9 +19,10 @@ async function register(req, res, next){
          user.save()
                     .then( ()=> res.json( data => "Successfully Registered"))
                     .catch( (err) => res.json ( data => "Something went wrong"))
-        
         } 
   } catch {
-          
+          res.json({error: "Error, please retry"})
         }
   
+  }
+}
