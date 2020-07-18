@@ -50,8 +50,8 @@ async function register(req, res, next){
            //if user and password are correct I assign the token
        
          let token = jwt.sign({ id: userDoc._id }, process.env.SECRET, {expiresIn: 86400});//expires in 24h
-    
-    res.status(200).send({ auth: true, token: token });
+    console.log(userDoc.user)
+    res.status(200).send({ auth: true, token: token, user: userDoc.user });
        
      } catch {
                res.status(500).send('Error on the server.');

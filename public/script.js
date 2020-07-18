@@ -62,7 +62,8 @@ const fetchRegister = function (user, email, pwd){
                           body: JSON.stringify({user: user, email: email, password: pwd})
                           })
        .then( res => res.json())
-       .then( data => { console.log(data);alert( data.error ? data.error : data.data )})
+       .then( data => { console.log(data);alert( data.data )})
+       .catch( err => alert(err))
   
   
 }
@@ -78,10 +79,10 @@ const fetchLogin = function (user, pwd){
                           referrerPolicy: 'no-referrer',
                           body: JSON.stringify({user: user, password: pwd})
                           })
-       .then( res => res.json())
-       .then( data => { if (data.error) alert(data.error)
-                        else  userTitle.innerText = `Current User: ${data.user}`})
-  
+       
+       .then( res => { if(res.ok) return res.json() : alert("Invalid Credentials")})
+       .then( data => {console.log(data);userTitle.innerText = `Current User: ${data.user}`})
+       .catch( err => console.log(err))
   
 }
 
