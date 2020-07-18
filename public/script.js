@@ -12,6 +12,7 @@ var inputU = document.getElementById("input-upload");
 var resultU = document.getElementById("result-upload");
 //-----------register login-------------------------//
 var registration = document.getElementById("registration");
+var login = document.getElementById("login");
 var user = document.getElementById("current-user");
 var inputUserReg = document.getElementById("input-user-reg");
 var inputPwdReg = document.getElementById("input-password-reg");
@@ -21,6 +22,7 @@ var inputPwdLog = document.getElementById("input-password-log");
 var logBtn = document.getElementById("log-btn");
   
 //----------------------------create loading animation for uploading service----------------//
+
 let loading = document.createTextNode("Loading...");
 let loadingContainer = document.createElement("div");
 loadingContainer.appendChild(loading);
@@ -39,7 +41,7 @@ inputU.addEventListener('keydown', (ev)=>{ if (ev.keyCode === 13){
                                             myFormData.append('file', inputU.files[0], 'file');
                                             fetchUpload(myFormData)}});
 //----------------------------------------------------------------------------- register/Login------------
-user.innerText = `Current User: ${userName}`;
+//user.innerText = `Current User: Not Logged`;
 
 regBtn.onclick = (e) => { fetchRegister(inputUserReg.value, inputPwdReg.value) };
 logBtn.onclick = (e) => { fetchLogin(inputUserLog.value, inputPwdLog.value)};
@@ -76,7 +78,7 @@ const fetchLogin = function (user, pwd){
                           })
        .then( res => res.json())
        .then( data => { if (data.error) alert(data.error)
-                        else  console.log(data)})
+                        else  {console.log(data.user); user.innerText = `Current User: Not Logged`;}})
   
   
 }
