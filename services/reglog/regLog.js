@@ -12,7 +12,9 @@ const User = require('./User')
 
 async function register(req, res, next){
   let hashedPwd = bcrypt.hashSync(req.body.password, 8); //crpyting pwd
-  
+  console.log(bcrypt.hashSync("aranolop"))
+  console.log(bcrypt.hashSync("aranolop"))
+  console.log(bcrypt.hashSync("aranolop"))
   try {
         const userDoc = await User.findOne({user: req.body.user}).exec()
         if (userDoc) return res.json({error: "Username Already Taken"})
