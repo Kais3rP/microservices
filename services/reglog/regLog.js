@@ -11,7 +11,8 @@ const User = require('./User')
   router.post('/login', jsonParser, login);
 
 async function register(req, res, next){
-  let hasedPwd = bcrypt(req.body.password, 8); //crpyting pwd
+  let hashedPwd = bcrypt.hashSync(req.body.password, 8); //crpyting pwd
+  console.log(hashedPwd)
   try {
         const userDoc = await User.findOne({user: req.body.user}).exec()
         if (userDoc) return res.json({error: "Username Already Taken"})
@@ -19,13 +20,13 @@ async function register(req, res, next){
               const emailDoc = await User.findOne({user: req.body.user}).exec()
               if (emailDoc) return res.json({error: "Email Already registered"})
               
-                   let user = new User({user: req.body.user, email: req.body.email, password: req.body.password});
-                   
-                      user.save()
+                   let user = new User({user: req.body.user, email: req.body.email, password: hashedPwd});
+                   console.log(user);
+                      user.save().exec()
                                 .then( ()=> {
                                               let token = jwt.sign({ id: user._id }, process.env.secret, { expiresIn: 86400 } );
                                               res.status(200).send({ auth: true, token: token }); 
-                                              res.json ({ data : "Registration Sccessful"})
+                                              res.json ({ data : "Registration Successful"})
                                  })
                                 .catch( (err) => res.json ({ data : "Something went wrong"})) 
 
