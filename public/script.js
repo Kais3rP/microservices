@@ -42,7 +42,7 @@ inputU.addEventListener('keydown', (ev)=>{ if (ev.keyCode === 13){
                                             myFormData.append('file', inputU.files[0], 'file');
                                             fetchUpload(myFormData)}});
 //----------------------------------------------------------------------------- register/Login------------
-//user.innerText = `Current User: Not Logged`;
+user.innerText = `Current User: Not Logged`;
 
 regBtn.onclick = (e) => { fetchRegister(inputUserReg.value, inputPwdReg.value) };
 logBtn.onclick = (e) => { fetchLogin(inputUserLog.value, inputPwdLog.value)};
@@ -78,8 +78,8 @@ const fetchLogin = function (user, pwd){
                           body: JSON.stringify({user: user, password: pwd})
                           })
        .then( res => res.json())
-       .then( data => { if (data.error) alert(data.error)
-                        else  {console.log(data.user); user.innerText = `Current User: Not Logged`;}})
+       .then( data => { if (data.error) {alert(data.error); console.log(user);user.innerText = "hello"}
+                        else  {console.log(data.user); user.innerText = "hello";}})
   
   
 }
