@@ -21,14 +21,14 @@ async function register(req, res, next){
               
                    let user = new User({user: req.body.user, email: req.body.email, password: req.body.password});
                    
-                     let token = jwt.sign({ id: user._id }, process.env.secret, {
-                      expiresIn: 86400 // expires in 24 hours
-                                                    });
-    res.status(200).send({ auth: true, token: token });
-                    user.save()
-                              .then( ()=> res.json({ data: "Successfully Registered"}) )
-                              .catch( (err) => res.json ({ data : "Something went wrong"})) 
-              
+                      user.save()
+                                .then( ()=> {
+                                              let token = jwt.sign({ id: user._id }, process.env.secret, { expiresIn: 86400 } );
+                                              res.status(200).send({ auth: true, token: token }); 
+                                              res.json ({ data : "Registration Sccessful"})
+                                 })
+                                .catch( (err) => res.json ({ data : "Something went wrong"})) 
+
           
   } catch {
           res.json({error: "Error, please retry"})
