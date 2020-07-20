@@ -70,11 +70,13 @@ a:hover{
   cursor: pointer;
 }
 #registration {
+  padding:50px;
   display:none;
    position:absolute;
-  top:50vh;
-  left:50vw;
+  top:40vh;
+  left:40vw;
   z-index:1;
+  background:lavender;
 }
 .credentials{
   border: 1px solid black;

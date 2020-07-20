@@ -61,10 +61,20 @@ inputU.addEventListener('keydown', (ev)=>{ if (ev.keyCode === 13){
 //----------------------------------------------------------------------------- register/Login------------
 userTitle.innerText = `Current User: ${myStorage.getItem("user")}`;
 
-regBtn.onclick = (e) => { fetchRegister(inputUserReg.value, inputEmailReg.value, inputPwdReg.value); inputUserReg.value = ""; inputEmailReg.value =""; inputPwdReg.value = "";};
-logInBtn.onclick = (e) => { fetchLogin(inputUserLog.value, inputPwdLog.value); inputUserLog.value = ""; inputPwdLog.value = "";};
+regBtn.onclick = (e) => { if(!inputUserReg.value || !inputEmailReg.value || !inputPwdReg.value) alert("Please fill all the fields"); 
+                          else fetchRegister(inputUserReg.value, inputEmailReg.value, inputPwdReg.value); 
+                          inputUserReg.value = ""; 
+                          inputEmailReg.value =""; 
+                          inputPwdReg.value = "";
+                        };
+logInBtn.onclick = (e) => { if(!inputUserLog.value || !inputPwdLog.value ) alert("Please fill all the fields");
+                            fetchLogin(inputUserLog.value, inputPwdLog.value); 
+                            inputUserLog.value = ""; 
+                            inputPwdLog.value = "";
+                          };
 logOutBtn.onclick = (e) => { fetchLogOut() }
-register.onclick = (e) => { registration.style.display = "default";}
+register.onclick = (e) => { registration.style.display = "block";} //shows the registration modal
+
 //-----------------------------------------------register/login-------------------
 const fetchRegister = function (user, email, pwd){
   
@@ -78,7 +88,7 @@ const fetchRegister = function (user, email, pwd){
                           body: JSON.stringify({user: user, email: email, password: pwd})
                           })
        .then( res => res.json())
-       .then( data => { console.log(data);alert( data.data )})
+       .then( data => { console.log(data);alert( data.data ); registration.style.display = "none"})
        .catch( err => alert(err))
   
   
