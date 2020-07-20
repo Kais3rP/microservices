@@ -41,7 +41,7 @@ submitBtnW.addEventListener('click', ()=>{fetchIP() });
 submitBtnU.addEventListener('click', () =>{ if (myStorage.getItem("user")!== "Not Logged") {
                                             myFormData = new FormData();    //create a file like the resulting of a form-data submitting
                                             myFormData.append('file', inputU.files[0], 'file'); //give it a name so it can be read by multer
-                                            fetchUpload(myFormData)}
+                                            fetchUpload(myFormData)} else alert("Log In to access this service")
                                           })
 inputU.addEventListener('keydown', (ev)=>{ if (ev.keyCode === 13){
                                             myFormData = new FormData();    
@@ -98,7 +98,7 @@ const fetchLogOut = function (){
   fetch('/api/reglog/logout')
        
        .then( res =>  res.json())
-       .then( data => { alert(data.data); myStorage.setItem("user", "Not Logged") })
+       .then( data => { alert(data.data); myStorage.setItem("user", "Not Logged"); userTitle.innerText = `Current User: ${myStorage.getItem("user")}` })
        .catch( err => console.log(err))
   
 }
