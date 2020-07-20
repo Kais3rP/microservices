@@ -5,15 +5,19 @@ const jwt = require('jsonwebtoken');
   
   //WhoamiI microservice
 router.get("/", (req, res, next) => {
-  let decodeToken = jwt.verify(/(?<=auth_key).*/req.headers.cookie.)
-  else {
+  console.log(req.headers.cookie)
+  if (!req.headers.cookie) return res.status(401).send({ error: "Log In or Register, to access the service"});
+  let decodeToken = jwt.verify((/(?<=auth_key=).*/.exec(req.headers.cookie))[0], process.env.SECRET)
+  console.log(decodeToken);
+  if (!decodeToken) return res.status(401).send({ error: "Log In or Register, to access the service"});
+  
   let headers = req.headers;
   res.json({
             "ipaddress": ipFormat(headers["x-forwarded-for"]),
             "language": headers["accept-language"] ,
             "software": headers["user-agent"]
     })
-  }
+  
 })
 
 //convert ip network info to readable IP address
