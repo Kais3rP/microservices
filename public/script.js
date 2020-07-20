@@ -1,6 +1,8 @@
 var myStorage = window.localStorage;
 var URL ="";
 var myFormData;
+var loading;
+var loadingContainer;
 var submitBtnS = document.getElementById("submit-shorten");
 var inputS = document.getElementById("input-shorten");
 var resultS = document.getElementById("result-shorten");
@@ -10,7 +12,10 @@ var resultW = document.getElementById("result-whoami");
 var submitBtnU = document.getElementById("submit-upload");
 var inputU = document.getElementById("input-upload");
 var resultU = document.getElementById("result-upload");
+
 //-----------register login-------------------------//
+
+var register = document.getElementById("register");
 var registration = document.getElementById("registration");
 var login = document.getElementById("login");
 var userTitle = document.getElementById("current-user");
@@ -23,17 +28,23 @@ var inputPwdLog = document.getElementById("input-password-log");
 var logInBtn = document.getElementById("logIn-btn");
 var logOutBtn = document.getElementById("logOut-btn");
 
+//---------------------------------------------------------------------------------------------//
+
 //----------------------------create loading animation for uploading service----------------//
 
-let loading = document.createTextNode("Loading...");
-let loadingContainer = document.createElement("div");
+function renderLoading(){
+loading = document.createTextNode("Loading...");
+loadingContainer = document.createElement("div");
 loadingContainer.appendChild(loading);
+}  
+
+
 
 
 //-----------------------------------------------------------------------------
 myStorage.setItem("user","Not Logged");
 userTitle.innerText = `Current User: ${myStorage.getItem("user")}`
-//-----------------------------------------------------------------------------
+//--------------------------------Event Listeners---------------------------------------------
 submitBtnS.addEventListener('click', ()=>{URL = inputS.value; fetchNewURL(URL) });
 inputS.addEventListener('keydown', (ev)=>{ if (ev.keyCode === 13) { URL = inputS.value; fetchNewURL(URL)} });
 submitBtnW.addEventListener('click', ()=>{fetchIP() });
@@ -53,7 +64,7 @@ userTitle.innerText = `Current User: ${myStorage.getItem("user")}`;
 regBtn.onclick = (e) => { fetchRegister(inputUserReg.value, inputEmailReg.value, inputPwdReg.value); inputUserReg.value = ""; inputEmailReg.value =""; inputPwdReg.value = "";};
 logInBtn.onclick = (e) => { fetchLogin(inputUserLog.value, inputPwdLog.value); inputUserLog.value = ""; inputPwdLog.value = "";};
 logOutBtn.onclick = (e) => { fetchLogOut() }
-
+register.onclick = (e) => { registration.style.display = "default";}
 //-----------------------------------------------register/login-------------------
 const fetchRegister = function (user, email, pwd){
   
@@ -133,6 +144,7 @@ const fetchIP = function (){
 }
 
 const fetchUpload = function(data){
+  renderLoading();
   resultU.innerText = "";
   loadingContainer.classList.add("loading");
   resultU.appendChild(loadingContainer);

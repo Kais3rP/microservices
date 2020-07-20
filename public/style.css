@@ -65,8 +65,16 @@ a:hover{
   
 }
 
+#register {
+  
+  cursor: pointer;
+}
 #registration {
   display:none;
+   position:absolute;
+  top:50vh;
+  left:50vw;
+  z-index:1;
 }
 .credentials{
   border: 1px solid black;
@@ -74,10 +82,7 @@ a:hover{
   margin-bottom:10px;
   border-radius:10px;
   box-shadow: 1px 1px 5px 1px grey;
-  position:absolute;
-  top:50vh;
-  left:50vw;
-  z-index:1;
+ 
   
 }
 .microservice {
