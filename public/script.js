@@ -1,4 +1,4 @@
-var userName = "Not Logged In";
+var userName = window.;
 var URL ="";
 var myFormData;
 var submitBtnS = document.getElementById("submit-shorten");
@@ -83,7 +83,7 @@ const fetchLogin = function (user, pwd){
        
        .then( res => { if(res.ok) return res.json(); 
                         alert("Invalid Credentials")})
-       .then( data => {console.log(data);userTitle.innerText = `Current User: ${data.user}`})
+       .then( data => {console.log(data); data.error ? null : window.localStorage.user = data.user}`})
        .catch( err => console.log(err))
   
 }

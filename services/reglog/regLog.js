@@ -55,7 +55,7 @@ async function register(req, res, next){
            //if user and password are correct I assign the token
        
         let token = jwt.sign({ id: userDoc._id }, process.env.SECRET, { expiresIn: 86400 } );
-        res.status(200).cookie("auth_token", token,{ expires: new Date(Date.now() + 8 * 3600000) }).send({user: userDoc.user}); //I send the cookie with the token to the client
+        res.status(200).cookie("auth_token", token,{ expires: new Date(Date.now() + 8 * 3600000), httpOnly: true, secure: true, domain: "https://kais3r-ms.glitch.me/" }).send({user: userDoc.user}); //I send the cookie with the token to the client
        
      } catch {
                res.status(500).send('Error on the server.');
