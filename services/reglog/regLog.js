@@ -43,19 +43,19 @@ async function register(req, res, next){
   
   
   async function login (req, res, next){ 
-    console.log(req)
+    console.log(req.headers.cookie)
     if ( /auth_token/.test(req.headers.cookie) ) res.send({error: "Already Logged"}); 
     else
      try {
            
-           const userDoc = await User.findOne({user: req.body.user}).exec()
+           const userDoc = await User.findOne({user: req.body.user}).exec(); 
            if (!userDoc) return res.status(404).send({error: 'No user found.'}); 
            let passwordIsValid = bcrypt.compareSync(req.body.password, userDoc.password);
            if (!passwordIsValid) return res.status(401).send({ error: 'Wrong Password' }); //password wrong
            
            //if user and password are correct I assign the token
        
-        let token = jwt.sign({ id: userDoc._id }, process.env.SECRET, { expiresIn: 86400 } );
+        let token = jwt.sign({ id: userDoc._id }, process.env.SECRET, { expiresIn: 86400 } ); console.log(token)
         res.status(200).cookie("auth_token", token,{ expires: new Date(Date.now() + 8 * 3600000) }).send({user: userDoc.user}); //I send the cookie with the token to the client
        
      } catch {

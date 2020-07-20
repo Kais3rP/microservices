@@ -45,6 +45,7 @@ loadingContainer.appendChild(loading);
 myStorage.setItem("user","Not Logged");
 userTitle.innerText = `Current User: ${myStorage.getItem("user")}`
 //--------------------------------Event Listeners---------------------------------------------
+
 submitBtnS.addEventListener('click', ()=>{URL = inputS.value; fetchNewURL(URL) });
 inputS.addEventListener('keydown', (ev)=>{ if (ev.keyCode === 13) { URL = inputS.value; fetchNewURL(URL)} });
 submitBtnW.addEventListener('click', ()=>{fetchIP() });
@@ -88,14 +89,14 @@ const fetchRegister = function (user, email, pwd){
                           body: JSON.stringify({user: user, email: email, password: pwd})
                           })
        .then( res => res.ok ? res.json() : alert("Something's gone wrong"))
-       .then( data => { console.log(data); alert( data.data ); registration.style.display = "none"})
+       .then( data => { alert( data.data ); registration.style.display = "none"})
        .catch( err => alert(err))
   
   
 }
 
 const fetchLogin = function (user, pwd){
-  
+  console.log("hello");
   fetch('/api/reglog/login', {
                           method: 'POST',
                           cache: 'no-cache', 
@@ -106,9 +107,9 @@ const fetchLogin = function (user, pwd){
                           body: JSON.stringify({user: user, password: pwd})
                           })
        
-       .then( res => { if(res.ok) return res.json(); 
+       .then( res => {  if(res.ok) return res.json(); 
                         alert("Invalid Credentials")})
-       .then( data => { if (!data.error) {console.log(data);myStorage.setItem("user", data.user); userTitle.innerText = `Current User: ${myStorage.getItem("user")}`;}})
+       .then( data => { if (!data.error) {myStorage.setItem("user", data.user); userTitle.innerText = `Current User: ${myStorage.getItem("user")}`;}})
        .catch( err => console.log(err))
   
 }
