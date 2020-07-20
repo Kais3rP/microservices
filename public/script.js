@@ -125,7 +125,8 @@ const fetchNewURL = function (url){
 const fetchIP = function (){
   
   fetch('/api/whoami').then( res => res.json())
-                      .then( data => { resultW.innerText = `Your IP is: ${data.ipaddress} - Your language is: ${data.language.split(",")[0]}`} )
+                      .then( data => { if (!data.error) resultW.innerText = `Your IP is: ${data.ipaddress} - Your language is: ${data.language.split(",")[0]}`;
+                                        else alert(data.error)} )
   
 }
 

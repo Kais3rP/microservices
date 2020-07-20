@@ -60,6 +60,10 @@ a{
 a:hover{
   color:black;
 }
+.flex-row{
+  display:flex;
+  
+}
 
 .credentials{
   border: 1px solid black;
