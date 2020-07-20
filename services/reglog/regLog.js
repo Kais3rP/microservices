@@ -53,7 +53,7 @@ async function register(req, res, next){
            if (!passwordIsValid) return res.status(401).send({ error: 'Wrong Password' }); //password wrong
            
            //if user and password are correct I assign the token
-       console.log(req.headers.cookie)
+       
         let token = jwt.sign({ id: userDoc._id }, process.env.SECRET, { expiresIn: 86400 } );
         res.status(200).cookie("auth_token", token,{ expires: new Date(Date.now() + 8 * 3600000) }).send({user: userDoc.user}); //I send the cookie with the token to the client
        

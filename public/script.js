@@ -1,4 +1,4 @@
-var userName = window.localStorage.user;
+var myStorage = window.localStorage;
 var URL ="";
 var myFormData;
 var submitBtnS = document.getElementById("submit-shorten");
@@ -22,7 +22,7 @@ var inputUserLog = document.getElementById("input-user-log");
 var inputPwdLog = document.getElementById("input-password-log");
 var logInBtn = document.getElementById("logIn-btn");
 var logOutBtn = document.getElementById("logOut-btn");
-  console.log(window);
+
 //----------------------------create loading animation for uploading service----------------//
 
 let loading = document.createTextNode("Loading...");
@@ -44,7 +44,7 @@ inputU.addEventListener('keydown', (ev)=>{ if (ev.keyCode === 13){
                                             myFormData.append('file', inputU.files[0], 'file');
                                             fetchUpload(myFormData)}});
 //----------------------------------------------------------------------------- register/Login------------
-userTitle.innerText = `Current User: ${userName}`;
+userTitle.innerText = `Current User: ${myStorage.getItem("user")}`;
 
 regBtn.onclick = (e) => { fetchRegister(inputUserReg.value, inputEmailReg.value, inputPwdReg.value); inputUserReg.value = ""; inputEmailReg.value =""; inputPwdReg.value = "";};
 logInBtn.onclick = (e) => { fetchLogin(inputUserLog.value, inputPwdLog.value); inputUserLog.value = ""; inputPwdLog.value = "";};
@@ -83,7 +83,7 @@ const fetchLogin = function (user, pwd){
        
        .then( res => { if(res.ok) return res.json(); 
                         alert("Invalid Credentials")})
-       .then( data => {console.log(data); data.error ? null : userName = data.user})
+       .then( data => {console.log(data); data.error ? null : myStorage.setItem("user", data.user)})
        .catch( err => console.log(err))
   
 }
