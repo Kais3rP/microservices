@@ -98,7 +98,7 @@ const fetchRegister = function (user, email, pwd){
 }
 
 const fetchLogin = function (user, pwd){
-  console.log("hello");
+ 
   fetch('/api/reglog/login', {
                           method: 'POST',
                           cache: 'no-cache', 
