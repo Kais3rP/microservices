@@ -7,7 +7,7 @@ const jwt = require('jsonwebtoken');
 router.get("/", (req, res, next) => {
   console.log(req.headers.cookie)
   if (!req.headers.cookie) return res.status(401).send({ error: "Log In or Register, to access the service"});
-  let decodeToken = jwt.verify((/(?<=auth_key=).*/.exec(req.headers.cookie))[0], process.env.SECRET)
+  let decodeToken = jwt.verify(/(?<=auth_key=).*/.exec(req.headers.cookie)[0], process.env.SECRET)
   console.log(decodeToken);
   if (!decodeToken) return res.status(401).send({ error: "Log In or Register, to access the service"});
   
