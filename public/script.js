@@ -17,6 +17,7 @@ var resultU = document.getElementById("result-upload");
 
 var register = document.getElementById("register");
 var registration = document.getElementById("registration");
+var closeReg = document.getElementById("close");
 var login = document.getElementById("login");
 var userTitle = document.getElementById("current-user");
 var inputUserReg = document.getElementById("input-user-reg");
@@ -77,7 +78,7 @@ logInBtn.onclick = (e) => { if(!inputUserLog.value || !inputPwdLog.value ) alert
                           };
 logOutBtn.onclick = (e) => { fetchLogOut() }
 register.onclick = (e) => { registration.style.display = "block";} //shows the registration modal
-
+closeReg.onclick = (e) => registration.style.display = "none";
 //-----------------------------------------------register/login-------------------
 const fetchRegister = function (user, email, pwd){
   

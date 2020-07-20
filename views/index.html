@@ -18,18 +18,19 @@
     <script src="/script.js" defer></script>
   </head>
   <body>
-    <div class="flex-row">
+    
       
     
-    <div id="registration" class="credentials">
-      
-      <div>Register:</div>
+    <div id="registration" >
+      <div class="flex-row">
+        <div >Register:</div><div id="close">X</div>
+      </div>
       <input id="input-user-reg" type="text" placeholder="User" required/>
       <input id="input-email-reg" type="text" placeholder="Email" required/>
       <input id="input-password-reg" type="password" placeholder="Password" required/>
       <button id="register-btn">Register</button>
     </div>
-      <div>
+      <div id="top-bar">
         <div id="login" class="credentials">
           <div id="current-user"></div>
             <input id="input-user-log" type="text" value="" placeholder="Username"  />
@@ -39,8 +40,8 @@
           <div id="register" style="display: block">Register</div>
         </div>
       </div>
-      </div>
-    <div class="microservice">
+      
+    <div class="microservice margin-top">
       <div id="shortenTitle" class="title">
       Shorten your URL:
         <div class="modal">You can use this Micro Service to minify an URL </div>
