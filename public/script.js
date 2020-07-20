@@ -1,4 +1,4 @@
-var userName = window.;
+var userName = window.localStorage.user;
 var URL ="";
 var myFormData;
 var submitBtnS = document.getElementById("submit-shorten");
@@ -44,7 +44,7 @@ inputU.addEventListener('keydown', (ev)=>{ if (ev.keyCode === 13){
                                             myFormData.append('file', inputU.files[0], 'file');
                                             fetchUpload(myFormData)}});
 //----------------------------------------------------------------------------- register/Login------------
-userTitle.innerText = `Current User: Not Logged`;
+userTitle.innerText = `Current User: ${userName}`;
 
 regBtn.onclick = (e) => { fetchRegister(inputUserReg.value, inputEmailReg.value, inputPwdReg.value); inputUserReg.value = ""; inputEmailReg.value =""; inputPwdReg.value = "";};
 logInBtn.onclick = (e) => { fetchLogin(inputUserLog.value, inputPwdLog.value); inputUserLog.value = ""; inputPwdLog.value = "";};
@@ -83,7 +83,7 @@ const fetchLogin = function (user, pwd){
        
        .then( res => { if(res.ok) return res.json(); 
                         alert("Invalid Credentials")})
-       .then( data => {console.log(data); data.error ? null : window.localStorage.user = data.user}`})
+       .then( data => {console.log(data); data.error ? null : userName = data.user})
        .catch( err => console.log(err))
   
 }
