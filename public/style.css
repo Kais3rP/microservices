@@ -60,6 +60,15 @@ a{
 a:hover{
   color:black;
 }
+
+.credentials{
+  border: 1px solid black;
+  padding:20px;
+  margin-bottom:10px;
+  border-radius:10px;
+  box-shadow: 1px 1px 5px 1px grey;
+  
+}
 .microservice {
   
   border: 1px solid black;
