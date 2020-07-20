@@ -27,7 +27,7 @@ async function register(req, res, next){
                    let user = new User({user: req.body.user, email: req.body.email, password: hashedPwd});
                    
                      const userDb = await user.save()
-                             console.log(userDb)  
+                              
                       res.status(200).send({data: "Successfully Registered"})
                         
                                               
