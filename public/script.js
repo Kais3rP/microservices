@@ -38,9 +38,11 @@ submitBtnS.addEventListener('click', ()=>{URL = inputS.value; fetchNewURL(URL) }
 inputS.addEventListener('keydown', (ev)=>{ if (ev.keyCode === 13) { URL = inputS.value; fetchNewURL(URL)} });
 submitBtnW.addEventListener('click', ()=>{fetchIP() });
 
-submitBtnU.addEventListener('click', () =>{ myFormData = new FormData();    //create a file like the resulting of a form-data submitting
+submitBtnU.addEventListener('click', () =>{ if (myStorage.getItem("user")!=="") {
+                                            myFormData = new FormData();    //create a file like the resulting of a form-data submitting
                                             myFormData.append('file', inputU.files[0], 'file'); //give it a name so it can be read by multer
-                                            fetchUpload(myFormData)} )
+                                            fetchUpload(myFormData)}
+                                          })
 inputU.addEventListener('keydown', (ev)=>{ if (ev.keyCode === 13){
                                             myFormData = new FormData();    
                                             myFormData.append('file', inputU.files[0], 'file');
@@ -140,5 +142,5 @@ const fetchUpload = function(data){
                         referrerPolicy: 'no-referrer',
                         body: data }
        ).then( res => res.json())
-        .then( data => { resultU.removeChild(loadingContainer);resultU.innerText = `Size: ${data.size/1000} KB`  })
+        .then( data => { if (!data.error) resultU.removeChild(loadingContainer);resultU.innerText = `Size: ${data.size/1000} KB`  })
 }
