@@ -26,9 +26,9 @@ const lookupAsync = util.promisify(dns.lookup) //promisifies dns.lookup method
 
 async function postCallback ( req, res, next){
       if (!req.headers.cookie) return res.status(401).send({ error: "Log In or Register, to access the service"});
-      let decodeToken = jwt.verify(/(?<=auth_token=).*/.exec(req.headers.cookie)[0], process.env.SECRET);
+      let decodedToken = jwt.verify(/(?<=auth_token=).*/.exec(req.headers.cookie)[0], process.env.SECRET);
      
-      if (!decodeToken) return res.status(401).send({ error: "Log In or Register, to access the service"});
+      if (!decodedToken) return res.status(401).send({ error: "Log In or Register, to access the service"});
       
       var urlStandard = req.body.url;
       let hash = hashCode(urlStandard);
