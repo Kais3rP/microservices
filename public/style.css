@@ -60,16 +60,23 @@ a{
 a:hover{
   color:black;
 }
-.flex-row{
+.flex-row-space{
   display:flex;
   justify-content: space-between;
   align-items: center;
   
 }
-
 .flex-row{
   display:flex;
-  justify-content: space-between;
+  justify-content: flex-start;
+  align-items: center;
+  
+}
+
+.flex-col{
+  display:flex;
+  flex-direction: column;
+  justify-content: center
   align-items: center;
   
 }
@@ -85,7 +92,7 @@ a:hover{
 }
 
 .margin-top{
-  margin-top: 300px;
+  margin-top: 150px;
 }
 
 .credentials{
@@ -96,18 +103,22 @@ a:hover{
 }
 
 .form-container{
-  width:50%;
+  width:30%;
 }
 .form-container > input {
   width: 40%;
 }
+
+#info-top-container{
+  width:50%;
+}
 #current-user {
  
-  width:40%;
+  
   
 }
 #register {
-  width:20%;
+  
   cursor: pointer;
   background:grey;
   color:white;
@@ -145,7 +156,8 @@ a:hover{
 
 
 .microservice {
-  
+  margin-left:20px;
+  width:50%;
   border: 1px solid black;
   padding:20px;
   margin-bottom:10px;
