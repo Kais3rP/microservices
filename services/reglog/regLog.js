@@ -28,9 +28,8 @@ async function register(req, res, next){
                    
                      const userDb = await user.save()
                              console.log(userDb)  
-    
-                        let token = jwt.sign({ id: user._id }, process.env.SECRET, { expiresIn: 86400 } );
-                        res.status(200).send({ data: "Registration Success", auth: true, token: token })
+                      
+                        
                                               
                                  
                                 
@@ -47,15 +46,14 @@ async function register(req, res, next){
 
      try {
            const userDoc = await User.findOne({user: req.body.user}).exec()
-           if (!userDoc) return res.status(404).send('No user found.'); 
+           if (!userDoc) return res.status(404).send({error: 'No user found.'}); 
            let passwordIsValid = bcrypt.compareSync(req.body.password, userDoc.password)
-           if (!passwordIsValid) return res.status(401).send({ auth: false, token: null }); //password wrong
+           if (!passwordIsValid) return res.status(401).send({ error: 'Wrong Password' }); //password wrong
            
            //if user and password are correct I assign the token
        
-         let token = jwt.sign({ id: userDoc._id }, process.env.SECRET, {expiresIn: 86400});//expires in 24h
-    console.log(userDoc.user)
-    res.status(200).send({ auth: true, token: token, user: userDoc.user });
+        let token = jwt.sign({ id: userDoc._id }, process.env.SECRET, { expiresIn: 86400 } );
+        res.status(200).cookie("auth_token", token,{ expires: new Date(Date.now() + 8 * 3600000) }); //I send the cookie with the token to the client
        
      } catch {
                res.status(500).send('Error on the server.');
