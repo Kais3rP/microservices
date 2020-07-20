@@ -43,8 +43,10 @@ async function register(req, res, next){
   
   
   async function login (req, res, next){ 
-
+    if ( /auth_token/.test(req.headers.cookie) ) res.send({error: "Already Logged"}); 
+    else
      try {
+           
            const userDoc = await User.findOne({user: req.body.user}).exec()
            if (!userDoc) return res.status(404).send({error: 'No user found.'}); 
            let passwordIsValid = bcrypt.compareSync(req.body.password, userDoc.password)
