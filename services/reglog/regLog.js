@@ -15,7 +15,7 @@ const User = require('./User')
             );
 
 async function register(req, res, next){
-  let hashedPwd = bcrypt.hashSync(req.body.password, 8); //crpyting pwd
+  
   
   try {
         const userDoc = await User.findOne({user: req.body.user}).exec()
@@ -23,7 +23,7 @@ async function register(req, res, next){
           
               const emailDoc = await User.findOne({user: req.body.user}).exec()
               if (emailDoc) return res.json({error: "Email Already registered"})
-              
+                   let hashedPwd = bcrypt.hashSync(req.body.password, 8); //crpyting pwd
                    let user = new User({user: req.body.user, email: req.body.email, password: hashedPwd});
                    
                      const userDb = await user.save()
