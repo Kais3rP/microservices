@@ -43,7 +43,7 @@ async function register(req, res, next){
   
   
   async function login (req, res, next){ 
-    console.log(req.headers.cookie)
+    
     if ( /auth_token/.test(req.headers.cookie) ) res.send({error: "Already Logged"}); 
     else
      try {

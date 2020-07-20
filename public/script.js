@@ -42,8 +42,8 @@ loadingContainer.appendChild(loading);
 
 
 //-----------------------------------------------------------------------------
-myStorage.setItem("user","Not Logged");
-userTitle.innerText = `Current User: ${myStorage.getItem("user")}`
+
+userTitle.innerText = `Current User: Not Logged}`
 //--------------------------------Event Listeners---------------------------------------------
 
 submitBtnS.addEventListener('click', ()=>{URL = inputS.value; fetchNewURL(URL) });
@@ -59,7 +59,9 @@ inputU.addEventListener('keydown', (ev)=>{ if (ev.keyCode === 13){
                                             myFormData = new FormData();    
                                             myFormData.append('file', inputU.files[0], 'file');
                                             fetchUpload(myFormData)}});
+
 //----------------------------------------------------------------------------- register/Login------------
+
 userTitle.innerText = `Current User: ${myStorage.getItem("user")}`;
 
 regBtn.onclick = (e) => { if(!inputUserReg.value || !inputEmailReg.value || !inputPwdReg.value) alert("Please fill all the fields"); 
@@ -69,7 +71,7 @@ regBtn.onclick = (e) => { if(!inputUserReg.value || !inputEmailReg.value || !inp
                           inputPwdReg.value = "";
                         };
 logInBtn.onclick = (e) => { if(!inputUserLog.value || !inputPwdLog.value ) alert("Please fill all the fields");
-                            fetchLogin(inputUserLog.value, inputPwdLog.value); 
+                            else fetchLogin(inputUserLog.value, inputPwdLog.value); 
                             inputUserLog.value = ""; 
                             inputPwdLog.value = "";
                           };
@@ -109,7 +111,8 @@ const fetchLogin = function (user, pwd){
        
        .then( res => {  if(res.ok) return res.json(); 
                         alert("Invalid Credentials")})
-       .then( data => { if (!data.error) {myStorage.setItem("user", data.user); userTitle.innerText = `Current User: ${myStorage.getItem("user")}`;}})
+       .then( data => { if (data.error) alert(data.error);
+                       else {myStorage.setItem("user", data.user); userTitle.innerText = `Current User: ${myStorage.getItem("user")}`;}})
        .catch( err => console.log(err))
   
 }
