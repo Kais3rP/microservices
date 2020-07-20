@@ -48,7 +48,7 @@ userTitle.innerText = `Current User: ${userName}`;
 
 regBtn.onclick = (e) => { fetchRegister(inputUserReg.value, inputEmailReg.value, inputPwdReg.value); inputUserReg.value = ""; inputEmailReg.value =""; inputPwdReg.value = "";};
 logInBtn.onclick = (e) => { fetchLogin(inputUserLog.value, inputPwdLog.value); inputUserLog.value = ""; inputPwdLog.value = "";};
-logOutBtn.onclick = (e) => { }
+logOutBtn.onclick = (e) => { fetchLogOut() }
 
 //-----------------------------------------------register/login-------------------
 const fetchRegister = function (user, email, pwd){
@@ -94,7 +94,7 @@ const fetchLogOut = function (){
   fetch('/api/reglog/logout')
        
        .then( res =>  res.json())
-       .then( data => {console.log(data);userTitle.innerText = `Current User: NotLogged`})
+       .then( data => { alert(data.data)})
        .catch( err => console.log(err))
   
 }

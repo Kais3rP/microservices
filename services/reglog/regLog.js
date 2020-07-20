@@ -9,8 +9,8 @@ const User = require('./User')
  
   router.post('/register', jsonParser, register);
   router.post('/login', jsonParser, login);
-  router.get('/logout', function(req, res) { console.log()
-                                            res.status(200).clearCookie("auth_token", {path: /}).send({ auth: false, token: null, data: "Logged Out" });
+  router.get('/logout', function(req, res) { 
+                                            res.status(200).clearCookie("auth_token", {path: "/"}).send({ data: "Logged Out" });
                         }
             );
 
@@ -53,9 +53,9 @@ async function register(req, res, next){
            if (!passwordIsValid) return res.status(401).send({ error: 'Wrong Password' }); //password wrong
            
            //if user and password are correct I assign the token
-       
+       console.log(req.headers.cookie)
         let token = jwt.sign({ id: userDoc._id }, process.env.SECRET, { expiresIn: 86400 } );
-        res.status(200).cookie("auth_token", token,{ expires: new Date(Date.now() + 8 * 3600000), httpOnly: true, secure: true }).send({user: userDoc.user}); //I send the cookie with the token to the client
+        res.status(200).cookie("auth_token", token,{ expires: new Date(Date.now() + 8 * 3600000) }).send({user: userDoc.user}); //I send the cookie with the token to the client
        
      } catch {
                res.status(500).send('Error on the server.');
