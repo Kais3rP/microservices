@@ -31,6 +31,7 @@ loadingContainer.appendChild(loading);
 
 
 //-----------------------------------------------------------------------------
+myStorage.setItem("user","Not Logged");
 userTitle.innerText = `Current User: ${myStorage.getItem("user")}`
 //-----------------------------------------------------------------------------
 submitBtnS.addEventListener('click', ()=>{URL = inputS.value; fetchNewURL(URL) });
@@ -84,7 +85,7 @@ const fetchLogin = function (user, pwd){
        
        .then( res => { if(res.ok) return res.json(); 
                         alert("Invalid Credentials")})
-       .then( data => { data.error ? null : myStorage.setItem("user", data.user)})
+       .then( data => { if (!data.error) {myStorage.setItem("user", data.user); userTitle.innerText = `Current User: ${myStorage.getItem("user")}`;}})
        .catch( err => console.log(err))
   
 }
@@ -95,7 +96,7 @@ const fetchLogOut = function (){
   fetch('/api/reglog/logout')
        
        .then( res =>  res.json())
-       .then( data => { alert(data.data) })
+       .then( data => { alert(data.data); myStorage.setItem("user", "Not Logged") })
        .catch( err => console.log(err))
   
 }
