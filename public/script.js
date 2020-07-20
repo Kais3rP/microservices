@@ -87,8 +87,8 @@ const fetchRegister = function (user, email, pwd){
                           referrerPolicy: 'no-referrer',
                           body: JSON.stringify({user: user, email: email, password: pwd})
                           })
-       .then( res => res.json())
-       .then( data => { console.log(data);alert( data.data ); registration.style.display = "none"})
+       .then( res => res.ok ? res.json() : alert("Something's gone wrong"))
+       .then( data => { console.log(data); alert( data.data ); registration.style.display = "none"})
        .catch( err => alert(err))
   
   
@@ -108,7 +108,7 @@ const fetchLogin = function (user, pwd){
        
        .then( res => { if(res.ok) return res.json(); 
                         alert("Invalid Credentials")})
-       .then( data => { if (!data.error) {myStorage.setItem("user", data.user); userTitle.innerText = `Current User: ${myStorage.getItem("user")}`;}})
+       .then( data => { if (!data.error) {console.log(data);myStorage.setItem("user", data.user); userTitle.innerText = `Current User: ${myStorage.getItem("user")}`;}})
        .catch( err => console.log(err))
   
 }

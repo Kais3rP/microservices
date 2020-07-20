@@ -28,7 +28,7 @@ async function register(req, res, next){
                    
                      const userDb = await user.save()
                              console.log(userDb)  
-                      
+                      res.status(200).send({data: "Successfully Registered"})
                         
                                               
                                  
@@ -43,13 +43,14 @@ async function register(req, res, next){
   
   
   async function login (req, res, next){ 
+    console.log(req)
     if ( /auth_token/.test(req.headers.cookie) ) res.send({error: "Already Logged"}); 
     else
      try {
            
            const userDoc = await User.findOne({user: req.body.user}).exec()
            if (!userDoc) return res.status(404).send({error: 'No user found.'}); 
-           let passwordIsValid = bcrypt.compareSync(req.body.password, userDoc.password)
+           let passwordIsValid = bcrypt.compareSync(req.body.password, userDoc.password);
            if (!passwordIsValid) return res.status(401).send({ error: 'Wrong Password' }); //password wrong
            
            //if user and password are correct I assign the token
