@@ -31,7 +31,8 @@ loadingContainer.appendChild(loading);
 
 
 //-----------------------------------------------------------------------------
-
+userTitle.innerText = `Current User: ${myStorage.getItem("user")}`
+//-----------------------------------------------------------------------------
 submitBtnS.addEventListener('click', ()=>{URL = inputS.value; fetchNewURL(URL) });
 inputS.addEventListener('keydown', (ev)=>{ if (ev.keyCode === 13) { URL = inputS.value; fetchNewURL(URL)} });
 submitBtnW.addEventListener('click', ()=>{fetchIP() });
@@ -83,7 +84,7 @@ const fetchLogin = function (user, pwd){
        
        .then( res => { if(res.ok) return res.json(); 
                         alert("Invalid Credentials")})
-       .then( data => {console.log(data); data.error ? null : myStorage.setItem("user", data.user)})
+       .then( data => { data.error ? null : myStorage.setItem("user", data.user)})
        .catch( err => console.log(err))
   
 }
@@ -94,7 +95,7 @@ const fetchLogOut = function (){
   fetch('/api/reglog/logout')
        
        .then( res =>  res.json())
-       .then( data => { alert(data.data)})
+       .then( data => { alert(data.data) })
        .catch( err => console.log(err))
   
 }
