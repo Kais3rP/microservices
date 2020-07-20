@@ -1,10 +1,11 @@
 const express = require ('express');
 const router = express.Router();
+const jwt = require('jsonwebtoken');
 
   
   //WhoamiI microservice
 router.get("/", (req, res, next) => {
-  if(!/auth_token/.test(req.headers.cookie)) res.status(401).send({ error: "Log In or Register, to access the service"});
+  let decodeToken = jwt.verify(/(?<=auth_key).*/req.headers.cookie.)
   else {
   let headers = req.headers;
   res.json({
