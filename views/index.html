@@ -30,16 +30,24 @@
       <button id="register-btn">Register</button>
     </div>
       <div id="top-bar">
-        <div id="login" class="credentials">
-          <div class="flex-row">
+        <div id="login" class="credentials flex-row">
+          <div class="flex-col form-container">
+            <div class="flex-row">
             <input id="input-user-log" type="text" value="" placeholder="Username"  />
             <input id="input-password-log" type="password" value="" placeholder="Password"  />
-            <div id="current-user"></div>
+            </div>
+           
+          <div class="flex-row">
+            <button id="logIn-btn" class="submit">Log In</button>
+            <button id="logOut-btn" class="submit">Log Out</button>   
+            </div>
+         
+            
+          </div>
+          <div id="info-top-container">
+             <div id="current-user"></div>
             <div id="register">Register</div>
           </div>
-            <button id="logIn-btn" class="submit">Log In</button>
-            <button id="logOut-btn" class="submit">Log Out</button>
-          
         </div>
       </div>
       

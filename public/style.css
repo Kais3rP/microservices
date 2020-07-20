@@ -67,9 +67,16 @@ a:hover{
   
 }
 
+.flex-row{
+  display:flex;
+  justify-content: space-between;
+  align-items: center;
+  
+}
+
 #top-bar {
   width:100%;
-  height:100px;
+  height:110px;
   position: fixed;
   background:lavender;
   border-bottom:1px solid grey;
@@ -83,18 +90,40 @@ a:hover{
 
 .credentials{
   
-  width:40%;
+  width:100%;
   
   
 }
 
+.form-container{
+  width:50%;
+}
+.form-container > input {
+  width: 40%;
+}
 #current-user {
+ 
+  width:40%;
   
-  width:30%;
 }
 #register {
-  
+  width:20%;
   cursor: pointer;
+  background:grey;
+  color:white;
+  border:1px inset white;
+  text-align:center;
+  padding:10px;
+  border-radius:5px;
+}
+
+#register:hover{
+  opacity: 0.8;
+}
+
+#register:active{
+  
+  border: 1px outset white;
 }
 #registration {
   padding:50px;
