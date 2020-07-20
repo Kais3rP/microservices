@@ -1,6 +1,7 @@
 const express = require ('express');
 const router = express.Router();
 const Url = require('./Url');
+
 const bodyParser = require('body-parser');
  
 const util = require('util'); //this is useful to promisify
@@ -22,7 +23,10 @@ const lookupAsync = util.promisify(dns.lookup) //promisifies dns.lookup method
 //POST route callback
 
 async function postCallback ( req, res, next){
-  
+      if (!req.headers.cookie) return res.status(401).send({ error: "Log In or Register, to access the service"});
+      let decodeToken = jwt.verify(/(?<=auth_token=).*/.exec(req.headers.cookie)[0], process.env.SECRET);
+     
+      if (!decodeToken) return res.status(401).send({ error: "Log In or Register, to access the service"});
       
       var urlStandard = req.body.url;
       let hash = hashCode(urlStandard);
