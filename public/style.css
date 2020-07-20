@@ -7,7 +7,7 @@
 body {
   background:white;
   font-family: sans-serif;
-  margin: 2em 1em;
+  margin: 0;
   line-height: 1.5em;
 }
 
@@ -72,7 +72,8 @@ a:hover{
   height:200px;
   position: fixed;
   background:lavender;
-  border:1px solid grey;
+  border-bottom:1px solid grey;
+  top:0;
 }
 
 .margin-top{
