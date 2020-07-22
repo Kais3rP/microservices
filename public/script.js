@@ -65,14 +65,17 @@ inputU.addEventListener('keydown', (ev)=>{ if (ev.keyCode === 13){
                                             fetchUpload(myFormData)}});
 //---------------------------------Exercises---------------------------------------------------------------
 
-exUserBtn.onclick = (e) => { console.log(exUserInput.value); fetch('/api/exercise/new-user', {
+exUserBtn.onclick = (e) => { fetch('/api/exercise/new-user', {
                                                               method: 'POST',
                                                               cache: 'no-cache', 
+                                                              headers: {
+                                                              'Content-Type': 'application/x-www-form-urlencoded'
+                                                              },
                                                               referrerPolicy: 'no-referrer',
-                                                              body: exUserInput.value
+                                                              body: `user=${exUserInput.value}`
                                                               }).then( res => { if (res.ok) return res.json()
                                                                                 alert("Error") } )
-                                                                .then ( data => { exUserResult.innerText = data })
+                                                                .then ( data => { exUserResult.innerText = `User: ${data.user}, id: ${data._id}` })
                            }
                             
 //----------------------------------------------------------------------------- register/Login------------
