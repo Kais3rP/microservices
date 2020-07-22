@@ -12,6 +12,9 @@ var resultW = document.getElementById("result-whoami");
 var submitBtnU = document.getElementById("submit-upload");
 var inputU = document.getElementById("input-upload");
 var resultU = document.getElementById("result-upload");
+var exUserBtn = document.getElementById("submit-ex-user");
+var exUserInput = document.getElementById("input-ex-user");
+var exUserResult = document.getElementById("result-ex");
 
 //-----------register login-------------------------//
 
@@ -60,7 +63,18 @@ inputU.addEventListener('keydown', (ev)=>{ if (ev.keyCode === 13){
                                             myFormData = new FormData();    
                                             myFormData.append('file', inputU.files[0], 'file');
                                             fetchUpload(myFormData)}});
+//---------------------------------Exercises---------------------------------------------------------------
 
+exUserBtn.onclick = (e) => { fetch('/api/exercise/new-user', {
+                                                              method: 'POST',
+                                                              cache: 'no-cache', 
+                                                              headers: {
+                                                              'Content-Type': 'application/json'
+                                                              },
+                                                              referrerPolicy: 'no-referrer',
+                                                              body: JSON.stringify({user: user, email: email, password: pwd})
+                                                              }).then( res => if (!res.ok) return) 
+                            
 //----------------------------------------------------------------------------- register/Login------------
 
 userTitle.innerText = `Current User: ${myStorage.getItem("user")}`;
