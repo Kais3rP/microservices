@@ -11,7 +11,7 @@ var data = "hello";
 axios.get('https://jsonmock.hackerrank.com/api/article_users?page=2')
  .then( res => console.log(res) )
      
-console.log(data)
+console.debug(data)
 
 
 
