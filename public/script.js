@@ -47,7 +47,7 @@ loadingContainer.appendChild(loading);
 
 //-----------------------------------------------------------------------------
 
-userTitle.innerText = `Current User: Not Logged}`
+
 //--------------------------------Event Listeners---------------------------------------------
 
 submitBtnS.addEventListener('click', ()=>{URL = inputS.value; fetchNewURL(URL) });
@@ -76,12 +76,12 @@ exUserBtn.onclick = (e) => { fetch('/api/exercise/new-user', {
                                                               }).then( res => { console.log(res);
                                                                                if (res.ok) return res.json()
                                                                                 alert("Error") } )
-                                                                .then ( data => { exUserResult.innerText = `User: ${data.user}, id: ${data._id}` })
+                                                                .then ( data => { exUserResult.innerText = `User: ${data.username}, id: ${data._id}` })
                            }
                             
 //----------------------------------------------------------------------------- register/Login------------
 
-userTitle.innerText = `Current User: ${myStorage.getItem("user")}`;
+userTitle.innerText = `Current User: ${myStorage.getItem("user") ? myStorage.getItem("user") : 'Not Logged'}`;
 
 regBtn.onclick = (e) => { if(!inputUserReg.value || !inputEmailReg.value || !inputPwdReg.value) alert("Please fill all the fields"); 
                           else fetchRegister(inputUserReg.value, inputEmailReg.value, inputPwdReg.value); 

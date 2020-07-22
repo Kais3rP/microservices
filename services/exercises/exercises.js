@@ -15,7 +15,7 @@ router.post('/new-user', urlParser, async function(req,res, next){
         if (userDoc) return res.status(400).send({error: "Username Already Taken"});
        let user = await User.create({username: req.body.user});
     console.log(user);
-        res.send(user);
+        res.send({username: user.username, _id: user._id});
   } catch {
      res.status(400).send({error: "Something went wrong!"})
   }
