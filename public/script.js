@@ -73,7 +73,8 @@ exUserBtn.onclick = (e) => { fetch('/api/exercise/new-user', {
                                                               },
                                                               referrerPolicy: 'no-referrer',
                                                               body: `user=${exUserInput.value}`
-                                                              }).then( res => { if (res.ok) return res.json()
+                                                              }).then( res => { console.log(res);
+                                                                               if (res.ok) return res.json()
                                                                                 alert("Error") } )
                                                                 .then ( data => { exUserResult.innerText = `User: ${data.user}, id: ${data._id}` })
                            }

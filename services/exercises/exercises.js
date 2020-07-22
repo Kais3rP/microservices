@@ -20,9 +20,14 @@ router.post('/new-user', urlParser, async function(req,res, next){
      res.status(400).send({error: "Something went wrong!"})
   }
 })
-router.get('/users', function(req,res){
-  
-                                         
+router.get('/users', async function(req,res){
+                                       try {
+                                            let allUsers = await User.find({}).exec()
+                                            res.status(200).send(allUsers)
+                                       }
+                                         catch {
+                                           res.status(400).send({error: "Error"})
+                                         }
 })
 
 module.exports = router;
