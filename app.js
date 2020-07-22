@@ -30,7 +30,7 @@ app.get("/", (request, response) => {
 
 
 
-//--- Use express.Router to define specific modules routs for every microservice
+//--- Use express.Router to define specific modules routes for every microservice
 const whoAmI = require('./services/whoami');
 const uploadFile = require('./services/uploadFile');
 const timeStamp = require('./services/timeStamp');
