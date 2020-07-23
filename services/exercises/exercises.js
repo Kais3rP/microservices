@@ -39,8 +39,8 @@ router.post('/add', urlParser, async function(req,res, next){
                                                                 duration: req.body.duration,
                                                                 date: validateDate(req.body.date)}); //{duration: req.body.duration}, {date: req.body.date ? req.body.date : new Date()}
      
-       
-        res.status(200).send(userDoc.userDoc);
+       console.log(userDoc)
+        res.status(200).send(userDoc);
   } catch {
      res.status(400).send({error: "Something went wrong!"})
   }
