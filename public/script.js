@@ -93,7 +93,7 @@ exAddBtn.onclick = (e) => {
                                                               }).then( res => { 
                                                                                if (res.ok) return res.json()
                                                                                 res.json().then((data)=>alert(data.error)) } )
-                                                                .then ( data => { console.log(data); exAddResult.innerText = `User: ${data.username}, id: ${data._id}` })
+                                                                .then ( data => { console.log(data); exAddResult.innerText = `User: ${data.username}, Description: ${data.description}, Duration: ${data.duration}, Date: ${data.date}` })
                            
 } 
 //----------------------------------------------------------------------------- register/Login------------

@@ -35,12 +35,16 @@ router.post('/add', urlParser, async function(req,res, next){
         let userDoc = await User.findOne({_id: req.body.id}).exec();
     console.log(userDoc)
         if (!userDoc) return res.status(400).send({error: "User not found"});
-        let userUpdate = await User.update({_id: req.body.id}, {description: req.body.description}, {duration: req.body.duration}, {date: req.body.date ? req.body.date : new Date()});
+        let userUpdate = await User.update({_id: req.body.id}, {description: req.body.description}, {duration: req.body.duration}, {date: req.body.date ? req.body.date : new Date()}); //{duration: req.body.duration}, {date: req.body.date ? req.body.date : new Date()}
         console.log(userUpdate);
-        
-        res.status(200).json(userUpdate);
+        let user = await User.findOne({_id: req.body.id})
+        res.status(200).json(user);
   } catch {
      res.status(400).send({error: "Something went wrong!"})
   }
 })
 module.exports = router;
+
+function vlaidateDate(date){
+  if (/)
+}
