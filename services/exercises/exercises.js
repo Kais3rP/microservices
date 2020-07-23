@@ -57,12 +57,23 @@ router.get('/log', async function(req,res){
   console.log(req.query)
   let query = req.query;
   let queriedExercises = [];
+ 
+  
                                        try {
                                             let userDoc = await User.findOne({_id: req.query.userId}).exec();
                                             if (!userDoc) return res.status(400).send({error: "User not found"});
                                          
-                                         if(query.from && validateQueries(query.from) &&
-                                            query.to && validateQueries(query.to)) queriedExercises = userDoc.exercises.map( ex => ex.date > req.query.from)
+                                         if(query.from  && query.to ){
+                                            if (validateQueries(query.from) && validateQueries(query.to)){ 
+                                                                                     let fromDate = makeDate(query.from);
+                                                                                     let toDate = makeDate(query.to);
+                                                                                     queriedExercises = userDoc.exercises.map( ex => { 
+                                                                                                                                      let currentDate = makeDate(ex.date); 
+                                                                                                                                      if (currentDate > fromDate && currentDate < toDate) {
+                                                                                                                                        queriedExercises.push(ex);
+                                                                                                                                      }
+                                                                                                                                      }) } else return res.status(400).send({error: "Date format not valid"})
+                                       }
                                            
                                            res.status(200).send({_id: userDoc._id, username: userDoc.username, count: userDoc.exercises.length, log: userDoc.exercises});
                                        }
@@ -85,5 +96,5 @@ function validateQueries(date){
 }
 
 function makeDate(date){
-  return new 
+  return new Date(date)
 }
