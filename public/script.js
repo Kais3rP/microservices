@@ -69,10 +69,10 @@ exUserBtn.onclick = (e) => { fetch('/api/exercise/new-user', {
                                                               method: 'POST',
                                                               cache: 'no-cache', 
                                                               headers: {
-                                                              'Content-Type': 'application/x-www-form-urlencoded'
+                                                              'Content-Type': 'application/json'
                                                               },
                                                               referrerPolicy: 'no-referrer',
-                                                              body: `user=${exUserInput.value}`
+                                                              body: JSON.stringify({username: exUserInput.value})
                                                               }).then( res => { console.log(res);
                                                                                if (res.ok) return res.json()
                                                                                 alert("Error") } )
