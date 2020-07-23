@@ -55,11 +55,14 @@ router.post('/add', urlParser, async function(req,res, next){
 
 router.get('/log', async function(req,res){
   console.log(req.query)
+  let query = req.query;
+  let queriedExercises = [];
                                        try {
                                             let userDoc = await User.findOne({_id: req.query.userId}).exec();
                                             if (!userDoc) return res.status(400).send({error: "User not found"});
                                          
-                                         if(req.query.from && req.query.to) 
+                                         if(query.from && validateQueries(query.from) &&
+                                            query.to && validateQueries(query.to)) queriedExercises = userDoc.exercises.map( ex => ex.date > req.query.from)
                                            
                                            res.status(200).send({_id: userDoc._id, username: userDoc.username, count: userDoc.exercises.length, log: userDoc.exercises});
                                        }
@@ -74,4 +77,13 @@ module.exports = router;
 function validateDate(date){
   if (/\d\d\d\d-\d\d-\d\d/.test(date)) return new Date(date).toDateString()
   return new Date().toDateString()
+}
+
+function validateQueries(date){
+  return /\d\d\d\d-\d\d-\d\d/.test(date)
+ 
+}
+
+function makeDate(date){
+  return new 
 }
