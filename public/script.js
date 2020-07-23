@@ -96,7 +96,7 @@ exAddBtn.onclick = (e) => {
                                                               }).then( res => { 
                                                                                if (res.ok) return res.json()
                                                                                 res.json().then((data)=>alert(data.error)) } )
-                                                                .then ( data => { exAddResult.innerText = `User: ${data.username}, Description: ${data.description}, Duration: ${data.duration}, Date: ${data.date}` })
+                                                                .then ( data => { exAddResult.innerText = `User: ${data.username}, Number of exercises: ${data.count}, Log: ${data.exercises}` })
                            
 } 
 

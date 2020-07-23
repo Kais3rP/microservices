@@ -35,11 +35,17 @@ router.post('/add', urlParser, async function(req,res, next){
         let userDoc = await User.findOne({_id: req.body.userId}).exec();
    
         if (!userDoc) return res.status(400).send({error: "User not found"});
-        let userUpdate = await User.update({_id: req.body.userId}, {$push : {exercises: {description: req.body.description,
-                                                                duration: req.body.duration,
-                                                                date: validateDate(req.body.date)}}}); //{duration: req.body.duration}, {date: req.body.date ? req.body.date : new Date()}
+        let userUpdate = await User.update({_id: req.body.userId}, {description: req.body.description,
+                                                                    duration: req.body.duration,
+                                                                    date: validateDate(req.body.date),
+                                                                    $push : {exercises: { description: req.body.description,  //$push in mongoose is an atomic method that lets you add mutiple entries in an array during an update
+                                                                                          duration: req.body.duration,
+                                                                                          date: validateDate(req.body.date)
+                                                                                        }
+                                                                            }
+                                                                   }); 
        userDoc = await User.findOne({_id: req.body.userId}).exec();
-       console.log({username: userDoc.username, description: userDoc.description, duration: userDoc.duration, _id: userDoc._id, date: userDoc.date});
+       
         res.status(200).send({username: userDoc.username, description: userDoc.description, duration: userDoc.duration, _id: userDoc._id, date: userDoc.date});
   } catch {
      res.status(400).send({error: "Something went wrong!"})
@@ -48,11 +54,12 @@ router.post('/add', urlParser, async function(req,res, next){
 
 
 router.get('/log', async function(req,res){
-  console.log(req.query)
+  
                                        try {
                                             let userDoc = await User.findOne({_id: req.query.userId}).exec();
                                             if (!userDoc) return res.status(400).send({error: "User not found"});
-                                            res.status(200).send({username: userDoc.username, description: userDoc.description, duration: userDoc.duration, _id: userDoc._id, date: userDoc.date});
+                                         console.log({_id: userDoc._id, username: userDoc.username, count: userDoc.exercises.length, log: userDoc.exercises})
+                                            res.status(200).send({_id: userDoc._id, username: userDoc.username, count: userDoc.exercises.length, log: userDoc.exercises});
                                        }
                                          catch {
                                            res.status(400).send({error: "Error"})
