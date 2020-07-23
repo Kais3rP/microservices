@@ -96,7 +96,7 @@ exAddBtn.onclick = (e) => {
                                                               }).then( res => { 
                                                                                if (res.ok) return res.json()
                                                                                 res.json().then((data)=>alert(data.error)) } )
-                                                                .then ( data => { exAddResult.innerText = `User: ${data.username}, Number of exercises: ${data.count}, Log: ${data.exercises}` })
+                                                                .then ( data => { exAddResult.innerText = `User: ${data.username}, Description: ${data.description}, Duration: ${data.duration}, Date: ${data.date}` })
                            
 } 
 
@@ -104,7 +104,7 @@ exAddBtn.onclick = (e) => {
 exLogBtn.onclick = () => { fetch(`/api/exercise/log?userId=${exLogInput.value}`)
                                                        .then( res => {if (res.ok) return res.json()
                                                                       alert(res.error)})
-                                                       .then( data => exLogResult.innerText = `User: ${data.username}, Description: ${data.description}, Duration: ${data.duration}, Date: ${data.date}`)}
+                                                       .then( data => {console.log(data);exLogResult.innerText = `User: ${data.username}, Number of exercises: ${data.count}, Log: ${data.log.map((obj,i) => `\nEx.${i+1}: ${obj.description}, ${obj.duration}, ${obj.date} `)}`} )}
 
 //----------------------------------------------------------------------------- register/Login------------
 
