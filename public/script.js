@@ -23,6 +23,8 @@ var exAddDesc = document.getElementById("input-ex-desc");
 var exAddDur = document.getElementById("input-ex-dur");
 var exAddDate = document.getElementById("input-ex-date");
 var exAddResult = document.getElementById('result-ex-add');
+var exLogInput = document.getElementById('result-ex-add');
+var exLogBtn = document.getElementById('result-ex-add');
 
 
 //-----------register login-------------------------//
