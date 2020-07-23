@@ -22,6 +22,7 @@ var exAddId = document.getElementById("input-ex-id");
 var exAddDesc = document.getElementById("input-ex-desc");
 var exAddDur = document.getElementById("input-ex-dur");
 var exAddDate = document.getElementById("input-ex-date");
+var exAddResult = document.getElementById('result-ex-add');
 
 
 //-----------register login-------------------------//
@@ -88,10 +89,10 @@ exAddBtn.onclick = (e) => {
                               else fetch('/api/exercise/add', {
                                                               method: 'POST',
                                                               headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-                                                              body: `userId=${exAddId.value}&description=${exAddDesc.value}&duration=${exAddDur.value}&date=${exAddDate.value}`
+                                                              body: `id=${exAddId.value}&description=${exAddDesc.value}&duration=${exAddDur.value}&date=${exAddDate.value}`
                                                               }).then( res => { 
                                                                                if (res.ok) return res.json()
-                                                                                alert("Error") } )
+                                                                                res.json().then((data)=>alert(data.error)) } )
                                                                 .then ( data => { console.log(data); exAddResult.innerText = `User: ${data.username}, id: ${data._id}` })
                            
 } 
