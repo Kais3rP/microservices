@@ -5,16 +5,16 @@ const bodyParser = require('body-parser');
 
 
 const router = express.Router();
-const jsonParser = bodyParser.json();
+const urlParser = bodyParser.urlencoded({extended: true});
 
-router.post('/new-user', jsonParser, async function(req,res, next){
+router.post('/new-user', urlParser, async function(req,res, next){
   console.log(req)
   try {
         let userDoc = await User.findOne({username: req.body.username}).exec();
         if (userDoc) return res.status(400).send({error: "Username Already Taken"});
         let user = await User.create({username: req.body.username});
         console.log({username: user.username, _id: user._id});
-        res.json({username: user.username, _id: user._id});
+        res.status(200).json({username: user.username, _id: user._id});
   } catch {
      res.status(400).send({error: "Something went wrong!"})
   }

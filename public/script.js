@@ -69,14 +69,14 @@ exUserBtn.onclick = (e) => { fetch('/api/exercise/new-user', {
                                                               method: 'POST',
                                                               cache: 'no-cache', 
                                                               headers: {
-                                                              'Content-Type': 'application/json'
+                                                              'Content-Type': 'application/www-form-urlencoded'
                                                               },
                                                               referrerPolicy: 'no-referrer',
-                                                              body: JSON.stringify({username: exUserInput.value})
-                                                              }).then( res => { console.log(res);
+                                                              body: `user=${exUserInput.value}`
+                                                              }).then( res => { 
                                                                                if (res.ok) return res.json()
                                                                                 alert("Error") } )
-                                                                .then ( data => { exUserResult.innerText = `User: ${data.username}, id: ${data._id}` })
+                                                                .then ( data => { console.log(data); exUserResult.innerText = `User: ${data.username}, id: ${data._id}` })
                            }
                             
 //----------------------------------------------------------------------------- register/Login------------
