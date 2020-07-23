@@ -35,9 +35,9 @@ router.post('/add', urlParser, async function(req,res, next){
         let userDoc = await User.findOne({_id: req.body.userId}).exec();
    
         if (!userDoc) return res.status(400).send({error: "User not found"});
-        let userUpdate = await User.update({_id: req.body.userId}, {description: req.body.description,
+        let userUpdate = await User.update({_id: req.body.userId}, {exercises: [{description: req.body.description,
                                                                 duration: req.body.duration,
-                                                                date: validateDate(req.body.date)}); //{duration: req.body.duration}, {date: req.body.date ? req.body.date : new Date()}
+                                                                date: validateDate(req.body.date)}]}); //{duration: req.body.duration}, {date: req.body.date ? req.body.date : new Date()}
        userDoc = await User.findOne({_id: req.body.userId}).exec();
        console.log({username: userDoc.username, description: userDoc.description, duration: userDoc.duration, _id: userDoc._id, date: userDoc.date});
         res.status(200).send({username: userDoc.username, description: userDoc.description, duration: userDoc.duration, _id: userDoc._id, date: userDoc.date});
