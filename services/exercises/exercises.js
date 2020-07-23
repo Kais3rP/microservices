@@ -38,7 +38,7 @@ router.post('/add', urlParser, async function(req,res, next){
         let userUpdate = await User.update({_id: req.body.id}, {description: req.body.description,
                                                                 duration: req.body.duration,
                                                                 date: validateDate(req.body.date)}); //{duration: req.body.duration}, {date: req.body.date ? req.body.date : new Date()}
-     
+       userDoc = await User.findOne({_id: req.body.id}).exec();
        console.log(userDoc)
         res.status(200).send(userDoc);
   } catch {
