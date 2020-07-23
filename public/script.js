@@ -66,13 +66,9 @@ inputU.addEventListener('keydown', (ev)=>{ if (ev.keyCode === 13){
 //---------------------------------Exercises---------------------------------------------------------------
 
 exUserBtn.onclick = (e) => { fetch('/api/exercise/new-user', {
-                                                              method: 'POST',
-                                                              cache: 'no-cache', 
-                                                              headers: {
-                                                              'Content-Type': 'application/www-form-urlencoded'
-                                                              },
-                                                              referrerPolicy: 'no-referrer',
-                                                              body: `user=${exUserInput.value}`
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: `username=fcc_test_${Date.now()}`.substr(0, 29)
                                                               }).then( res => { 
                                                                                if (res.ok) return res.json()
                                                                                 alert("Error") } )
