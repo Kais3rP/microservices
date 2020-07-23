@@ -23,8 +23,9 @@ var exAddDesc = document.getElementById("input-ex-desc");
 var exAddDur = document.getElementById("input-ex-dur");
 var exAddDate = document.getElementById("input-ex-date");
 var exAddResult = document.getElementById('result-ex-add');
-var exLogInput = document.getElementById('result-ex-add');
-var exLogBtn = document.getElementById('result-ex-add');
+var exLogInput = document.getElementById('input-ex-log');
+var exLogBtn = document.getElementById('submit-ex-log');
+var exLogResult = document.getElementById('result-ex-log');
 
 
 //-----------register login-------------------------//
@@ -98,6 +99,13 @@ exAddBtn.onclick = (e) => {
                                                                 .then ( data => { console.log(data); exAddResult.innerText = `User: ${data.username}, Description: ${data.description}, Duration: ${data.duration}, Date: ${data.date}` })
                            
 } 
+
+
+exLogBtn.onclick = () => { console.log("hello"); fetch(`/api/exercise/log?userId=${exLogInput.value}`)
+                                                       .then( res => {if (res.ok) return res.json()
+                                                                      alert(res.error)})
+                                                       .then( data => exLogResult.innerText = `User: ${data.username}, Description: ${data.description}, Duration: ${data.duration}, Date: ${data.date}`)}
+
 //----------------------------------------------------------------------------- register/Login------------
 
 userTitle.innerText = `Current User: ${myStorage.getItem("user") ? myStorage.getItem("user") : 'Not Logged'}`;

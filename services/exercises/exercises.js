@@ -45,6 +45,20 @@ router.post('/add', urlParser, async function(req,res, next){
      res.status(400).send({error: "Something went wrong!"})
   }
 })
+
+
+router.get('/log', async function(req,res){
+  let query = req.params;
+  console.log(query)
+                                       try {
+                                            
+                                       }
+                                         catch {
+                                           res.status(400).send({error: "Error"})
+                                         }
+})
+
+
 module.exports = router;
 
 function validateDate(date){
