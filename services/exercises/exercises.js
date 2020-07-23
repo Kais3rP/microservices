@@ -54,12 +54,12 @@ router.post('/add', urlParser, async function(req,res, next){
 
 
 router.get('/log', async function(req,res){
-  
+  console.log(req.query)
                                        try {
                                             let userDoc = await User.findOne({_id: req.query.userId}).exec();
                                             if (!userDoc) return res.status(400).send({error: "User not found"});
                                          
-                                            res.status(200).send({_id: userDoc._id, username: userDoc.username, count: userDoc.exercises.length, log: userDoc.exercises});
+                                         if(req.query)   res.status(200).send({_id: userDoc._id, username: userDoc.username, count: userDoc.exercises.length, log: userDoc.exercises});
                                        }
                                          catch {
                                            res.status(400).send({error: "Error"})
