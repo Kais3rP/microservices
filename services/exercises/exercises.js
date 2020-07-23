@@ -39,9 +39,8 @@ router.post('/add', urlParser, async function(req,res, next){
                                                                 duration: req.body.duration,
                                                                 date: validateDate(req.body.date)}); //{duration: req.body.duration}, {date: req.body.date ? req.body.date : new Date()}
      
-        let user = await User.findOne({_id: req.body.id})
-        console.log(user)
-        res.status(200).json({_id: user._id, };
+       
+        res.status(200).send(userDoc.userDoc);
   } catch {
      res.status(400).send({error: "Something went wrong!"})
   }
@@ -49,6 +48,6 @@ router.post('/add', urlParser, async function(req,res, next){
 module.exports = router;
 
 function validateDate(date){
-  if (/\d\d\d\d-\d\d-\d\d/.test(date)) return new Date(date).toString()
-  return new Date().toString()
+  if (/\d\d\d\d-\d\d-\d\d/.test(date)) return new Date(date).toDateString()
+  return new Date().toDateString()
 }
