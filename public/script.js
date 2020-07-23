@@ -89,7 +89,7 @@ exAddBtn.onclick = (e) => {
                               else fetch('/api/exercise/add', {
                                                               method: 'POST',
                                                               headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-                                                              body: `id=${exAddId.value}&description=${exAddDesc.value}&duration=${exAddDur.value}&date=${exAddDate.value}`
+                                                              body: `userId=${exAddId.value}&description=${exAddDesc.value}&duration=${exAddDur.value}&date=${exAddDate.value}`
                                                               }).then( res => { 
                                                                                if (res.ok) return res.json()
                                                                                 res.json().then((data)=>alert(data.error)) } )
