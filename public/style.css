@@ -183,6 +183,17 @@ a:hover{
   border:1px solid grey;
   border-radius:.25em;
   padding:5px;
+  
+}
+
+.result-scroll {
+   width:95%;
+  height:50px;
+  font-size:12px;
+  border:1px solid grey;
+  border-radius:.25em;
+  padding:5px;
+  overflow: scroll;
 }
 .modal{
   padding:10px;
