@@ -12,9 +12,17 @@ var resultW = document.getElementById("result-whoami");
 var submitBtnU = document.getElementById("submit-upload");
 var inputU = document.getElementById("input-upload");
 var resultU = document.getElementById("result-upload");
+
+//-----------Exercises---------------------------------------
 var exUserBtn = document.getElementById("submit-ex-user");
 var exUserInput = document.getElementById("input-ex-user");
 var exUserResult = document.getElementById("result-ex-user");
+var exAddBtn = document.getElementById("submit-ex-add");
+var exAddId = document.getElementById("input-ex-id");
+var exAddDesc = document.getElementById("input-ex-desc");
+var exAddDur = document.getElementById("input-ex-dur");
+var exAddDate = document.getElementById("input-ex-date");
+
 
 //-----------register login-------------------------//
 
@@ -66,9 +74,9 @@ inputU.addEventListener('keydown', (ev)=>{ if (ev.keyCode === 13){
 //---------------------------------Exercises---------------------------------------------------------------
 
 exUserBtn.onclick = (e) => { fetch('/api/exercise/new-user', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: `username=fcc_test_${Date.now()}`.substr(0, 29)
+                                                              method: 'POST',
+                                                              headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                                                              body: `username=${exUserInput.value}`
                                                               }).then( res => { 
                                                                                if (res.ok) return res.json()
                                                                                 alert("Error") } )
