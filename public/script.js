@@ -80,9 +80,21 @@ exUserBtn.onclick = (e) => { fetch('/api/exercise/new-user', {
                                                               }).then( res => { 
                                                                                if (res.ok) return res.json()
                                                                                 alert("Error") } )
-                                                                .then ( data => { console.log(data); exUserResult.innerText = `User: ${data.username}, id: ${data._id}` })
+                                                                .then ( data => {  exUserResult.innerText = `User: ${data.username}, id: ${data._id}` })
                            }
                             
+exAddBtn.onclick = (e) => {
+                             if (!exAddId.value || !exAddDesc || !exAddDur || !exAddDate) alert("Please fill all the fields");
+                              else fetch('/api/exercise/add', {
+                                                              method: 'POST',
+                                                              headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                                                              body: `userId=${exAddId.value}&description=${exAddDesc.value}&duration=${exAddDur.value}&date=${exAddDate.value}`
+                                                              }).then( res => { 
+                                                                               if (res.ok) return res.json()
+                                                                                alert("Error") } )
+                                                                .then ( data => { console.log(data); exAddResult.innerText = `User: ${data.username}, id: ${data._id}` })
+                           
+} 
 //----------------------------------------------------------------------------- register/Login------------
 
 userTitle.innerText = `Current User: ${myStorage.getItem("user") ? myStorage.getItem("user") : 'Not Logged'}`;
