@@ -96,12 +96,12 @@ exAddBtn.onclick = (e) => {
                                                               }).then( res => { 
                                                                                if (res.ok) return res.json()
                                                                                 res.json().then((data)=>alert(data.error)) } )
-                                                                .then ( data => { console.log(data); exAddResult.innerText = `User: ${data.username}, Description: ${data.description}, Duration: ${data.duration}, Date: ${data.date}` })
+                                                                .then ( data => { exAddResult.innerText = `User: ${data.username}, Description: ${data.description}, Duration: ${data.duration}, Date: ${data.date}` })
                            
 } 
 
 
-exLogBtn.onclick = () => { console.log("hello"); fetch(`/api/exercise/log?userId=${exLogInput.value}`)
+exLogBtn.onclick = () => { fetch(`/api/exercise/log?userId=${exLogInput.value}`)
                                                        .then( res => {if (res.ok) return res.json()
                                                                       alert(res.error)})
                                                        .then( data => exLogResult.innerText = `User: ${data.username}, Description: ${data.description}, Duration: ${data.duration}, Date: ${data.date}`)}

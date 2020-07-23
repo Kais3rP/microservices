@@ -40,7 +40,7 @@ router.post('/add', urlParser, async function(req,res, next){
                                                                 date: validateDate(req.body.date)}); //{duration: req.body.duration}, {date: req.body.date ? req.body.date : new Date()}
        userDoc = await User.findOne({_id: req.body.userId}).exec();
        console.log({username: userDoc.username, description: userDoc.description, duration: userDoc.duration, _id: userDoc._id, date: userDoc.date});
-        res.status(200).send({username: userDoc.username, description: userDoc.description, duration: userDoc.duration, id: userDoc._id, date: userDoc.date});
+        res.status(200).send({username: userDoc.username, description: userDoc.description, duration: userDoc.duration, _id: userDoc._id, date: userDoc.date});
   } catch {
      res.status(400).send({error: "Something went wrong!"})
   }
@@ -48,10 +48,11 @@ router.post('/add', urlParser, async function(req,res, next){
 
 
 router.get('/log', async function(req,res){
-  let query = req.params;
-  console.log(query)
+  console.log(req.query)
                                        try {
-                                            
+                                            let userDoc = await User.findOne({_id: req.query.userId}).exec();
+                                            if (!userDoc) return res.status(400).send({error: "User not found"});
+                                            res.status(200).send({username: userDoc.username, description: userDoc.description, duration: userDoc.duration, _id: userDoc._id, date: userDoc.date});
                                        }
                                          catch {
                                            res.status(400).send({error: "Error"})
