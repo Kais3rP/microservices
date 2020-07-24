@@ -67,17 +67,17 @@ router.get('/log', async function(req,res){
                                             if (validateQueries(query.from) && validateQueries(query.to)){ 
                                                                                      let fromDate = makeDate(query.from);
                                                                                      let toDate = makeDate(query.to);
-                                                                                      
-                                                                                     queriedExercises = userDoc.exercises.map( ex => { 
-                                                                                                                                      let currentDate = makeDate(ex.date); 
-                                                                                                                                      if (currentDate > fromDate && currentDate < toDate) {
-                                                                                                                                        queriedExercises.push(ex);
-                                                                                                                                      }
-                                                                                                                                });
-                                                                                    res.status(200).send(queriedExercises)
+                                                                                    
+                                                                                     queriedExercises = userDoc.exercises.filter( ex => { 
+                                                                                                                                         let currentDate = makeDate(ex.date); 
+                                                                                                                                         return (currentDate > fromDate && currentDate < toDate); 
+                                                                                                                                        });
+                                                                                     console.log(queriedExercises)
+                                                                                    return res.status(200).send(queriedExercises)
                                                                                 } else return res.status(400).send({error: "Date format not valid"});
                                        }
                                            
+                                         if (query.limit) if
                                            res.status(200).send({_id: userDoc._id, username: userDoc.username, count: userDoc.exercises.length, log: userDoc.exercises});
                                        }
                                          catch {
