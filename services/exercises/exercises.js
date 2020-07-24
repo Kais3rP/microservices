@@ -55,51 +55,49 @@ router.post('/add', urlParser, async function(req,res, next){
 
 router.get('/log', async function(req,res){
   
-  let query = req.query;
-  let queriedExercises = [];
+let query = req.query;
+let queriedExercises = [];
  
   
-                                       try {
-                                            let userDoc = await User.findOne({_id: req.query.userId}).exec();
-                                            if (!userDoc) return res.status(400).send({error: "User not found"});
-                                         
-                                         //Checks if results have to be limited
-                                         
-                                          if (query.limit){ 
-                                            if (!isNaN(query.limit)) {
-                                                                       res.status(200).send({_id: userDoc._id, username: userDoc.username, count: userDoc.exercises.length, log: [userDoc.exercises[0]]});
-                                         } else return res.status(400).send({error: "Limit format not valid"});
-                                      }
-                                         
-                                         //checks if there are date range queries
-                                         if(query.from  && query.to ){
-                                            if (validateQueries(query.from) && validateQueries(query.to)){ 
-                                                                                     let fromDate = makeDate(query.from);
-                                                                                     let toDate = makeDate(query.to);
-                                                                                    
-                                                                                     queriedExercises = userDoc.exercises.filter( ex => { 
-                                                                                                                                         let currentDate = makeDate(ex.date); 
-                                                                                                                                         return (currentDate > fromDate && currentDate < toDate); 
-                                                                                
-                                                                                  });
-                                               //Checks if there's a limit                                          
-                                               if (query.limit){ 
-                                                    if (!isNaN(query.limit)) {
-                                                                       res.status(200).send({_id: userDoc._id, username: userDoc.username, count: userDoc.exercises.length, log: queriedExercises.slice(0, query.limit+1)});
-                                         } else return res.status(400).send({error: "Limit format not valid"});
-                                      }
-                                              //There's no limit
-                                              res.status(200).send({_id: userDoc._id, username: userDoc.username, count: userDoc.exercises.length, log: queriedExercises});
-                                          } else return res.status(400).send({error: "Date format not valid"});
-                                       }
-                                           
-                                        
-                                         //Simple log with no queries
-                                           res.status(200).send({_id: userDoc._id, username: userDoc.username, count: userDoc.exercises.length, log: userDoc.exercises});
-                                       }
-                                         catch {
-                                           res.status(400).send({error: "Error"})
-                                         }
+try {
+      let userDoc = await User.findOne({_id: req.query.userId}).exec();
+      if (!userDoc) return res.status(400).send({error: "User not found"});
+
+       //checks if there are date range queries
+      if(query.from  && query.to ){
+        if (validateQueries(query.from) && validateQueries(query.to)){ 
+                                               let fromDate = makeDate(query.from);
+                                               let toDate = makeDate(query.to);
+
+                                               queriedExercises = userDoc.exercises.filter( ex => { 
+                                                                                                   let currentDate = makeDate(ex.date); 
+                                                                                                   return (currentDate > fromDate && currentDate < toDate); 
+
+                                            });
+         //Checks if there's a limit                                          
+         if (query.limit){ 
+              if (!isNaN(query.limit)) {
+                                 res.status(200).send({_id: userDoc._id, username: userDoc.username, from: query.from, to: query.to, count: userDoc.exercises.length, log: queriedExercises.slice(0, query.limit+1)});
+   } else return res.status(400).send({error: "Limit format not valid"});
+}
+        //There's no limit
+        res.status(200).send({_id: userDoc._id, username: userDoc.username, from: query.from, to: query.to, count: userDoc.exercises.length, log: queriedExercises});
+    } else return res.status(400).send({error: "Date format not valid"});
+ };
+     
+         //There are no date ranges
+         //Checks if there's a limit                                          
+         if (query.limit){ 
+              if (!isNaN(query.limit)) {
+                                 res.status(200).send({_id: userDoc._id, username: userDoc.username, count: userDoc.exercises.length, log: userDoc.exercises.slice(0, query.limit+1)});
+   } else return res.status(400).send({error: "Limit format not valid"});
+}
+   //Simple log with no queries and no limits
+     res.status(200).send({_id: userDoc._id, username: userDoc.username, count: userDoc.exercises.length, log: userDoc.exercises});
+ }
+   catch {
+     res.status(400).send({error: "Error"})
+   }
 })
 
 
