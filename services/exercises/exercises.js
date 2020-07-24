@@ -54,7 +54,7 @@ router.post('/add', urlParser, async function(req,res, next){
 
 
 router.get('/log', async function(req,res){
-  console.log(req.query)
+  
   let query = req.query;
   let queriedExercises = [];
  
@@ -67,12 +67,15 @@ router.get('/log', async function(req,res){
                                             if (validateQueries(query.from) && validateQueries(query.to)){ 
                                                                                      let fromDate = makeDate(query.from);
                                                                                      let toDate = makeDate(query.to);
+                                                                                      
                                                                                      queriedExercises = userDoc.exercises.map( ex => { 
                                                                                                                                       let currentDate = makeDate(ex.date); 
                                                                                                                                       if (currentDate > fromDate && currentDate < toDate) {
                                                                                                                                         queriedExercises.push(ex);
                                                                                                                                       }
-                                                                                                                                      }) } else return res.status(400).send({error: "Date format not valid"})
+                                                                                                                                });
+                                                                                    res.status(200).send(queriedExercises)
+                                                                                } else return res.status(400).send({error: "Date format not valid"});
                                        }
                                            
                                            res.status(200).send({_id: userDoc._id, username: userDoc.username, count: userDoc.exercises.length, log: userDoc.exercises});
