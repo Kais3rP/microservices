@@ -76,8 +76,8 @@ try {
                                             });
          //Checks if there's a limit                                          
          if (query.limit){ 
-              if (!isNaN(query.limit)) { console.log(typeof query.limit)
-                                return res.status(200).send({_id: userDoc._id, username: userDoc.username, from: validateDate(query.from), to: validateDate(query.to), count: query.limit, log: queriedExercises.slice(0, query.limit+1)});
+              if (!isNaN(query.limit)) { let limit = parseInt(query.limit);
+                                return res.status(200).send({_id: userDoc._id, username: userDoc.username, from: validateDate(query.from), to: validateDate(query.to), count: limit, log: queriedExercises.slice(0, limit)});
    } else return res.status(400).send({error: "Limit format not valid"});
 }
         //There's no limit
@@ -87,9 +87,9 @@ try {
      
          //There are no date ranges
          //Checks if there's a limit                                          
-         if (query.limit){ 
+         if (query.limit){ let limit = parseInt(query.limit);
               if (!isNaN(query.limit)) {
-                              return   res.status(200).send({_id: userDoc._id, username: userDoc.username, count: query.limit, log: userDoc.exercises.slice(0, query.limit+1)});
+                              return   res.status(200).send({_id: userDoc._id, username: userDoc.username, count: limit, log: userDoc.exercises.slice(0, limit)});
    } else return res.status(400).send({error: "Limit format not valid"});
 }
    //Simple log with no queries and no limits
