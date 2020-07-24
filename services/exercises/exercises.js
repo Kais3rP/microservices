@@ -76,12 +76,12 @@ try {
                                             });
          //Checks if there's a limit                                          
          if (query.limit){ 
-              if (!isNaN(query.limit)) {
-                                 res.status(200).send({_id: userDoc._id, username: userDoc.username, from: query.from, to: query.to, count: userDoc.exercises.length, log: queriedExercises.slice(0, query.limit+1)});
+              if (!isNaN(query.limit)) { console.log(typeof query.limit)
+                                return res.status(200).send({_id: userDoc._id, username: userDoc.username, from: validateDate(query.from), to: validateDate(query.to), count: query.limit, log: queriedExercises.slice(0, query.limit+1)});
    } else return res.status(400).send({error: "Limit format not valid"});
 }
         //There's no limit
-        res.status(200).send({_id: userDoc._id, username: userDoc.username, from: query.from, to: query.to, count: userDoc.exercises.length, log: queriedExercises});
+     return   res.status(200).send({_id: userDoc._id, username: userDoc.username, from: validateDate(query.from), to: validateDate(query.to), count: userDoc.exercises.length, log: queriedExercises});
     } else return res.status(400).send({error: "Date format not valid"});
  };
      
@@ -89,11 +89,11 @@ try {
          //Checks if there's a limit                                          
          if (query.limit){ 
               if (!isNaN(query.limit)) {
-                                 res.status(200).send({_id: userDoc._id, username: userDoc.username, count: userDoc.exercises.length, log: userDoc.exercises.slice(0, query.limit+1)});
+                              return   res.status(200).send({_id: userDoc._id, username: userDoc.username, count: query.limit, log: userDoc.exercises.slice(0, query.limit+1)});
    } else return res.status(400).send({error: "Limit format not valid"});
 }
    //Simple log with no queries and no limits
-     res.status(200).send({_id: userDoc._id, username: userDoc.username, count: userDoc.exercises.length, log: userDoc.exercises});
+   return  res.status(200).send({_id: userDoc._id, username: userDoc.username, count: userDoc.exercises.length, log: userDoc.exercises});
  }
    catch {
      res.status(400).send({error: "Error"})
