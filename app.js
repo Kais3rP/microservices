@@ -40,7 +40,7 @@ const exercises = require('./services/exercises/exercises.js');
 
 app.use('/api/whoami', whoAmI );
 app.use('/api/upload', uploadFile);
-app.use('/api/timestamp/:date_string', timeStamp);
+app.use('/api/timestamp', timeStamp);
 app.use('/api/shorten', shortenUrl);
 app.use('/api/reglog', regLog);
 app.use('/api/exercise', exercises );

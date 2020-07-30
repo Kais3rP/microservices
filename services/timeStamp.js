@@ -1,11 +1,19 @@
 const express = require ('express');
 const router = express.Router();
 
-  
+  router.get("/", (req, res, next) => {
+                        
+                        var date = new Date();
+                        
+                        return res.json({
+                                          'unix': date.getTime(),
+                                          'utc': date.toUTCString()
+                                })
+                });
   // Timestamp microservice 
-router.get("/", (req, res, next) => {
+router.get("/:date", (req, res, next) => {
                         console.log(req.params)
-                        var date = req.params.date_string ? checkDate(req.params.date_string) : new Date();
+                        var date = req.params.date ? checkDate(req.params.date) : new Date();
                         if (typeof date === "string") return res.json({"error": date})
                         return res.json({
                                           'unix': date.getTime(),
