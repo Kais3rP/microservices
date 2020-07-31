@@ -7,8 +7,12 @@ const bodyParser = require('body-parser');
 const router = express.Router();
 const urlParser = bodyParser.urlencoded({extended: true});
 
+const jwt = require('jsonwebtoken');
+
 router.post('/new-user', urlParser, async function(req,res, next){
-  
+   if (!req.headers.cookie) return res.status(401).send({ error: "Log In or Register, to access the service"});
+   let decodedToken = jwt.verify(/(?<=auth_token=).*/.exec(req.headers.cookie)[0], process.env.SECRET);
+   if (!decodedToken) return res.status(401).send({ error: "Log In or Register, to access the service"});
   try {
         let userDoc = await User.findOne({username: req.body.username}).exec();
         if (userDoc) return res.status(400).send({error: "Username Already Taken"});
